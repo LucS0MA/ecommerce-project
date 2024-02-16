@@ -51,7 +51,7 @@
     position: relative;
     text-align: center;
     padding: 8px;
-    bottom: 0.4rem;
+    bottom: 0.3rem;
     z-index: 1;
   }
 }
@@ -59,7 +59,7 @@
 // styles spécifiques pour les enfants impairs
 .sellerCardContainer:nth-child(odd),
 .sellerCardContainerAlternate:nth-child(odd) {
-  margin-top: 60px;
+  margin-top: 80px;
   z-index: 1;
 }
 
@@ -81,14 +81,6 @@
   .sellerCardContainerAlternate:nth-child(even) {
     margin-top: 0;
     z-index: 1;
-  }
-}
-
-@media screen and (max-width: 490px) {
-  .sellerCardContainer,
-  .sellerCardContainerAlternate {
-    // height: 9.5rem;
-    scale: 0.8;
   }
 }
 

@@ -1,12 +1,7 @@
-import "../App.css";
-import Sellers from "../components/Sellers";
+import BigTitle from "../components/BigTitle";
 
-function App() {
-  return (
-    <main>
-      <Sellers />
-    </main>
-  );
+function Home() {
+  return <BigTitle />;
 }
 
-export default App;
+export default Home;

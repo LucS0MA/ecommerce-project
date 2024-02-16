@@ -1,7 +1,13 @@
 import BigTitle from "../components/BigTitle";
+import Cookies from "../components/Cookies";
 
 function Home() {
-  return <BigTitle />;
+  return (
+    <>
+      <Cookies />
+      <BigTitle />
+    </>
+  );
 }
 
 export default Home;

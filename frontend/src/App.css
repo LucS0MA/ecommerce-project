@@ -2,10 +2,12 @@
   font-family: Antic;
   src: url("../assets/AnticSlab-Regular.ttf");
 }
+
 @font-face {
   font-family: Abha;
   src: url("../assets/AbhayaLibre-ExtraBold.ttf");
 }
+
 @font-face {
   font-family: Play;
   src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
@@ -24,4 +26,13 @@
   --darkPink: #442332;
   --orange: #df824d;
   --lightGreen: #bdc9ac;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--darkPink);
 }

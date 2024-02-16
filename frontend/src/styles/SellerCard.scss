@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+.sellerCardContainer,
+.sellerCardContainerAlternate {
+  height: 18rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 150px 150px 0 0;
+  border: solid 2px;
+
+  .sellerCard {
+    width: 11rem;
+    height: 18rem;
+    padding: 1rem;
+    border-radius: 150px 150px 0 0;
+    // transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    .bkgdSellerCard {
+      width: 12rem;
+      height: 14rem;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      background-color: var(--lightGreen);
+      position: absolute;
+      border-radius: 150px 150px 0 0;
+
+      .sellerCardImage {
+        height: 80%;
+      }
+    }
+  }
+
+  .sellerCardName {
+    color: #442332;
+    font-family: "Playfair Display", serif;
+    letter-spacing: 0.1rem;
+    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: var(--lightGreen);
+    width: calc(100% + 5px); // Astuce montrée par @Flo pendant le Hackathon
+    position: relative;
+    text-align: center;
+    padding: 8px;
+    bottom: 0.3rem;
+    z-index: 1;
+  }
+}
+
+// styles spécifiques pour les enfants impairs
+.sellerCardContainer:nth-child(odd),
+.sellerCardContainerAlternate:nth-child(odd) {
+  margin-top: 80px;
+  z-index: 1;
+}
+
+// réinitialisation pour .sellerCardContainerAlternate:nth-child(odd)
+.sellerCardContainerAlternate:nth-child(odd) {
+  margin-top: 0;
+}
+
+// style pour les enfants paires
+.sellerCardContainer:nth-child(even),
+.sellerCardContainerAlternate:nth-child(even) {
+  z-index: 0;
+}
+
+@media screen and (max-width: 1080px) {
+  .sellerCardContainer:nth-child(odd),
+  .sellerCardContainerAlternate:nth-child(odd),
+  .sellerCardContainer:nth-child(even),
+  .sellerCardContainerAlternate:nth-child(even) {
+    margin-top: 0;
+    z-index: 1;
+  }
+}
+
+/* --- NOTE --- dans le code il faudra juste mettre acoté du compostant sellerCard alternate pour voir les cartes sur une seule ligne, ca se presentera ainsi : 
+<SellerCard
+key={seller.name}
+seller={seller}
+isSelected={isSelected}
+onSelect={setSelectedSeller}
+alternate
+/> */

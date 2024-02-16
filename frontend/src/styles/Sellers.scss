@@ -1,0 +1,21 @@
+.cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 1080px) {
+    display: flex;
+  }
+
+  @media screen and (max-width: 600px) {
+    transform: scale(0.6);
+  }
+}
+
+.sellersContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}

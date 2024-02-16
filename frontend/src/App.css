@@ -11,6 +11,12 @@
   src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --green: #4e5c2c;
   --yellow: #e2b95b;

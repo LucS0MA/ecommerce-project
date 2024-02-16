@@ -1,0 +1,144 @@
+#bigTitle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    height: 80vh;
+
+    .yellowTitle {
+        font-size: 16vw;
+        background: linear-gradient(180deg, rgb(235, 232, 225) 0%, rgba(226, 185, 91, 1) 65%);
+        width: 100%;
+    }
+
+
+    .greenTitle {
+        font-size: 12vw;
+        width: 50%;
+        font-weight: 100;
+        background: linear-gradient(0deg, rgba(189, 201, 172, 0.192) 0%, rgba(189, 201, 172, 0.774) 69%);
+    }
+
+    .linear-text {
+        background-clip: text;
+        color: transparent;
+    }
+
+    #trompignonContainer {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-self: flex-end;
+        margin: 0 auto;
+
+
+
+        #exploreButton {
+            color: #442332;
+            background-color: #BDC9AC;
+            filter: drop-shadow(0 0 24px #dfeecbb0);
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 2vh 3vw;
+            min-width: 300px;
+        }
+
+        #trompignon {
+            position: absolute;
+            aspect-ratio: auto;
+            width: 22vw;
+            min-width: 300px;
+            bottom: -10vh;
+            z-index: -1;
+
+        }
+    }
+
+    .star1,.star2 {
+        position:absolute;
+        z-index: -1;
+    }
+
+    .star1 {
+        width: 8vw;
+        left: 25vw;
+    }
+
+    .star2 {
+        width: 5vw;
+        bottom: 25vh;
+        right: 25vw;
+    }
+
+}
+
+
+@media screen and (max-width:800px) {
+    
+    #bigTitle {
+
+        .greenTitle {
+            align-self: flex-start;
+        }
+
+        .star1 {
+            top: 25%;
+        }
+
+        .star2 {
+            bottom: 50vh;
+        }
+    }
+
+}
+
+
+
+@media screen and (min-width:2048px) {
+    
+
+    #bigTitle {
+
+        #trompignonContainer {
+
+            #exploreButton {
+                font-size: 2rem;
+
+            }
+        }
+    }
+
+}
+
+@media screen and (min-height:2048px) {
+    
+
+    #bigTitle {
+
+        #trompignonContainer {
+
+            #exploreButton {
+                font-size: 4rem;
+
+            }
+        }
+    }
+
+}
+
+@media screen and (min-height:3100px) {
+    
+
+    #bigTitle {
+
+        #trompignonContainer {
+
+            #exploreButton {
+                font-size: 4rem;
+
+            }
+        }
+    }
+
+}

@@ -16,6 +16,33 @@
   color: inherit;
   border: none;
   margin-left: 10px;
+
+  .burger_line,
+  .burger_line::before,
+  .burger_line::after {
+    display: block;
+    width: 40px;
+    height: 3px;
+    position: relative;
+    border-radius: 3px;
+    background-color: #ba9451;
+    transition: 0.3s ease-in-out;
+  }
+
+  .burger_line::before,
+  .burger_line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .burger_line::before {
+    transform: translateY(-12px);
+  }
+
+  .burger_line::after {
+    transform: translateY(12px);
+  }
 }
 
 .img_logo {
@@ -46,80 +73,60 @@
 
 @media screen and (max-width: 800px) {
   //menu burger fermé///////////////
-  .nav_links {
-    visibility: hidden;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    // position: fixed;
-    right: -100vw;
-    top: 20%;
-    left: 0;
-    bottom: 0;
-    background-color: var(--darkPink);
-    width: 100%;
-    padding: 0;
-  }
 
+  .navbar {
+    position: relative;
+
+    .nav_links {
+      visibility: hidden;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: absolute;
+      right: -100vw;
+      left: 0;
+      top: 100%;
+      background-color: var(--darkPink);
+      width: 100%;
+      height: 100vh;
+      padding: 0;
+    }
+  }
   //Icone menu burger fermé//
+
   .navbar_burger {
     display: block;
     cursor: pointer;
   }
 
-  .burger_line,
-  .burger_line::before,
-  .burger_line::after {
-    display: block;
-    width: 40px;
-    height: 3px;
-    position: relative;
-    border-radius: 3px;
-    background-color: #ba9451;
-    transition: 0.3s ease-in-out;
+  //Menu burger ouvert///////////////////////////
+  .show-nav {
+    .nav_links {
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .navbar_item {
+      // display: block;
+      padding: 1rem;
+    }
+
+    .navbar_item a {
+      font-size: 1.5rem;
+    }
+
+    //Icone menu burger ouvert//
+    .burger_line::before {
+      transform: rotate(45deg);
+    }
+
+    .burger_line::after {
+      transform: rotate(-45deg);
+    }
+
+    .burger_line {
+      width: 0;
+      background: transparent;
+    }
   }
-}
-
-.burger_line::before,
-.burger_line::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.burger_line::before {
-  transform: translateY(-12px);
-}
-
-.burger_line::after {
-  transform: translateY(12px);
-}
-
-//Menu burger ouvert///////////////////////////
-.show-nav .nav_links {
-  visibility: visible;
-  z-index: 1;
-}
-
-.show-nav .navbar_item {
-  // display: block;
-  padding: 1rem;
-}
-
-.show-nav .navbar_item a {
-  font-size: 1.5rem;
-}
-
-//Icone menu burger ouvert//
-.show-nav .burger_line::before {
-  transform: rotate(45deg);
-}
-
-.show-nav .burger_line::after {
-  transform: rotate(-45deg);
-}
-
-.show-nav .burger_line {
-  width: 0;
-  background: transparent;
 }

@@ -13,7 +13,7 @@ function Navbar() {
 
   return (
     <div>
-      <div className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
+      <div className={`navbar ${showLinks ? "show-nav" : ""}`}>
         <button
           type="button"
           className="navbar_burger"
@@ -35,8 +35,8 @@ function Navbar() {
           </li>
         </ul>
         <div className="items_nav">
-          <img src={panierIcon} alt="" />
-          <img src={utilisateurIcon} alt="" />
+          <img src={panierIcon} alt="basket_icon" />
+          <img src={utilisateurIcon} alt="user_icon" />
         </div>
       </div>
     </div>

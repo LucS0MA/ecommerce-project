@@ -1,15 +1,21 @@
-// body{
-//  margin: 0;
-// }
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* position: fixed; */
-  width: 100vw;
+  width: 100%;
   height: 10%;
   background-color: var(--darkPink);
   font-family: play;
+}
+
+.navbar_burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: inherit;
+  border: none;
+  margin-left: 10px;
 }
 
 .img_logo {
@@ -25,54 +31,37 @@
   position: absolute;
 }
 
-a {
+.navbar_item a {
   text-decoration: none;
   color: var(--yellow);
   font-size: 1rem;
 }
 
-.navbar_burger {
+// Icones panier & utilisateur//
+.items_nav img {
   width: 40px;
   height: 40px;
-  background: transparent;
-  color: inherit;
-  border: none;
-  display: none;
-  margin-left: 10px;
-}
-
-.items_nav img {
-  width: 30px;
-  height: 30px;
   padding-right: 15px;
 }
 
 @media screen and (max-width: 800px) {
+  //menu burger fermé///////////////
   .nav_links {
     visibility: hidden;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    position: fixed;
+    // position: fixed;
     right: -100vw;
-    top: 10%;
+    top: 20%;
     left: 0;
     bottom: 0;
     background-color: var(--darkPink);
-    width: 100vw;
+    width: 100%;
     padding: 0;
   }
 
-  .show-nav .nav_links {
-    visibility: visible;
-  }
-
-  .navbar_item {
-    display: block;
-    padding: 1rem;
-    font-size: 5vw;
-  }
-
+  //Icone menu burger fermé//
   .navbar_burger {
     display: block;
     cursor: pointer;
@@ -106,6 +95,22 @@ a {
   transform: translateY(12px);
 }
 
+//Menu burger ouvert///////////////////////////
+.show-nav .nav_links {
+  visibility: visible;
+  z-index: 1;
+}
+
+.show-nav .navbar_item {
+  // display: block;
+  padding: 1rem;
+}
+
+.show-nav .navbar_item a {
+  font-size: 1.5rem;
+}
+
+//Icone menu burger ouvert//
 .show-nav .burger_line::before {
   transform: rotate(45deg);
 }

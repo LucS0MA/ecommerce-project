@@ -71,6 +71,11 @@
   padding-right: 15px;
 }
 
+.items_nav {
+  cursor: pointer;
+  display: flex;
+}
+
 @media screen and (max-width: 800px) {
   //menu burger fermé///////////////
 

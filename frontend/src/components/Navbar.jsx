@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Navbar.scss";
 import logo from "../assets/Logo_Le_comptoir_des_seelies.svg";
 import panierIcon from "../assets/panier_icon.svg";
 import utilisateurIcon from "../assets/utilisateur_icon.svg";
 
 function Navbar() {
+  const { toggleModal } = useConnexionContext();
   const [showLinks, setShowlinks] = useState(false);
   const handleShowLinks = () => {
     setShowlinks(!showLinks);
@@ -36,7 +38,15 @@ function Navbar() {
         </ul>
         <div className="items_nav">
           <img src={panierIcon} alt="basket_icon" />
-          <img src={utilisateurIcon} alt="user_icon" />
+          <div
+            className="modalToogle"
+            role="button"
+            tabIndex={0}
+            onKeyDown=""
+            onClick={toggleModal}
+          >
+            <img src={utilisateurIcon} alt="user_icon" />
+          </div>
         </div>
       </div>
     </div>

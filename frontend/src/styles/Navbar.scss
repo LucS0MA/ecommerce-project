@@ -1,0 +1,132 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  background-color: var(--darkPink);
+  font-family: play;
+}
+
+.navbar_burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: inherit;
+  border: none;
+  margin-left: 10px;
+
+  .burger_line,
+  .burger_line::before,
+  .burger_line::after {
+    display: block;
+    width: 40px;
+    height: 3px;
+    position: relative;
+    border-radius: 3px;
+    background-color: #ba9451;
+    transition: 0.3s ease-in-out;
+  }
+
+  .burger_line::before,
+  .burger_line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .burger_line::before {
+    transform: translateY(-12px);
+  }
+
+  .burger_line::after {
+    transform: translateY(12px);
+  }
+}
+
+.img_logo {
+  width: 180px;
+}
+
+.nav_links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  left: 15%;
+  gap: 2rem;
+  position: absolute;
+}
+
+.navbar_item a {
+  text-decoration: none;
+  color: var(--yellow);
+  font-size: 1rem;
+}
+
+// Icones panier & utilisateur//
+.items_nav img {
+  width: 40px;
+  height: 40px;
+  padding-right: 15px;
+}
+
+@media screen and (max-width: 800px) {
+  //menu burger fermé///////////////
+
+  .navbar {
+    position: relative;
+
+    .nav_links {
+      visibility: hidden;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: absolute;
+      right: -100vw;
+      left: 0;
+      top: 100%;
+      background-color: var(--darkPink);
+      width: 100%;
+      height: 100vh;
+      padding: 0;
+    }
+  }
+  //Icone menu burger fermé//
+
+  .navbar_burger {
+    display: block;
+    cursor: pointer;
+  }
+
+  //Menu burger ouvert///////////////////////////
+  .show-nav {
+    .nav_links {
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .navbar_item {
+      // display: block;
+      padding: 1rem;
+    }
+
+    .navbar_item a {
+      font-size: 1.5rem;
+    }
+
+    //Icone menu burger ouvert//
+    .burger_line::before {
+      transform: rotate(45deg);
+    }
+
+    .burger_line::after {
+      transform: rotate(-45deg);
+    }
+
+    .burger_line {
+      width: 0;
+      background: transparent;
+    }
+  }
+}

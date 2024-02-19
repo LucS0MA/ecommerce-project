@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
 function Connexion() {
-  const [modal, setModal] = useState(false);
-  const [modalTwo, setModalTwo] = useState(false);
+  const { modal, modalTwo, closeModal, toggleModalTwo } = useConnexionContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setpasswordConfirmation] = useState("");
@@ -22,18 +22,6 @@ function Connexion() {
     // console.log("Confirmation du mot de passe:", passwordConfirmation);
   };
 
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-  const closeModal = () => {
-    setModal(false);
-    setModalTwo(false);
-  };
-  const toggleModalTwo = () => {
-    setModal(!modal);
-    setModalTwo(!modalTwo);
-  };
-
   if (modal) {
     document.body.classList.add("active-modalCo");
   } else {
@@ -42,9 +30,9 @@ function Connexion() {
 
   return (
     <>
-      <button type="button" onClick={toggleModal} className="btn-modalCo">
+      {/* <button type="button" onClick={toggleModal} className="btn-modalCo">
         REGISTER / SIGN IN
-      </button>
+      </button> */}
       {modal && (
         <div className="modalCo">
           <div

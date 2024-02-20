@@ -1,4 +1,6 @@
 import BigTitle from "../components/BigTitle";
+import Nouveautés from "../components/Nouveautés";
+import Phares from "../components/Phares";
 import Cookies from "../components/Cookies";
 import Connexion from "../components/Connexion";
 import Navbar from "../components/Navbar";
@@ -11,6 +13,8 @@ function Home() {
       <Cookies />
       <Navbar />
       <BigTitle />
+      <Nouveautés />
+      <Phares />
     </ModalProvider>
   );
 }

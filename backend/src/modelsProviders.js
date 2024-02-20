@@ -8,8 +8,11 @@ const ItemManager = require("./models/ItemManager");
 const CharactersManager = require("./models/CharactersManager");
 // const housesManager = require("./models/housesManager");
 
+const ArticlesManager = require("./models/ArticlesManager");
+
 const managers = [
   ItemManager,
+  ArticlesManager,
   // Add other managers here
   CharactersManager,
   // housesManager,

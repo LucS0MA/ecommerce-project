@@ -7,26 +7,16 @@
 
   .yellowTitle {
     font-size: 16vw;
-    background: linear-gradient(
-      180deg,
-      rgb(235, 232, 225) 0%,
-      rgba(226, 185, 91, 1) 65%
-    );
     width: 100%;
+    background-clip: text;
+    color: transparent;
+    scale: 0;
   }
 
   .greenTitle {
     font-size: 12vw;
     width: 50%;
     font-weight: 100;
-    background: linear-gradient(
-      0deg,
-      rgba(189, 201, 172, 0.192) 0%,
-      rgba(189, 201, 172, 0.774) 69%
-    );
-  }
-
-  .linear-text {
     background-clip: text;
     color: transparent;
   }
@@ -104,16 +94,6 @@
 }
 
 @media screen and (min-height: 2048px) {
-  #bigTitle {
-    #trompignonContainer {
-      #exploreButton {
-        font-size: 4rem;
-      }
-    }
-  }
-}
-
-@media screen and (min-height: 3100px) {
   #bigTitle {
     #trompignonContainer {
       #exploreButton {

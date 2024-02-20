@@ -1,0 +1,33 @@
+.festival {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #bdc9ac;
+  padding: 10px;
+  margin: 100px;
+}
+
+.festival-container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.principal-box {
+  color: #bdc9ac;
+  font-size: 40px;
+  border: 1px solid #bdc9ac;
+  text-align: center;
+  margin: 20px;
+  margin-right: 0;
+  padding: 200px;
+}
+
+.dates-box {
+  color: #bdc9ac;
+  margin-bottom: 10px;
+  border: 1px solid #bdc9ac;
+  text-align: center;
+  margin: 20px;
+  margin-left: 0;
+  padding: 250px;
+}

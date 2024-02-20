@@ -3,6 +3,7 @@ import Cookies from "../components/Cookies";
 import Connexion from "../components/Connexion";
 import Navbar from "../components/Navbar";
 import { ModalProvider } from "../contexts/ConnexionContext";
+import Festival from "../components/Festival";
 
 function Home() {
   return (
@@ -11,6 +12,7 @@ function Home() {
       <Cookies />
       <Navbar />
       <BigTitle />
+      <Festival />
     </ModalProvider>
   );
 }

@@ -11,6 +11,7 @@ const router = express.Router();
 const itemControllers = require("./controllers/itemControllers");
 const charactersControllers = require("./controllers/charactersControllers");
 const articlesControllers = require("./controllers/articlesControllers");
+const utilisateursControllers = require("./controllers/utilisateursControllers");
 // const moviesControllers = require("./controllers/moviesControllers");
 
 // Route to get a list of items
@@ -30,5 +31,9 @@ router.get("/articles", articlesControllers.browse);
 
 // Route to get a specific article by ID
 router.get("/articles/:id", articlesControllers.read);
+
+router.get("/utilisateurs", utilisateursControllers.browse);
+router.get("/utilisateurs/:id", utilisateursControllers.read);
+router.post("/utilisateurs", utilisateursControllers.add);
 
 module.exports = router;

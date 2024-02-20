@@ -1,0 +1,342 @@
+// Import des polices
+@font-face {
+  font-family: Antic;
+  src: url("../assets/AnticSlab-Regular.ttf");
+}
+
+@font-face {
+  font-family: Abha;
+  src: url("../assets/AbhayaLibre-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Play;
+  src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
+}
+
+// Styles généraux
+body.active-modalCo {
+  overflow-y: hidden;
+}
+
+.labelHidden {
+  display: none;
+}
+
+// Bouton principal
+.btn-modalCo {
+  padding: 10px 20px;
+  position: absolute;
+  font-size: 18px;
+  right: 40px;
+  top: 40px;
+  z-index: 98;
+}
+
+// Styles du modal
+.modalCo,
+.overlayCo {
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.flowerCo {
+  position: absolute;
+  top: -1%;
+  right: -10%;
+  pointer-events: none;
+  width: 68%;
+}
+
+.flowerCoBis {
+  position: absolute;
+  top: -1%;
+  right: -10%;
+  pointer-events: none;
+  width: 60%;
+}
+
+.overlayCo {
+  backdrop-filter: blur(1px);
+  background-color: rgba(
+    78,
+    78,
+    78,
+    0.5
+  ); /* Utilisez la couleur grise que vous préférez et ajustez l'opacité (le dernier paramètre) selon vos besoins */
+}
+
+.modal-contentCo {
+  z-index: 100;
+  border: 3px solid var(--darkPink);
+  font-size: 15px;
+  margin: 0;
+  font-family: Play;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: var(--lightGreen);
+  padding: 14px 16px;
+
+  // Contenu du modal
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalContainerCo {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+}
+
+.formCo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formCoBis {
+  gap: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Styles pour les champs de saisie
+.inputCo {
+  font-family: Play;
+  border-radius: 3px;
+  border-color: #e5e7e2;
+  color: #e5e7e2;
+  margin-top: 20px;
+  height: 35px;
+  width: 25em;
+  background-color: var(--darkPink);
+}
+
+.inputCoBis {
+  font-family: Play;
+  border-radius: 3px;
+  border-color: #e5e7e2;
+  color: #e5e7e2;
+  margin-top: 20px;
+  height: 35px;
+  width: 20em;
+  background-color: var(--darkPink);
+}
+
+// Styles pour la ligne de séparation
+.ligneCo {
+  border: 1px solid #e5e7e2;
+  width: 80%;
+}
+
+// Styles pour les liens et messages
+.noAccountCo {
+  cursor: pointer;
+  font-style: italic;
+  font-weight: 600;
+  text-decoration: underline;
+  color: var(--yellow);
+}
+
+.noAcc {
+  margin-bottom: 10px;
+  color: var(--lightGreen);
+}
+
+.forgotCo {
+  margin-right: 190px;
+  position: relative;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 11px;
+}
+
+.forgotCo:hover {
+  text-decoration: underline;
+}
+
+// Styles pour le bouton
+.buttonCo {
+  color: var(--darkPink);
+  font-family: Antic;
+  cursor: pointer;
+  padding: 15px 35px;
+  border: none;
+  font-size: 18px;
+  border-radius: 45px;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+  background: var(--lightGreen);
+  box-shadow: 0 0 15px rgb(229, 231, 226);
+  width: auto;
+  margin-top: 40px;
+  margin-bottom: 0px;
+
+  &:hover {
+    background: var(--lightGreen);
+    box-shadow: 0 0 25px rgb(229, 231, 226);
+  }
+}
+
+.buttonCoBis {
+  color: var(--darkPink);
+  font-family: Antic;
+  cursor: pointer;
+  padding: 15px 35px;
+  border: none;
+  font-size: 18px;
+  border-radius: 45px;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+  background: var(--lightGreen);
+  box-shadow: 0 0 15px rgb(229, 231, 226);
+  width: auto;
+  margin-top: 40px;
+
+  &:hover {
+    background: var(--lightGreen);
+    box-shadow: 0 0 25px rgb(229, 231, 226);
+  }
+}
+
+// Styles pour les bordures
+.borderCo {
+  z-index: 99;
+  padding: 14px 15px;
+  width: 450px;
+  height: 50%;
+  background-color: var(--darkPink);
+}
+
+.borderCoBis {
+  z-index: 99;
+  padding: 30px 10px;
+  width: 400px;
+  height: 50%;
+  background-color: var(--darkPink);
+}
+
+.borderCo1 {
+  z-index: 99;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--lightGreen);
+  padding: 265px 50px;
+  width: 530px;
+  /* height: 179px; */
+}
+
+.borderCo1Bis {
+  z-index: 99;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--lightGreen);
+  padding: 240px 50px;
+  width: 475px;
+}
+
+// Styles pour le titre
+.titleCo {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+.titleCoBis {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: var(--yellow);
+}
+
+@media (max-width: 756px) {
+  .modalCo,
+  .overlayCo {
+    width: 100%;
+    height: 100%;
+  }
+
+  .modal-contentCo {
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 14px;
+    position: fixed;
+  }
+
+  .borderCo {
+    width: 95%;
+    max-width: 287px;
+    padding: 10px;
+    max-height: 20%;
+  }
+
+  .borderCoBis {
+    z-index: 99;
+    padding: 20px 10px;
+    width: 265px;
+    height: 50%;
+    background-color: var(--darkPink);
+  }
+
+  .borderCo1Bis {
+    width: 50px;
+    padding: 243px 165px;
+  }
+
+  .borderCo1 {
+    padding: 260px 20px;
+    width: 90%;
+    max-width: 330px;
+  }
+
+  .btn-modalCo {
+    right: 20px;
+    top: 20px;
+  }
+
+  .inputCo {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .inputCoBis {
+    font-family: Play;
+    border-radius: 3px;
+    border-color: #e5e7e2;
+    color: #e5e7e2;
+    margin-top: 20px;
+    height: 35px;
+    width: 100%;
+    background-color: var(--darkPink);
+  }
+
+  .forgotCo {
+    margin-right: 0;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 11px;
+  }
+}

@@ -12,6 +12,7 @@ const itemControllers = require("./controllers/itemControllers");
 const charactersControllers = require("./controllers/charactersControllers");
 const articlesControllers = require("./controllers/articlesControllers");
 const utilisateursControllers = require("./controllers/utilisateursControllers");
+const fesitvalsControllers = require("./controllers/festivalsControllers");
 // const moviesControllers = require("./controllers/moviesControllers");
 
 // Route to get a list of items
@@ -32,8 +33,14 @@ router.get("/articles", articlesControllers.browse);
 // Route to get a specific article by ID
 router.get("/articles/:id", articlesControllers.read);
 
+// Ne pas oublier d'ajouter .post pour articles
+
 router.get("/utilisateurs", utilisateursControllers.browse);
 router.get("/utilisateurs/:id", utilisateursControllers.read);
 router.post("/utilisateurs", utilisateursControllers.add);
+
+router.get("/festivals", fesitvalsControllers.browse);
+router.get("/festivals/:id", fesitvalsControllers.read);
+router.post("/festivals", fesitvalsControllers.add);
 
 module.exports = router;

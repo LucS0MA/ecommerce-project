@@ -22,28 +22,28 @@
 }
 
 .festival-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 35% 65%;
   flex-direction: row;
-  flex: 1;
+  justify-content: space-between;
 }
 
 .principal-box {
   color: #bdc9ac;
-  font-size: 50px;
+  font-size: 35px;
   border: 1px solid #bdc9ac;
   text-align: center;
-  margin: 20px;
-  margin-right: 0;
-  padding: 140px;
-  font-family: "Abha";
+  font-family: Abha;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 30px;
 }
 
 .dates-box {
   color: #bdc9ac;
-  margin-bottom: 10px;
   border: 1px solid #bdc9ac;
-  text-align: center;
-  margin: 20px;
+
   margin-left: 0;
-  padding: 250px;
+  height: 100%;
 }

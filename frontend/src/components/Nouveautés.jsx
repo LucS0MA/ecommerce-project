@@ -3,10 +3,15 @@ import Article from "./Article";
 import imageSRC from "../assets/image 6.png";
 
 import "../styles/Nouveautés.scss";
+import IvyBranch1 from "./animations/svg/IvyBranch1";
+import IvyAnimation from "./animations/IvyAnimation";
 
 function Nouveautés() {
   return (
     <section id="nouveautés">
+      <IvyAnimation ivyId="ivyTopNew">
+        <IvyBranch1 />
+      </IvyAnimation>
       <div id="nouveautés-content">
         <h2 id="nouveautés-title">NOUVEAUTÉS SUR LE SITE</h2>
         <div id="nouveautés-articles">

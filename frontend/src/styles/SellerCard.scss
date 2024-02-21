@@ -1,4 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@font-face {
+  font-family: Play;
+  src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
+}
 
 .sellerCardContainer,
 .sellerCardContainerAlternate {
@@ -41,7 +44,7 @@
 
   .sellerCardName {
     color: #442332;
-    font-family: "Playfair Display", serif;
+    font-family: Play;
     letter-spacing: 0.1rem;
     font-style: italic;
     font-size: 1.2rem;

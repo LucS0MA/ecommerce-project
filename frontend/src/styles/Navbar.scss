@@ -85,7 +85,6 @@
       transition: 0.2s;
     }
   }
-  
 }
 
 @media screen and (max-width: 800px) {
@@ -93,9 +92,9 @@
 
   .navbar {
     position: relative;
-    
+
     //Icone menu burger fermé//
-  
+
     .navbar_burger {
       display: block;
       cursor: pointer;
@@ -124,25 +123,24 @@
     }
   }
 
-   //Menu burger ouvert///////////////////////////
-  
+  //Menu burger ouvert///////////////////////////
+
   .show-nav {
     .navbar_burger {
+      //Icone menu burger ouvert//
 
-  //Icone menu burger ouvert//
+      .burger_line::before {
+        transform: rotate(45deg);
+      }
 
-    .burger_line::before {
-      transform: rotate(45deg);
-    }
+      .burger_line::after {
+        transform: rotate(-45deg);
+      }
 
-    .burger_line::after {
-      transform: rotate(-45deg);
-    }
-
-    .burger_line {
-      width: 0;
-      background: transparent;
-    }
+      .burger_line {
+        width: 0;
+        background: transparent;
+      }
     }
     .nav_links {
       margin-top: 5vh;

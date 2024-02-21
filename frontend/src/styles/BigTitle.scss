@@ -4,7 +4,7 @@
   align-items: center;
   text-align: center;
   min-height: 80vh;
-  font-family: 'AbhaBold',sans-serif;
+  font-family: "AbhaBold", sans-serif;
 
   .yellowTitle {
     font-size: 16vw;
@@ -15,7 +15,9 @@
   }
 
   .greenTitle {
-    font: 12vw 'AbhaReg',sans-serif;;
+    font:
+      12vw "AbhaReg",
+      sans-serif;
     width: 50%;
     font-weight: 100;
     background-clip: text;
@@ -36,7 +38,9 @@
       border: none;
       cursor: pointer;
       font-size: 1.5rem;
-      font: 1.5rem 'Antic',sans-serif;
+      font:
+        1.5rem "Antic",
+        sans-serif;
       padding: 2.5vh 3vw;
       min-width: 300px;
     }

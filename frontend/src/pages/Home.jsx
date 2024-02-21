@@ -1,9 +1,11 @@
 import BigTitle from "../components/BigTitle";
+import Comptoir from "../components/Comptoir";
+import Connexion from "../components/Connexion";
+import Cookies from "../components/Cookies";
+import Navbar from "../components/Navbar";
 import Nouveautés from "../components/Nouveautés";
 import Phares from "../components/Phares";
-import Cookies from "../components/Cookies";
-import Connexion from "../components/Connexion";
-import Navbar from "../components/Navbar";
+
 import { ModalProvider } from "../contexts/ConnexionContext";
 
 function Home() {
@@ -14,6 +16,7 @@ function Home() {
       <Navbar />
       <BigTitle />
       <Nouveautés />
+      <Comptoir />
       <Phares />
     </ModalProvider>
   );

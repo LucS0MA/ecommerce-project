@@ -29,7 +29,25 @@ const read = async (req, res) => {
   }
 };
 
+// The A of BREAD - Add (Create) operation
+const add = async (req, res) => {
+  // Extract the utilisateur data from the request body
+  const article = req.body;
+
+  try {
+    // Insert the article into the database
+    const insertId = await models.articles.create(article);
+
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted article
+    res.status(201).json({ insertId });
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    console.error(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
+  add,
 };

@@ -5,6 +5,7 @@ import Cookies from "../components/Cookies";
 import Connexion from "../components/Connexion";
 import Navbar from "../components/Navbar";
 import { ModalProvider } from "../contexts/ConnexionContext";
+import FooterBis from "../components/FooterBis";
 
 function Home() {
   return (
@@ -15,6 +16,7 @@ function Home() {
       <BigTitle />
       <Nouveautés />
       <Phares />
+      <FooterBis />
     </ModalProvider>
   );
 }

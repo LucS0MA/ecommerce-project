@@ -1,3 +1,18 @@
+@font-face {
+  font-family: Antic;
+  src: url("../assets/AnticSlab-Regular.ttf");
+}
+
+@font-face {
+  font-family: Abha;
+  src: url("../assets/AbhayaLibre-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Play;
+  src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
+}
+
 .festival {
   display: flex;
   flex-direction: row;
@@ -14,12 +29,13 @@
 
 .principal-box {
   color: #bdc9ac;
-  font-size: 40px;
+  font-size: 50px;
   border: 1px solid #bdc9ac;
   text-align: center;
   margin: 20px;
   margin-right: 0;
-  padding: 200px;
+  padding: 140px;
+  font-family: "Abha";
 }
 
 .dates-box {

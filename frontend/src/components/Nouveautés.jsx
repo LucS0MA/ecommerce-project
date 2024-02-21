@@ -4,6 +4,7 @@ import imageSRC from "../assets/image 6.png";
 
 import "../styles/Nouveautés.scss";
 import IvyBranch1 from "./animations/svg/IvyBranch1";
+import IvyBranch2 from "./animations/svg/IvyBranch2";
 import IvyAnimation from "./animations/IvyAnimation";
 
 function Nouveautés() {
@@ -39,6 +40,9 @@ function Nouveautés() {
           <button type="button">EN VOIR PLUS</button>
         </div>
       </div>
+      <IvyAnimation ivyId="ivyBottomNew">
+        <IvyBranch2 />
+      </IvyAnimation>
     </section>
   );
 }

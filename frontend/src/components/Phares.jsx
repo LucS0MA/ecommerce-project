@@ -1,7 +1,6 @@
 import Article from "./Article";
-
 import imageSRC from "../assets/image 6.png";
-
+import Star2 from "./animations/svg/Star2";
 import "../styles/Phares.scss";
 
 function Phares() {
@@ -9,6 +8,8 @@ function Phares() {
     <section id="phares">
       <div id="phares-title">
         <h2>NOS ARTICLES PHARES</h2>
+        <Star2 starClassname="star3" />
+        <Star2 starClassname="star4" />
       </div>
       <div id="phares-articles">
         <div id="phares-articles-content">

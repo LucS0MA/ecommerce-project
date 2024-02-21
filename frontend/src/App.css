@@ -35,4 +35,5 @@
 
 html {
   background: var(--darkPink);
+  scroll-behavior: smooth;
 }

@@ -1,7 +1,14 @@
 #nouveautés {
+  position: relative;
   background-color: #bdc9ac;
   margin: 100px 0;
   padding: 50px;
+
+  #ivyTopNew {
+    position: absolute;
+    top: -7vh;
+    left: 0;
+  }
 
   #nouveautés-content {
     border: 3px solid #8d214c;

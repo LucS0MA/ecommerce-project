@@ -6,73 +6,86 @@
   height: 10%;
   background-color: var(--darkPink);
   font-family: play;
-}
 
-.navbar_burger {
-  display: none;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  color: inherit;
-  border: none;
-  margin-left: 10px;
-
-  .burger_line,
-  .burger_line::before,
-  .burger_line::after {
-    display: block;
+  .navbar_burger {
+    display: none;
     width: 40px;
-    height: 3px;
-    position: relative;
-    border-radius: 3px;
-    background-color: #ba9451;
-    transition: 0.3s ease-in-out;
+    height: 40px;
+    background: transparent;
+    color: inherit;
+    border: none;
+    margin-left: 10px;
+
+    .burger_line,
+    .burger_line::before,
+    .burger_line::after {
+      display: block;
+      width: 40px;
+      height: 3px;
+      position: relative;
+      border-radius: 3px;
+      background-color: #ba9451;
+      transition: 0.3s ease-in-out;
+    }
+
+    .burger_line::before,
+    .burger_line::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .burger_line::before {
+      transform: translateY(-12px);
+    }
+
+    .burger_line::after {
+      transform: translateY(12px);
+    }
   }
 
-  .burger_line::before,
-  .burger_line::after {
-    content: "";
-    position: absolute;
-    left: 0;
+  .img_logo {
+    width: 180px;
   }
 
-  .burger_line::before {
-    transform: translateY(-12px);
+  .nav_links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2rem;
+    margin-right: auto;
+
+    .navbar_item a {
+      text-decoration: none;
+      color: var(--yellow);
+      font-size: 1rem;
+
+      &:hover {
+        filter: brightness(150%);
+      }
+    }
   }
-
-  .burger_line::after {
-    transform: translateY(12px);
-  }
 }
-
-.img_logo {
-  width: 180px;
-}
-
-.nav_links {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  gap: 2rem;
-  margin-right: auto;
-}
-
-.navbar_item a {
-  text-decoration: none;
-  color: var(--yellow);
-  font-size: 1rem;
-}
-
 // Icones panier & utilisateur//
-.items_nav img {
-  width: 40px;
-  height: 40px;
-  padding-right: 15px;
-}
-
 .items_nav {
   cursor: pointer;
   display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  img {
+    width: 55px;
+    height: 40px;
+    margin: 5px;
+    transition: 0.2s;
+
+    &:hover {
+      scale: 1.1;
+      filter: brightness(150%);
+      transition: 0.2s;
+    }
+  }
+  
 }
 
 @media screen and (max-width: 800px) {
@@ -80,9 +93,15 @@
 
   .navbar {
     position: relative;
-
+    
+    //Icone menu burger fermé//
+  
+    .navbar_burger {
+      display: block;
+      cursor: pointer;
+    }
     .nav_links {
-      visibility: hidden;
+      opacity: 0;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
@@ -94,32 +113,24 @@
       width: 100%;
       height: 100vh;
       padding: 0;
+
+      &::before {
+        content: "";
+        height: 0px;
+        width: 0%;
+        background: var(--yellow);
+        transition: 2s;
+      }
     }
   }
-  //Icone menu burger fermé//
 
-  .navbar_burger {
-    display: block;
-    cursor: pointer;
-  }
-
-  //Menu burger ouvert///////////////////////////
+   //Menu burger ouvert///////////////////////////
+  
   .show-nav {
-    .nav_links {
-      visibility: visible;
-      z-index: 1;
-    }
+    .navbar_burger {
 
-    .navbar_item {
-      // display: block;
-      padding: 1rem;
-    }
+  //Icone menu burger ouvert//
 
-    .navbar_item a {
-      font-size: 1.5rem;
-    }
-
-    //Icone menu burger ouvert//
     .burger_line::before {
       transform: rotate(45deg);
     }
@@ -131,6 +142,28 @@
     .burger_line {
       width: 0;
       background: transparent;
+    }
+    }
+    .nav_links {
+      margin-top: 5vh;
+      opacity: 1;
+      z-index: 1;
+      transition: 1s;
+
+      &::before {
+        content: "";
+        height: 1px;
+        width: 80%;
+        background: var(--yellow);
+      }
+    }
+
+    .navbar_item {
+      padding: 1rem;
+    }
+
+    .navbar_item a {
+      font-size: 1.5rem;
     }
   }
 }

@@ -14,7 +14,7 @@ function Navbar() {
   };
 
   return (
-    <div>
+    <nav>
       <div className={`navbar ${showLinks ? "show-nav" : ""}`}>
         <button
           type="button"
@@ -49,7 +49,7 @@ function Navbar() {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 export default Navbar;

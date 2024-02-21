@@ -4,13 +4,13 @@
   margin: 100px 0;
   padding: 50px;
 
-  #ivyTopNew {
+  #ivyNew > :nth-child(1) {
     position: absolute;
     top: -7vh;
     left: 0;
   }
 
-  #ivyBottomNew{
+  #ivyNew > :nth-child(2) {
     position: absolute;
     bottom: 0;
     transform: translateY(40%);
@@ -23,7 +23,11 @@
     padding: 50px;
 
     #nouveautés-title {
-      background: linear-gradient(180deg, rgba(141,33,76,1) 38%, rgba(68,35,50,1) 80%);
+      background: linear-gradient(
+        180deg,
+        rgba(141, 33, 76, 1) 38%,
+        rgba(68, 35, 50, 1) 80%
+      );
       background-clip: text;
       color: transparent;
       font-family: "Abha", serif;

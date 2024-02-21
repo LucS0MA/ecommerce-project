@@ -32,8 +32,7 @@ router.get("/articles", articlesControllers.browse);
 
 // Route to get a specific article by ID
 router.get("/articles/:id", articlesControllers.read);
-
-// Ne pas oublier d'ajouter .post pour articles
+router.post("/articles", articlesControllers.add);
 
 router.get("/utilisateurs", utilisateursControllers.browse);
 router.get("/utilisateurs/:id", utilisateursControllers.read);

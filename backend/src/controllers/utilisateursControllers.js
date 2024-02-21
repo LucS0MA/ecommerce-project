@@ -50,11 +50,11 @@ const add = async (req, res) => {
 };
 
 const edit = async (req, res) => {
-  const { id } = req.params.id;
-  const utilisateur = req.body;
-
   try {
-    const affectedRows = await models.utilisateurs.update(id, utilisateur);
+    const affectedRows = await models.utilisateurs.update(
+      req.params.id,
+      req.body
+    );
 
     if (affectedRows === 0) {
       res.sendStatus(404);
@@ -67,10 +67,8 @@ const edit = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
-  const { id } = req.params.id;
-
   try {
-    const affectedRows = await models.utilisateurs.delete(id);
+    const affectedRows = await models.utilisateurs.delete(req.params.id);
 
     if (affectedRows === 0) {
       res.sendStatus(404);

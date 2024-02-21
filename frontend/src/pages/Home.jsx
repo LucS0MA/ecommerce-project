@@ -7,6 +7,7 @@ import Nouveautés from "../components/Nouveautés";
 import Phares from "../components/Phares";
 
 import { ModalProvider } from "../contexts/ConnexionContext";
+import FooterBis from "../components/FooterBis";
 
 function Home() {
   return (
@@ -18,6 +19,7 @@ function Home() {
       <Nouveautés />
       <Comptoir />
       <Phares />
+      <FooterBis />
     </ModalProvider>
   );
 }

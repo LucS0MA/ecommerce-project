@@ -63,12 +63,13 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `le_comptoir_des_seelies`.`avis`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`avis` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `message` VARCHAR(45) NOT NULL,
   `note` INT NOT NULL,
   `date` DATETIME NOT NULL,
   `utilisateurs_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
-  PRIMARY KEY (`utilisateurs_id`, `articles_id`),
+  PRIMARY KEY (`id`, `utilisateurs_id`, `articles_id`),
   INDEX `fk_avis_articles1_idx` (`articles_id` ASC) VISIBLE,
   CONSTRAINT `fk_avis_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
@@ -145,9 +146,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `le_comptoir_des_seelies`.`festivals`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`festivals` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
   `lieu` VARCHAR(45) NOT NULL,
-  `date` DATETIME NOT NULL)
+  `date` DATETIME NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -181,13 +184,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `le_comptoir_des_seelies`.`support`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`support` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `sujet` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NOT NULL,
   `statut` VARCHAR(45) NOT NULL,
   `date_ouverture` DATETIME NOT NULL,
   `date_resolution` DATETIME NULL DEFAULT NULL,
   `utilisateurs_id` INT NOT NULL,
-  PRIMARY KEY (`utilisateurs_id`),
+  PRIMARY KEY (`id`, `utilisateurs_id`),
   CONSTRAINT `fk_support_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
@@ -298,13 +302,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `le_comptoir_des_seelies`.`retours`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`retours` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `commandes_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
   `quantity` INT NOT NULL,
   `etat` VARCHAR(45) NOT NULL,
   `raison` VARCHAR(45) NOT NULL,
   `date` DATETIME NOT NULL,
-  PRIMARY KEY (`commandes_id`, `articles_id`),
+  PRIMARY KEY (`id`, `commandes_id`, `articles_id`),
   INDEX `fk_commandes_has_articles_articles1_idx` (`articles_id` ASC) VISIBLE,
   INDEX `fk_commandes_has_articles_commandes1_idx` (`commandes_id` ASC) VISIBLE,
   CONSTRAINT `fk_commandes_has_articles_commandes1`

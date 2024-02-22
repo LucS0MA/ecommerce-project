@@ -8,6 +8,7 @@ import Phares from "../components/Phares";
 
 import { ModalProvider } from "../contexts/ConnexionContext";
 import FooterBis from "../components/FooterBis";
+import Sellers from "../components/Sellers";
 
 function Home() {
   return (
@@ -18,6 +19,7 @@ function Home() {
       <BigTitle />
       <Nouveautés />
       <Comptoir />
+      <Sellers />
       <Phares />
       <FooterBis />
     </ModalProvider>

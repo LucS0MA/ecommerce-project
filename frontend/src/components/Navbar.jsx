@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useConnexionContext } from "../contexts/ConnexionContext";
@@ -42,7 +43,6 @@ function Navbar() {
             className="modalToogle"
             role="button"
             tabIndex={0}
-            onKeyDown=""
             onClick={toggleModal}
           >
             <img src={utilisateurIcon} alt="user_icon" />

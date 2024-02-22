@@ -12,9 +12,14 @@ function Connexion() {
   const [passwordCo, setPasswordCo] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [accountCreated, setAccountCreated] = useState(false);
 
   const handleSubmitCo = (e) => {
     e.preventDefault();
+  };
+
+  const closeAccountCreated = () => {
+    setAccountCreated(false);
   };
 
   const handleInputReg = (e) => {
@@ -33,11 +38,16 @@ function Connexion() {
     e.preventDefault();
 
     if (passwordReg === passwordConfirmation) {
-      axios.post("http://localhost:3310/api/utilisateurs", {
-        email: emailReg,
-        password: passwordReg,
-      });
-      // .then((response) => console.log(response))
+      axios
+        .post("http://localhost:3310/api/utilisateurs", {
+          email: emailReg,
+          password: passwordReg,
+        })
+        .then(() => {
+          setEmailCo("");
+          setPasswordCo("");
+          setAccountCreated(true);
+        });
       // .catch((err) => console.log(err));
     } else {
       setPasswordError(true);
@@ -129,7 +139,10 @@ function Connexion() {
       {modalTwo && (
         <div className="modalCo">
           <div
-            onClick={closeModal}
+            onClick={() => {
+              closeModal();
+              closeAccountCreated();
+            }}
             className="overlayCo"
             onKeyDown=""
             tabIndex={0}
@@ -184,7 +197,12 @@ function Connexion() {
                   </div>
                   {passwordError && (
                     <p className="error">
-                      "Les mots de passe ne correspondent pas."
+                      Les mots de passe ne correspondent pas.
+                    </p>
+                  )}
+                  {accountCreated && (
+                    <p className="success">
+                      Merci, votre compte à bein été créé.
                     </p>
                   )}
                   <button className="buttonCoBis" type="submit">

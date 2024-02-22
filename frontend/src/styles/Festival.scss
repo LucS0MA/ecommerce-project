@@ -16,7 +16,7 @@
 .festival {
   display: flex;
   flex-direction: row;
-  border: 1px solid #bdc9ac;
+  border: 5px solid #bdc9ac;
   padding: 10px;
   margin: 100px;
 }
@@ -30,20 +30,20 @@
 
 .principal-box {
   color: #bdc9ac;
-  font-size: 35px;
-  border: 1px solid #bdc9ac;
+  font-size: 30px;
+  border: 2px solid #bdc9ac;
   text-align: center;
   font-family: Abha;
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 30px;
+  padding: 140px;
 }
 
 .dates-box {
   color: #bdc9ac;
-  border: 1px solid #bdc9ac;
-
+  border: 2px solid #bdc9ac;
   margin-left: 0;
   height: 100%;
+  padding: 10px;
 }

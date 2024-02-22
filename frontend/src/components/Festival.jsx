@@ -11,7 +11,6 @@ function Festival() {
         <div className="dates-box">
           <Date />
           <Date />
-          <Date />
         </div>
       </div>
     </body>

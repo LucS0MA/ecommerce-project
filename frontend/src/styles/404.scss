@@ -1,0 +1,93 @@
+@font-face {
+  font-family: Abha;
+  src: url("../assets/AbhayaLibre-ExtraBold.ttf");
+}
+@font-face {
+  font-family: Play;
+  src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
+}
+
+body {
+  background-color: #442332;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.Info404 {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.Text404 {
+  width: 60%;
+}
+
+.Title404 {
+  color: #e2b95b;
+  font-size: 7rem;
+  margin: 0;
+  font-family: Abha;
+}
+
+.Subtitle404 {
+  color: #e2b95b;
+  font-size: 2rem;
+  margin: 0;
+  font-family: Play;
+  font-style: italic;
+}
+
+.Text1404 {
+  color: #bdc9ac;
+  font-family: Play;
+}
+
+.Text2404 {
+  color: #bdc9ac;
+  font-family: Play;
+  text-decoration: underline;
+}
+
+.container404 {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.button404 {
+  background-color: #8d214c;
+  color: #bdc9ac;
+  border-style: none;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.mush404 {
+  width: 100%;
+}
+
+.four1404 {
+  color: #df824d;
+  font-size: 13rem;
+  margin: 0;
+  font-family: Abha;
+  position: fixed;
+  right: 41%;
+}
+
+.four2404 {
+  color: #df824d;
+  font-size: 13rem;
+  margin: 0;
+  font-family: Abha;
+  position: fixed;
+  right: 12%;
+  top: 40%;
+}
+
+.number404 {
+  margin: 0;
+}

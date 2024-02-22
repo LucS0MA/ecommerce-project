@@ -9,24 +9,11 @@ class UtilisateursManager extends AbstractManager {
 
   // The C of CRUD - Create operation
 
-  async create(utilisateurs) {
+  async create(utilisateur) {
     // Execute the SQL INSERT query to add a new utilisateurs to the "utilisateurs" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (nom,prénom,date_de_naissance,telephone,email,password,adresse1,adresse2,CP,ville,pays,seelie) values (?,?,?,?,?,?,?,?,?,?,?,?)`,
-      [
-        utilisateurs.nom,
-        utilisateurs.prénom,
-        utilisateurs.date_de_naissance,
-        utilisateurs.telephone,
-        utilisateurs.email,
-        utilisateurs.password,
-        utilisateurs.adresse1,
-        utilisateurs.adresse2,
-        utilisateurs.CP,
-        utilisateurs.ville,
-        utilisateurs.pays,
-        utilisateurs.seelie,
-      ]
+      `insert into ${this.table} (email,password) values (?,?)`,
+      [utilisateur.email, utilisateur.password]
     );
 
     // Return the ID of the newly inserted utilisateurs
@@ -52,6 +39,120 @@ class UtilisateursManager extends AbstractManager {
 
     // Return the array of utilisateurs
     return rows;
+  }
+
+  async update(id, utilisateur) {
+    const [user] = await this.database.query(
+      `select * from ${this.table} where id = ?`,
+      [id]
+    );
+    let nom = "";
+    let prénom = "";
+    let dateDeNaissance = "";
+    let telephone;
+    let email = "";
+    let password = "";
+    let adresse1 = "";
+    let adresse2 = "";
+    let CP;
+    let ville = "";
+    let pays = "";
+
+    if (utilisateur.email) {
+      email = utilisateur.email;
+    } else if (user[0]) {
+      email = user[0].email;
+    }
+    if (utilisateur.password) {
+      password = utilisateur.password;
+    } else if (user[0]) {
+      password = user[0].password;
+    }
+    if (utilisateur.nom) {
+      nom = utilisateur.nom;
+    } else if (user[0]) {
+      nom = user[0].nom;
+    }
+    if (utilisateur.prénom) {
+      prénom = utilisateur.prénom;
+    } else if (user[0]) {
+      prénom = user[0].prénom;
+    }
+    if (utilisateur.date_de_naissance) {
+      dateDeNaissance = utilisateur.date_de_naissance;
+    } else if (user[0]) {
+      dateDeNaissance = user[0].date_de_naissance;
+    }
+    if (utilisateur.telephone) {
+      telephone = utilisateur.telephone;
+    } else if (user[0]) {
+      telephone = user[0].telephone;
+    }
+    if (utilisateur.adresse1) {
+      adresse1 = utilisateur.adresse1;
+    } else if (user[0]) {
+      adresse1 = user[0].adresse1;
+    }
+    if (utilisateur.adresse2) {
+      adresse2 = utilisateur.adresse2;
+    } else if (user[0]) {
+      adresse2 = user[0].adresse2;
+    }
+    if (utilisateur.CP) {
+      CP = utilisateur.CP;
+    } else if (user[0]) {
+      CP = user[0].CP;
+    }
+    if (utilisateur.ville) {
+      ville = utilisateur.ville;
+    } else if (user[0]) {
+      ville = user[0].ville;
+    }
+    if (utilisateur.pays) {
+      pays = utilisateur.pays;
+    } else if (user[0]) {
+      pays = user[0].pays;
+    }
+
+    const [rows] = await this.database.query(
+      `UPDATE ${this.table} SET nom = ?,
+      prénom = ?,
+      date_de_naissance = ?,
+      telephone = ?,
+      email = ?,
+      password = ?,
+      adresse1 = ?,
+      adresse2 = ?,
+      CP = ?,
+      ville = ?,
+      pays = ?
+      WHERE id = ?`,
+      [
+        nom,
+        prénom,
+        dateDeNaissance,
+        telephone,
+        email,
+        password,
+        adresse1,
+        adresse2,
+        CP,
+        ville,
+        pays,
+        id,
+      ]
+    );
+
+    return rows.affectedRows;
+  }
+
+  async delete(id) {
+    const [rows] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+
+    return rows.affectedRows;
   }
 
   // The U of CRUD - Update operation

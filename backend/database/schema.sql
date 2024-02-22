@@ -41,18 +41,18 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`utilisateurs` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  `prénom` VARCHAR(45) NOT NULL,
-  `date_de_naissance` DATETIME NOT NULL,
-  `telephone` INT NOT NULL,
+  `nom` VARCHAR(45),
+  `prénom` VARCHAR(45),
+  `date_de_naissance` DATETIME,
+  `telephone` INT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `adresse1` VARCHAR(45) NOT NULL,
+  `adresse1` VARCHAR(45),
   `adresse2` VARCHAR(45) NULL DEFAULT NULL,
-  `CP` INT NOT NULL,
-  `ville` VARCHAR(45) NOT NULL,
-  `pays` VARCHAR(45) NOT NULL,
-  `seelie` TINYINT(1) NOT NULL,
+  `CP` INT,
+  `ville` VARCHAR(45),
+  `pays` VARCHAR(45),
+  `seelie` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

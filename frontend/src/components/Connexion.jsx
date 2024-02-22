@@ -5,9 +5,12 @@ import flower from "../assets/Group 19.png";
 
 function Connexion() {
   const { modal, modalTwo, closeModal, toggleModalTwo } = useConnexionContext();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setpasswordConfirmation] = useState("");
+  const [emailReg, setEmailReg] = useState("");
+  const [emailCo, setEmailCo] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
+  const [passwordCo, setPasswordCo] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleSubmitRegister = (e) => {
     e.preventDefault();
@@ -17,6 +20,11 @@ function Connexion() {
 
   const handleSubmitSignUp = (e) => {
     e.preventDefault();
+    if (passwordReg !== passwordConfirmation) {
+      setPasswordError("Les mots de passe ne correspondent pas.");
+    } else {
+      setPasswordError(null);
+    }
     // console.log("Email:", email);
     // console.log("Mot de passe:", password);
     // console.log("Confirmation du mot de passe:", passwordConfirmation);
@@ -26,6 +34,12 @@ function Connexion() {
     document.body.classList.add("active-modalCo");
   } else {
     document.body.classList.remove("active-modalCo");
+  }
+
+  if (modalTwo) {
+    document.body.classList.add("active-modalTwoCo");
+  } else {
+    document.body.classList.remove("active-modalTwoCo");
   }
 
   return (
@@ -58,9 +72,9 @@ function Connexion() {
                       className="inputCo"
                       placeholder="Email"
                       type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      id="emailCo"
+                      value={emailCo}
+                      onChange={(e) => setEmailCo(e.target.value)}
                       required
                     />
                   </div>
@@ -72,9 +86,9 @@ function Connexion() {
                       className="inputCo"
                       placeholder="Mot de passe"
                       type="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      id="passwordCo"
+                      value={passwordCo}
+                      onChange={(e) => setPasswordCo(e.target.value)}
                       required
                     />
                   </div>
@@ -126,9 +140,9 @@ function Connexion() {
                       className="inputCoBis"
                       placeholder="Email"
                       type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      id="emailLog"
+                      value={emailReg}
+                      onChange={(e) => setEmailReg(e.target.value)}
                       required
                     />
                   </div>
@@ -140,9 +154,9 @@ function Connexion() {
                       className="inputCoBis"
                       placeholder="Mot de passe"
                       type="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      id="passwordLog"
+                      value={passwordReg}
+                      onChange={(e) => setPasswordReg(e.target.value)}
                       required
                     />
                   </div>
@@ -156,10 +170,11 @@ function Connexion() {
                       type="password"
                       id="passwordConfirmation"
                       value={passwordConfirmation}
-                      onChange={(e) => setpasswordConfirmation(e.target.value)}
+                      onChange={(e) => setPasswordConfirmation(e.target.value)}
                       required
                     />
                   </div>
+                  {passwordError && <p className="error">{passwordError}</p>}
                   <button className="buttonCoBis" type="submit">
                     CREÉ LE COMPTE
                   </button>

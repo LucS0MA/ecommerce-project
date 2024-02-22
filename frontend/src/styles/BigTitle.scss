@@ -3,30 +3,23 @@
   flex-wrap: wrap;
   align-items: center;
   text-align: center;
-  height: 80vh;
+  min-height: 80vh;
+  font-family: "AbhaBold", sans-serif;
 
   .yellowTitle {
     font-size: 16vw;
-    background: linear-gradient(
-      180deg,
-      rgb(235, 232, 225) 0%,
-      rgba(226, 185, 91, 1) 65%
-    );
     width: 100%;
+    background-clip: text;
+    color: transparent;
+    scale: 0;
   }
 
   .greenTitle {
-    font-size: 12vw;
+    font:
+      12vw "AbhaReg",
+      sans-serif;
     width: 50%;
     font-weight: 100;
-    background: linear-gradient(
-      0deg,
-      rgba(189, 201, 172, 0.192) 0%,
-      rgba(189, 201, 172, 0.774) 69%
-    );
-  }
-
-  .linear-text {
     background-clip: text;
     color: transparent;
   }
@@ -45,7 +38,10 @@
       border: none;
       cursor: pointer;
       font-size: 1.5rem;
-      padding: 2vh 3vw;
+      font:
+        1.5rem "Antic",
+        sans-serif;
+      padding: 2.5vh 3vw;
       min-width: 300px;
     }
 
@@ -54,7 +50,7 @@
       aspect-ratio: auto;
       width: 22vw;
       min-width: 300px;
-      bottom: -10vh;
+      bottom: 0vh;
       z-index: -1;
     }
   }
@@ -63,6 +59,7 @@
   .star2 {
     position: absolute;
     z-index: -1;
+    filter: drop-shadow(0 0 12px #e2b95b);
   }
 
   .star1 {
@@ -72,7 +69,7 @@
 
   .star2 {
     width: 5vw;
-    bottom: 25vh;
+    bottom: 10vh;
     right: 25vw;
   }
 }
@@ -84,11 +81,12 @@
     }
 
     .star1 {
-      top: 25%;
+      top: 35vh;
     }
 
     .star2 {
-      bottom: 50vh;
+      bottom: 35vh;
+      right: 15vw;
     }
   }
 }
@@ -104,16 +102,6 @@
 }
 
 @media screen and (min-height: 2048px) {
-  #bigTitle {
-    #trompignonContainer {
-      #exploreButton {
-        font-size: 4rem;
-      }
-    }
-  }
-}
-
-@media screen and (min-height: 3100px) {
   #bigTitle {
     #trompignonContainer {
       #exploreButton {

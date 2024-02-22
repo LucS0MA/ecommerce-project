@@ -1,0 +1,173 @@
+const AbstractManager = require("./AbstractManager");
+
+class UtilisateursManager extends AbstractManager {
+  constructor() {
+    // Call the constructor of the parent class (AbstractManager)
+    // and pass the table name "utilisateurs" as configuration
+    super({ table: "utilisateurs" });
+  }
+
+  // The C of CRUD - Create operation
+
+  async create(utilisateur) {
+    // Execute the SQL INSERT query to add a new utilisateurs to the "utilisateurs" table
+    const [result] = await this.database.query(
+      `insert into ${this.table} (email,password) values (?,?)`,
+      [utilisateur.email, utilisateur.password]
+    );
+
+    // Return the ID of the newly inserted utilisateurs
+    return result.insertId;
+  }
+
+  // The Rs of CRUD - Read operations
+
+  async read(id) {
+    // Execute the SQL SELECT query to retrieve a specific utilisateurs by its ID
+    const [rows] = await this.database.query(
+      `select * from ${this.table} where id = ?`,
+      [id]
+    );
+
+    // Return the first row of the result, which represents the utilisateurs
+    return rows[0];
+  }
+
+  async readAll() {
+    // Execute the SQL SELECT query to retrieve all utilisateurs from the "utilisateurs" table
+    const [rows] = await this.database.query(`select * from ${this.table}`);
+
+    // Return the array of utilisateurs
+    return rows;
+  }
+
+  async update(id, utilisateur) {
+    const [user] = await this.database.query(
+      `select * from ${this.table} where id = ?`,
+      [id]
+    );
+    let nom = "";
+    let prénom = "";
+    let dateDeNaissance = "";
+    let telephone;
+    let email = "";
+    let password = "";
+    let adresse1 = "";
+    let adresse2 = "";
+    let CP;
+    let ville = "";
+    let pays = "";
+
+    if (utilisateur.email) {
+      email = utilisateur.email;
+    } else if (user[0]) {
+      email = user[0].email;
+    }
+    if (utilisateur.password) {
+      password = utilisateur.password;
+    } else if (user[0]) {
+      password = user[0].password;
+    }
+    if (utilisateur.nom) {
+      nom = utilisateur.nom;
+    } else if (user[0]) {
+      nom = user[0].nom;
+    }
+    if (utilisateur.prénom) {
+      prénom = utilisateur.prénom;
+    } else if (user[0]) {
+      prénom = user[0].prénom;
+    }
+    if (utilisateur.date_de_naissance) {
+      dateDeNaissance = utilisateur.date_de_naissance;
+    } else if (user[0]) {
+      dateDeNaissance = user[0].date_de_naissance;
+    }
+    if (utilisateur.telephone) {
+      telephone = utilisateur.telephone;
+    } else if (user[0]) {
+      telephone = user[0].telephone;
+    }
+    if (utilisateur.adresse1) {
+      adresse1 = utilisateur.adresse1;
+    } else if (user[0]) {
+      adresse1 = user[0].adresse1;
+    }
+    if (utilisateur.adresse2) {
+      adresse2 = utilisateur.adresse2;
+    } else if (user[0]) {
+      adresse2 = user[0].adresse2;
+    }
+    if (utilisateur.CP) {
+      CP = utilisateur.CP;
+    } else if (user[0]) {
+      CP = user[0].CP;
+    }
+    if (utilisateur.ville) {
+      ville = utilisateur.ville;
+    } else if (user[0]) {
+      ville = user[0].ville;
+    }
+    if (utilisateur.pays) {
+      pays = utilisateur.pays;
+    } else if (user[0]) {
+      pays = user[0].pays;
+    }
+
+    const [rows] = await this.database.query(
+      `UPDATE ${this.table} SET nom = ?,
+      prénom = ?,
+      date_de_naissance = ?,
+      telephone = ?,
+      email = ?,
+      password = ?,
+      adresse1 = ?,
+      adresse2 = ?,
+      CP = ?,
+      ville = ?,
+      pays = ?
+      WHERE id = ?`,
+      [
+        nom,
+        prénom,
+        dateDeNaissance,
+        telephone,
+        email,
+        password,
+        adresse1,
+        adresse2,
+        CP,
+        ville,
+        pays,
+        id,
+      ]
+    );
+
+    return rows.affectedRows;
+  }
+
+  async delete(id) {
+    const [rows] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+
+    return rows.affectedRows;
+  }
+
+  // The U of CRUD - Update operation
+  // TODO: Implement the update operation to modify an existing utilisateurs
+
+  // async update(utilisateurs) {
+  //   ...
+  // }
+
+  // The D of CRUD - Delete operation
+  // TODO: Implement the delete operation to remove an utilisateurs by its ID
+
+  // async delete(id) {
+  //   ...
+  // }
+}
+
+module.exports = UtilisateursManager;

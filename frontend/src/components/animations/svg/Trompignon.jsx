@@ -10,7 +10,7 @@ function Trompignon() {
       scale: 5,
       opacity: 0,
       duration: 2,
-      delay: 3,
+      delay: 2.5,
       stagger: {
         each: 0.04,
         from: "center",

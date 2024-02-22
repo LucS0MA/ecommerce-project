@@ -52,8 +52,18 @@ function BigTitle() {
       <h1 className="yellowTitle" id="imagine">
         Imaginez
       </h1>
-      <AnimatedText text="Rêvez" className="greenTitle" id="dream" />
-      <AnimatedText text="Créez" className="greenTitle" id="create" />
+      <AnimatedText
+        key="dream"
+        text="Rêvez"
+        className="greenTitle"
+        id="dream"
+      />
+      <AnimatedText
+        key="create"
+        text="Créez"
+        className="greenTitle"
+        id="create"
+      />
       <div id="trompignonContainer">
         <button id="exploreButton" type="button">
           EXPLORER LE CATALOGUE

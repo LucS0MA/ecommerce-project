@@ -7,7 +7,7 @@ function AnimatedText({ text, className, id }) {
   return (
     <h2 className={className} id={id} ref={textRef}>
       {text.split("").map((char) => (
-        <span>{char}</span>
+        <span key={char}>{char}</span>
       ))}
     </h2>
   );

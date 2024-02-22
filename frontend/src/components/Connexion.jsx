@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
@@ -12,22 +13,35 @@ function Connexion() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const handleSubmitRegister = (e) => {
+  const handleSubmitCo = (e) => {
     e.preventDefault();
-    // console.log("Email:", email);
-    // console.log("Mot de passe:", password);
   };
 
-  const handleSubmitSignUp = (e) => {
-    e.preventDefault();
-    if (passwordReg !== passwordConfirmation) {
-      setPasswordError("Les mots de passe ne correspondent pas.");
-    } else {
-      setPasswordError(null);
+  const handleInputReg = (e) => {
+    if (e.target.id === "email") {
+      setEmailReg(e.target.value);
+    } else if (e.target.id === "passwordLog") {
+      setPasswordReg(e.target.value);
+    } else if (e.target.id === "passwordConfirmation") {
+      const confirmation = e.target.value;
+      setPasswordConfirmation(confirmation);
+      setPasswordError(passwordReg !== confirmation);
     }
-    // console.log("Email:", email);
-    // console.log("Mot de passe:", password);
-    // console.log("Confirmation du mot de passe:", passwordConfirmation);
+  };
+
+  const handleSubmitReg = (e) => {
+    e.preventDefault();
+
+    if (passwordReg === passwordConfirmation) {
+      axios.post("http://localhost:3310/api/utilisateurs", {
+        email: emailReg,
+        password: passwordReg,
+      });
+      // .then((response) => console.log(response))
+      // .catch((err) => console.log(err));
+    } else {
+      setPasswordError(true);
+    }
   };
 
   if (modal) {
@@ -44,9 +58,6 @@ function Connexion() {
 
   return (
     <>
-      {/* <button type="button" onClick={toggleModal} className="btn-modalCo">
-        REGISTER / SIGN IN
-      </button> */}
       {modal && (
         <div className="modalCo">
           <div
@@ -63,7 +74,7 @@ function Connexion() {
               <h2 className="titleCo">SE CONNECTER</h2>
               <div className="modalContainerCo">
                 <img className="flowerCo" src={flower} alt="" />
-                <form className="formCo" onSubmit={handleSubmitRegister}>
+                <form className="formCo" onSubmit={handleSubmitCo}>
                   <div>
                     <label className="labelHidden" htmlFor="email">
                       Email
@@ -131,7 +142,7 @@ function Connexion() {
               <h2 className="titleCoBis">CREER UN COMPTE</h2>
               <div className="modalContainerCo">
                 <img className="flowerCoBis" src={flower} alt="" />
-                <form className="formCoBis" onSubmit={handleSubmitSignUp}>
+                <form className="formCoBis" onSubmit={handleSubmitReg}>
                   <div>
                     <label className="labelHidden" htmlFor="email">
                       Email
@@ -140,41 +151,42 @@ function Connexion() {
                       className="inputCoBis"
                       placeholder="Email"
                       type="email"
-                      id="emailLog"
-                      value={emailReg}
-                      onChange={(e) => setEmailReg(e.target.value)}
+                      id="email"
+                      onChange={handleInputReg}
                       required
                     />
                   </div>
                   <div>
                     <label className="labelHidden" htmlFor="password">
-                      Mdp
+                      Mot de passe
                     </label>
                     <input
                       className="inputCoBis"
                       placeholder="Mot de passe"
                       type="password"
                       id="passwordLog"
-                      value={passwordReg}
-                      onChange={(e) => setPasswordReg(e.target.value)}
+                      onChange={handleInputReg}
                       required
                     />
                   </div>
                   <div>
                     <label className="labelHidden" htmlFor="password">
-                      Mdp
+                      Confirmation du mot de passe
                     </label>
                     <input
                       className="inputCoBis"
                       placeholder="Confirmation du mot de passe"
                       type="password"
                       id="passwordConfirmation"
-                      value={passwordConfirmation}
-                      onChange={(e) => setPasswordConfirmation(e.target.value)}
+                      onChange={(e) => handleInputReg(e)}
                       required
                     />
                   </div>
-                  {passwordError && <p className="error">{passwordError}</p>}
+                  {passwordError && (
+                    <p className="error">
+                      "Les mots de passe ne correspondent pas."
+                    </p>
+                  )}
                   <button className="buttonCoBis" type="submit">
                     CREÉ LE COMPTE
                   </button>

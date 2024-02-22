@@ -3,32 +3,50 @@ import "../styles/Date.scss";
 import Loca from "../assets/Layer 10.png";
 
 function Date({ nom, lieu, date }) {
+  if (!date || !nom || !lieu) {
+    return <div className="containerD" style={{ opacity: 0 }} />;
+  }
+
+  const months = [
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre",
+  ];
+
+  const dateWords = date.split(" ");
+  const formattedDate = [];
+  dateWords.forEach((word, index) => {
+    const lowerCaseWord = word.toLowerCase();
+    const isMonth = months.includes(lowerCaseWord);
+    formattedDate.push(isMonth ? <span className="month">{word}</span> : word);
+    if (index >= 0) {
+      formattedDate.push(" ");
+    }
+  });
   return (
-    <body>
-      <div className="containerD">
-        <div className="dateD">
-          <p className="numberD">12</p>
-          <p className="numberD">-</p>
-          <p className="numberD">13</p>
-          <p className="boldD">JUIN</p>
-          <p className="numberD">2024</p>
-          <p className="numberD">{date}</p>
-        </div>
-        <div className="lineD" />
-        <div className="locaD">
-          <p className="placeD">Médiéval de Mecquignies</p>
-          <p className="placeD">{nom}</p>
-          <div className="adressD">
-            <img src={Loca} alt="localisation" className="logoD" />
-            <p className="textD">
-              Mecquignies / Hauts-de-France / France MECQUIGNIES 59570 - Impasse
-              du Culot
-            </p>
-            <p className="textD">{lieu}</p>
-          </div>
+    <div className="containerD">
+      <div className="dateD">
+        {/* Utiliser la variable formattedDate dans le JSX */}
+        <p className="numberD">{formattedDate}</p>
+      </div>
+      <div className="lineD" />
+      <div className="locaD">
+        <p className="placeD">{nom}</p>
+        <div className="adressD">
+          <img src={Loca} alt="localisation" className="logoD" />
+          <p className="textD">{lieu}</p>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 

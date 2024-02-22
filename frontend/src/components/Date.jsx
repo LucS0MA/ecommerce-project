@@ -27,15 +27,23 @@ function Date({ nom, lieu, date }) {
   dateWords.forEach((word, index) => {
     const lowerCaseWord = word.toLowerCase();
     const isMonth = months.includes(lowerCaseWord);
-    formattedDate.push(isMonth ? <span className="month">{word}</span> : word);
-    if (index >= 0) {
+    const key = `${word}-${index}`;
+    formattedDate.push(
+      isMonth ? (
+        <span key={key} className="month">
+          {word}
+        </span>
+      ) : (
+        word
+      )
+    );
+    if (index < dateWords.length - 1) {
       formattedDate.push(" ");
     }
   });
   return (
     <div className="containerD">
       <div className="dateD">
-        {/* Utiliser la variable formattedDate dans le JSX */}
         <p className="numberD">{formattedDate}</p>
       </div>
       <div className="lineD" />
@@ -43,7 +51,7 @@ function Date({ nom, lieu, date }) {
         <p className="placeD">{nom}</p>
         <div className="adressD">
           <img src={Loca} alt="localisation" className="logoD" />
-          <p className="textD">{lieu}</p>
+          <p className="textD">{lieu !== null ? lieu : "Lieu non spécifié"}</p>
         </div>
       </div>
     </div>
@@ -51,9 +59,15 @@ function Date({ nom, lieu, date }) {
 }
 
 Date.propTypes = {
-  nom: PropTypes.string.isRequired,
-  lieu: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  nom: PropTypes.string,
+  lieu: PropTypes.string,
+  date: PropTypes.string,
+};
+
+Date.defaultProps = {
+  nom: "Nom non spécifié",
+  date: "Date non spécifiée",
+  lieu: null,
 };
 
 export default Date;

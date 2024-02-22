@@ -162,6 +162,7 @@ function Connexion() {
                     </label>
                     <input
                       className="inputCoBis"
+                      onClick={closeAccountCreated}
                       placeholder="Email"
                       type="email"
                       id="email"
@@ -176,6 +177,7 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Mot de passe"
+                      onClick={closeAccountCreated}
                       type="password"
                       id="passwordLog"
                       onChange={handleInputReg}
@@ -189,6 +191,7 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Confirmation du mot de passe"
+                      onClick={closeAccountCreated}
                       type="password"
                       id="passwordConfirmation"
                       onChange={(e) => handleInputReg(e)}

@@ -50,6 +50,86 @@ class ArticlesManager extends AbstractManager {
     return rows;
   }
 
+  async update(id, article) {
+    const [product] = await this.database.query(
+      `select * from ${this.table} where id = ?`,
+      [id]
+    );
+    let nom = "";
+    let image = "";
+    let prix;
+    let ajoutDate = "";
+    let nbVentes;
+    let taille;
+    let vendeuse = "";
+    let quantité;
+
+    if (article.nom) {
+      nom = article.nom;
+    } else if (product[0]) {
+      nom = product[0].nom;
+    }
+    if (article.image) {
+      image = article.image;
+    } else if (product[0]) {
+      image = product[0].image;
+    }
+    if (article.prix) {
+      prix = article.prix;
+    } else if (product[0]) {
+      prix = product[0].prix;
+    }
+    if (article.ajoutDate) {
+      ajoutDate = article.ajoutDate;
+    } else if (product[0]) {
+      ajoutDate = product[0].ajoutDate;
+    }
+    if (article.nbVentes) {
+      nbVentes = article.nbVentes;
+    } else if (product[0]) {
+      nbVentes = product[0].nbVentes;
+    }
+    if (article.taille) {
+      taille = article.taille;
+    } else if (product[0]) {
+      taille = product[0].taille;
+    }
+    if (article.vendeuse) {
+      vendeuse = article.vendeuse;
+    } else if (product[0]) {
+      vendeuse = product[0].vendeuse;
+    }
+    if (article.quantité) {
+      quantité = article.quantité;
+    } else if (product[0]) {
+      quantité = product[0].quantité;
+    }
+
+    const [rows] = await this.database.query(
+      `UPDATE ${this.table} SET nom = ?,
+      image = ?,
+      prix = ?,
+      ajout_date = ?,
+      nb_ventes = ?,
+      taille = ?,
+      vendeuse = ?,
+      quantité = ?
+      WHERE id = ?`,
+      [nom, image, prix, ajoutDate, nbVentes, taille, vendeuse, quantité, id]
+    );
+
+    return rows.affectedRows;
+  }
+
+  async delete(id) {
+    const [rows] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+
+    return rows.affectedRows;
+  }
+
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing item
 

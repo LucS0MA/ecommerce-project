@@ -46,8 +46,38 @@ const add = async (req, res) => {
   }
 };
 
+const edit = async (req, res) => {
+  try {
+    const affectedRows = await models.articles.update(req.params.id, req.body);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const destroy = async (req, res) => {
+  try {
+    const affectedRows = await models.articles.delete(req.params.id);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
   add,
+  edit,
+  destroy,
 };

@@ -2,12 +2,18 @@
 const models = require("../modelsProviders");
 
 // The B of BREAD - Browse (Read All) operation
-const browse = (req, res) => {
+const browse = async (req, res) => {
   // Fetch all items from the database
-  models.articles
-    .findAll()
-    .then((articles) => res.json(articles))
-    .catch((err) => console.error(err));
+  try {
+    const articles = await models.articles.readAll(req.query);
+    if (articles.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.json(articles);
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // The R of BREAD - Read operation

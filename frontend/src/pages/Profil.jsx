@@ -1,18 +1,16 @@
-import { useState } from "react";
-import MenuProfil from "../components/MenuProfil";
-
-// Importez également d'autres composants que vous pourriez utiliser sur cette page
+import React from "react";
+import "../styles/Profil.scss";
+import { ProfileProvider } from "../components/profilcomponents/ProfileContext";
+import ProfilContainer from "../components/profilcomponents/ProfilContainer"; // Importez ProfilContainer
 
 function Profil() {
-  const [sectionActive, setSectionActive] = useState("MesInformations");
-
   return (
-    <div className="profil-page">
-      <MenuProfil
-        sectionActive={sectionActive}
-        setSectionActive={setSectionActive}
-      />
-    </div>
+    <ProfileProvider>
+      <div className="profil-page">
+        <ProfilContainer />{" "}
+        {/* Ceci inclut MenuProfil et le contenu conditionnel */}
+      </div>
+    </ProfileProvider>
   );
 }
 

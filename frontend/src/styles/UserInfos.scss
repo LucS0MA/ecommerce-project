@@ -1,0 +1,75 @@
+@font-face {
+  font-family: Antic;
+  src: url("../assets/fonts/AnticSlab-Regular.ttf");
+}
+
+.user-info {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .tab-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    .tab-button {
+      font-family: Antic;
+      color: var(--lightGreen);
+      text-transform: uppercase;
+      background-color: transparent;
+      border: 1px solid var(--lightGreen);
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &.active {
+        background-color: var(--lightGreen);
+        color: var(--darkPink);
+      }
+    }
+  }
+
+  .content-line {
+    height: 1px;
+    background-color: var(--lightGreen);
+    width: 100%;
+  }
+  input {
+    font-family: Antic;
+    color: var(--lightGreen);
+    font-weight: lighter;
+    text-transform: uppercase;
+    border: 1px solid var(--lightGreen);
+    background-color: var(--darkPink);
+    padding: 10px;
+    &:focus {
+      border: 2px solid var(--lightGreen); // Bordure en rose pâle lorsque l'input est focalisé
+    }
+  }
+
+  label {
+    font-family: Antic;
+    color: var(--lightGreen);
+    font-weight: lighter;
+    text-transform: uppercase;
+  }
+
+  button[type="submit"] {
+    background: var(--pink); // Fond bordeaux
+    border: none;
+    padding: 10px 20px;
+    color: var(--lightGreen);
+    font-family: Antic;
+    font-weight: lighter;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--darkPink);
+      background: var(--lightGreen); // Changement de couleur au survol
+    }
+  }
+}

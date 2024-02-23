@@ -1,19 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
-import "../styles/MenulProfil.scss";
+import { useProfile } from "./ProfileContext";
+import "../../styles/MenulProfil.scss";
 
 const sections = [
   { key: "MesInformations", label: "Mes Informations" },
-  { key: "ChangerMonMotDePasse", label: "Changer Mon Mot De Passe" },
+  { key: "MotDePasse", label: "Changer de mot de passe" },
   { key: "MesFavoris", label: "Mes Favoris" },
   { key: "HistoriqueDesCommandes", label: "Historique Des Commandes" },
   { key: "SupprimerMonCompte", label: "Supprimer Mon Compte" },
 ];
 
-function MenuProfil({ sectionActive, setSectionActive }) {
-  const handleKeyDown = (event, newSection) => {
-    if (["Enter", " "].includes(event.key)) {
-      setSectionActive(newSection);
+function MenuProfil() {
+  const { sectionActive, switchSection } = useProfile();
+
+  const handleKeyDown = (event, sectionKey) => {
+    // Permet aux utilisateurs d'activer le clic via la touche "Enter"
+    if (event.key === "Enter") {
+      switchSection(sectionKey);
     }
   };
 
@@ -21,7 +24,7 @@ function MenuProfil({ sectionActive, setSectionActive }) {
     <div
       key={section.key}
       className={`item-menu ${sectionActive === section.key ? "actif" : ""}`}
-      onClick={() => setSectionActive(section.key)}
+      onClick={() => switchSection(section.key)}
       onKeyDown={(event) => handleKeyDown(event, section.key)}
       role="button"
       tabIndex={0}
@@ -33,15 +36,9 @@ function MenuProfil({ sectionActive, setSectionActive }) {
   return (
     <div className="menu_profil_container">
       <div className="menu_profil_title">Profil</div>
-
       <div className="menu_profil">{menuItems}</div>
     </div>
   );
 }
-
-MenuProfil.propTypes = {
-  sectionActive: PropTypes.string.isRequired,
-  setSectionActive: PropTypes.func.isRequired,
-};
 
 export default MenuProfil;

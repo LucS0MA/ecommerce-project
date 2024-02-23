@@ -1,0 +1,83 @@
+@font-face {
+  font-family: Antic;
+  src: url("../assets/fonts/AnticSlab-Regular.ttf");
+}
+
+.card-container {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.carte-paiement-container {
+  width: 300px;
+  height: 200px;
+  border: 1px solid var(--lightGreen);
+  background: linear-gradient(180deg, #8d214c 0%, #df824d 100%);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  color: var(--lightGreen);
+  font-family: Antic;
+  font-weight: lighter;
+
+  // Example of how the card number is partially obscured
+  .carte-numero {
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+.buttons-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.bouton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--lightGreen); // light green border
+  background-color: var(--darkPink); // dark pink background
+  color: var(--lightGreen); // light green text
+  margin-right: 1rem;
+  cursor: pointer;
+  font-family: Antic;
+  font-weight: lighter;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    background-color: var(--lightGreen); // light green background
+    color: var(--darkPink); // dark pink text
+  }
+}
+
+.input-group {
+  margin: 0.5rem 0;
+
+  label {
+    display: block;
+    color: var(--lightGreen);
+  }
+
+  input {
+    color: var(--lightGreen);
+    width: 100%;
+    background-color: var(--darkPink);
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--lightGreen);
+    margin-top: 0.25rem;
+  }
+}
+
+.sauvegarder-btn {
+  background-color: var(--pink); // pink background
+  color: var(--lightGreen);
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  bottom: 1rem;
+  left: 1rem;
+}

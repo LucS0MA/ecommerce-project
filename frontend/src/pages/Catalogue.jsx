@@ -6,11 +6,12 @@ import { ModalProvider } from "../contexts/ConnexionContext";
 function Catalogue() {
   return (
     <ModalProvider>
-      <nav>
+      <header>
         <Navbar />
-      </nav>
-      <main>
         <Connexion />
+      </header>
+      <main>
+        <h1>Catalogue</h1>
       </main>
       <footer>
         <FooterBis />

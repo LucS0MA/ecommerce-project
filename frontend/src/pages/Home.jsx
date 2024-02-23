@@ -14,16 +14,22 @@ import Sellers from "../components/Sellers";
 function Home() {
   return (
     <ModalProvider>
-      <Connexion />
-      <Cookies />
-      <Navbar />
-      <BigTitle />
-      <Nouveautés />
-      <Comptoir />
-      <Sellers />
-      <Phares />
-      <Festival />
-      <FooterBis />
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Connexion />
+        <Cookies />
+        <BigTitle />
+        <Nouveautés />
+        <Comptoir />
+        <Sellers />
+        <Phares />
+        <Festival />
+      </main>
+      <footer>
+        <FooterBis />
+      </footer>
     </ModalProvider>
   );
 }

@@ -238,12 +238,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`types_has_articles` (
   CONSTRAINT `fk_types_has_articles_types1`
     FOREIGN KEY (`types_id`)
     REFERENCES `le_comptoir_des_seelies`.`types` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_types_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -262,12 +262,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`couleurs_has_articles` (
   CONSTRAINT `fk_couleurs_has_articles_couleurs1`
     FOREIGN KEY (`couleurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`couleurs` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_couleurs_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -286,12 +286,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`thematiques_has_articles` 
   CONSTRAINT `fk_thematiques_has_articles_thematiques1`
     FOREIGN KEY (`thematiques_id`)
     REFERENCES `le_comptoir_des_seelies`.`thematiques` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_thematiques_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

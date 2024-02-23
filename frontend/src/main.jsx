@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Profil from "./pages/Profil";
 import Catalogue from "./pages/Catalogue";
+import Page404 from "./pages/404";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/catalogue",
     element: <Catalogue />,
+  },
+  {
+    path: "*",
+    element: <Page404 />,
   },
 ]);
 

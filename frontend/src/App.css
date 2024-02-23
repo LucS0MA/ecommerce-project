@@ -18,6 +18,11 @@
   src: url("./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");
 }
 
+@font-face {
+  font-family: PlaySemiBoldItalic;
+  src: url("./assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf");
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,4 +41,5 @@
 html {
   background: var(--darkPink);
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }

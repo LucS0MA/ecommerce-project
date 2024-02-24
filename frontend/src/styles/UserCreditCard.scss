@@ -4,7 +4,7 @@
 }
 
 .card-container {
-  margin-top: 5%;
+  margin: 5%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -22,34 +22,38 @@
   font-family: Antic;
   font-weight: lighter;
 
-  // Example of how the card number is partially obscured
-  .carte-numero {
-    display: block;
-    margin: 0.5rem 0;
+  #card-title {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
   }
 }
+.carte-numero {
+  display: block;
+  margin: 0.5rem 0;
+}
+
 .buttons-card {
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
 .bouton {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--lightGreen); // light green border
-  background-color: var(--darkPink); // dark pink background
-  color: var(--lightGreen); // light green text
-  margin-right: 1rem;
-  cursor: pointer;
+  padding: 1rem;
+  border: 1px solid var(--lightGreen);
+  background-color: var(--darkPink);
+  color: var(--lightGreen);
   font-family: Antic;
   font-weight: lighter;
   text-transform: uppercase;
+  cursor: pointer;
 
   &:hover,
   &:focus {
-    background-color: var(--lightGreen); // light green background
-    color: var(--darkPink); // dark pink text
+    background-color: var(--lightGreen);
+    color: var(--darkPink);
   }
 }
 
@@ -57,8 +61,11 @@
   margin: 0.5rem 0;
 
   label {
-    display: block;
+    font-family: Antic;
     color: var(--lightGreen);
+    font-weight: lighter;
+    text-transform: uppercase;
+    margin-bottom: 5px;
   }
 
   input {
@@ -73,7 +80,7 @@
 }
 
 .sauvegarder-btn {
-  background-color: var(--pink); // pink background
+  background-color: var(--pink);
   color: var(--lightGreen);
   padding: 0.5rem 1rem;
   border: none;

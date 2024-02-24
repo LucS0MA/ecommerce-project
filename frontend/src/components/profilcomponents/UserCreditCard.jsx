@@ -17,24 +17,70 @@ function UserCreditCard() {
     }));
   };
 
+  const handleSaveCard = async () => {
+    try {
+      const response = await fetch(
+        "Url de la requette a voir avec lucien ou metteo",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cardInfo),
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.info(result);
+      } else {
+        console.error("Une erreur est survenue lors de l'envoi des données");
+      }
+    } catch (error) {
+      console.error("Une erreur de réseau est survenue", error);
+    }
+  };
+
+  const handleDeleteCard = async () => {
+    try {
+      const response = await fetch(
+        "Url de la requette a voir avec lucien ou metteo",
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.info("Carte supprimée avec succès");
+        setCardInfo({ nom: "", numero: "", expiration: "", cvv: "" });
+      } else {
+        console.error("Erreur lors de la suppression de la carte");
+      }
+    } catch (error) {
+      console.error("Erreur réseau lors de la suppression de la carte", error);
+    }
+  };
+
   return (
     <div className="informations-paiement-container">
       <div className="card-container">
         <div className="carte-paiement-container">
+          <h1 id="card-title">Carte de crédit</h1>
+
           <div className="carte-nom">{cardInfo.nom}</div>
           <div className="carte-numero">
             {cardInfo.numero.replace(/.(?=.{4})/g, ".")}
           </div>
           <div className="carte-expiration">{cardInfo.expiration}</div>
+          <img src="../src/assets/visa.svg" alt="logo carte VISA" />
         </div>
 
         <div className="buttons-card">
-          <button className="bouton" type="button">
+          <button className="bouton" type="button" onClick={handleDeleteCard}>
             Supprimer cette carte{" "}
-            {/* on devra placer notre logique de la bdd ici */}
           </button>
-          <button className="bouton" type="button">
-            Ajouter une nouvelle carte {/* pareil pour l'ajout */}
+          <button className="bouton" type="button" onClick={handleSaveCard}>
+            Ajouter une nouvelle carte
           </button>
         </div>
       </div>

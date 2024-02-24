@@ -14,7 +14,7 @@ function MenuProfil() {
   const { sectionActive, switchSection } = useProfile();
 
   const handleKeyDown = (event, sectionKey) => {
-    // Permet aux utilisateurs d'activer le clic via la touche "Enter"
+    // Prettier et Eslint m'ont un peu embeté afin d'ajouter l'appel par le clavier
     if (event.key === "Enter") {
       switchSection(sectionKey);
     }

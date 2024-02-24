@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useMemo } from "react";
-import PropTypes from "prop-types"; // Assurez-vous d'importer PropTypes
+import PropTypes from "prop-types";
 
 const ProfileContext = createContext();
 
@@ -17,7 +17,6 @@ function ProfileProvider({ children }) {
     setSubSectionActive(newSubSection);
   };
 
-  // Utilisez useMemo pour mémoriser l'objet value
   const value = useMemo(
     () => ({
       sectionActive,

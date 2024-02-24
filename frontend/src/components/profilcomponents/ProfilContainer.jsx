@@ -20,8 +20,9 @@ function ProfilContainer() {
         return <UserCreditCard />;
       case "MotDePasse":
         return <UserPassword />;
+      // On ajoutera ici les autres composants a afficher comme les favoris...
       default:
-        return <UserInfos />; // Ou un autre composant par défaut
+        return <UserInfos />;
     }
   };
 

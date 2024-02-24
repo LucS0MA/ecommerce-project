@@ -4,7 +4,6 @@ import Cadre from "./Cadre";
 import UserInfos from "./UserInfos";
 import UserPassword from "./UserPassword";
 
-// Ajoutez la prop sectionActive à CadreProfil
 function CadreProfil({ sectionActive }) {
   const [formData, setFormData] = useState({
     nom: "",
@@ -31,10 +30,9 @@ function CadreProfil({ sectionActive }) {
     console.info("Submitted Data:", formData);
   };
 
-  // Utilisez la prop sectionActive pour conditionner le contenu affiché
   return (
     <Cadre>
-      {/* Conditionnez le contenu basé sur sectionActive plutôt que tabActive */}
+      {/* bon la on conditionne la selection du bouton  */}
       {sectionActive === "MesInformations" && (
         <UserInfos
           formData={formData}
@@ -48,12 +46,11 @@ function CadreProfil({ sectionActive }) {
           handleSubmit={handleSubmit}
         />
       )}
-      {/* Vous pouvez ajouter d'autres conditions pour d'autres sections si nécessaire */}
     </Cadre>
   );
 }
 CadreProfil.propTypes = {
-  sectionActive: PropTypes.string.isRequired, // Déclarez que sectionActive est une prop requise de type string
+  sectionActive: PropTypes.string.isRequired,
 };
 
 export default CadreProfil;

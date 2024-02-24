@@ -28,8 +28,8 @@ function UserChangePassword({ handleInputChange, handleSubmit }) {
 }
 
 UserChangePassword.propTypes = {
-  handleInputChange: PropTypes.func.isRequired, // Assurez-vous que handleInputChange est une fonction et qu'elle est requise
-  handleSubmit: PropTypes.func.isRequired, // Si vous utilisez également handleSubmit, assurez-vous de le valider de la même manière
+  handleInputChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default UserChangePassword;

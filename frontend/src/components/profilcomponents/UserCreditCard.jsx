@@ -69,7 +69,10 @@ function UserCreditCard() {
 
           <div className="carte-nom">{cardInfo.nom}</div>
           <div className="carte-numero">
-            {cardInfo.numero.replace(/.(?=.{4})/g, ".")}
+            {cardInfo.numero
+              .replace(/.(?=.{4})/g, ".")
+              .replace(/(.{4})/g, "$1 ")
+              .trim()}
           </div>
           <div className="carte-expiration">{cardInfo.expiration}</div>
           <img src="../src/assets/visa.svg" alt="logo carte VISA" />
@@ -124,6 +127,7 @@ function UserCreditCard() {
           name="cvv"
           value={cardInfo.cvv}
           onChange={handleInputChange}
+          maxLength={3}
         />
       </div>
       <button type="button" className="sauvegarder-btn">

@@ -31,16 +31,13 @@ function UserInfos() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        "Url de la requette a voir avec lucien ou metteo",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("http://localhost:4242/api/utilisateurs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         const result = await response.json();
@@ -88,7 +85,7 @@ function UserInfos() {
               <label htmlFor="prenom">Prénom</label>
               <input
                 type="text"
-                name="prenom"
+                name="prénom"
                 id="prenom"
                 value={formData.prenom}
                 onChange={handleInputChange}
@@ -102,7 +99,7 @@ function UserInfos() {
               id="email"
               value={formData.email}
               onChange={handleInputChange}
-              required
+              readOnly
             />
             <label htmlFor="adresse1">Adresse 1</label>
             <input
@@ -126,11 +123,10 @@ function UserInfos() {
               <label htmlFor="codePostal">Code Postal</label>
               <input
                 type="number"
-                name="codePostal"
+                name="CP"
                 id="codePostal"
                 value={formData.codePostal}
                 onChange={handleInputChange}
-                required
               />
               <label htmlFor="ville">Ville</label>
               <input
@@ -154,7 +150,7 @@ function UserInfos() {
             <label htmlFor="telephone">Numéro de téléphone</label>
             <input
               type="tel"
-              name="phone"
+              name="telepphone"
               id="phone"
               value={formData.telephone}
               onChange={handleInputChange}

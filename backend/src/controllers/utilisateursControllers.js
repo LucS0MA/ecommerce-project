@@ -49,6 +49,37 @@ const add = async (req, res) => {
   }
 };
 
+const edit = async (req, res) => {
+  try {
+    const affectedRows = await models.utilisateurs.update(
+      req.params.id,
+      req.body
+    );
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const destroy = async (req, res) => {
+  try {
+    const affectedRows = await models.utilisateurs.delete(req.params.id);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // The D of BREAD - Destroy (Delete) operation
 // This operation is not yet implemented
 
@@ -56,7 +87,7 @@ const add = async (req, res) => {
 module.exports = {
   browse,
   read,
-  // edit,
+  edit,
   add,
-  // destroy,
+  destroy,
 };

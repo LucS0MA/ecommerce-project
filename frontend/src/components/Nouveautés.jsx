@@ -1,15 +1,21 @@
+import { useRef } from "react";
 import Article from "./Article";
-
 import imageSRC from "../assets/image 6.png";
-
 import "../styles/Nouveautés.scss";
 import IvyBranch1 from "./animations/svg/IvyBranch1";
 import IvyAnimation from "./animations/IvyAnimation";
 
 function Nouveautés() {
+  const ivyRef = useRef(null);
+
   return (
     <section id="nouveautés">
-      <IvyAnimation ivyId="ivyTopNew">
+      <IvyAnimation
+        ivyId="ivyNew"
+        ivyRef={ivyRef}
+        start="top +=500"
+        end="bottom top"
+      >
         <IvyBranch1 />
       </IvyAnimation>
       <div id="nouveautés-content">

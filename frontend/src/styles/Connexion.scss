@@ -1,4 +1,3 @@
-// Import des polices
 @font-face {
   font-family: Antic;
   src: url("../assets/AnticSlab-Regular.ttf");
@@ -14,8 +13,11 @@
   src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
 }
 
-// Styles généraux
 body.active-modalCo {
+  overflow-y: hidden;
+}
+
+body.active-modalTwoCo {
   overflow-y: hidden;
 }
 
@@ -23,7 +25,6 @@ body.active-modalCo {
   display: none;
 }
 
-// Bouton principal
 .btn-modalCo {
   padding: 10px 20px;
   position: absolute;
@@ -33,7 +34,6 @@ body.active-modalCo {
   z-index: 98;
 }
 
-// Styles du modal
 .modalCo,
 .overlayCo {
   z-index: 99;
@@ -48,7 +48,7 @@ body.active-modalCo {
 
 .flowerCo {
   position: absolute;
-  top: -1%;
+  top: -2%;
   right: -10%;
   pointer-events: none;
   width: 68%;
@@ -64,12 +64,7 @@ body.active-modalCo {
 
 .overlayCo {
   backdrop-filter: blur(1px);
-  background-color: rgba(
-    78,
-    78,
-    78,
-    0.5
-  ); /* Utilisez la couleur grise que vous préférez et ajustez l'opacité (le dernier paramètre) selon vos besoins */
+  background-color: rgba(78, 78, 78, 0.5);
 }
 
 .modal-contentCo {
@@ -86,7 +81,6 @@ body.active-modalCo {
   background: var(--lightGreen);
   padding: 14px 16px;
 
-  // Contenu du modal
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -113,12 +107,23 @@ body.active-modalCo {
   align-items: center;
 }
 
-// Styles pour les champs de saisie
+.error {
+  top: 305px;
+  position: absolute;
+  color: var(--lightGreen);
+}
+
+.success {
+  top: 305px;
+  position: absolute;
+  color: var(--lightGreen);
+}
+
 .inputCo {
   font-family: Play;
   border-radius: 3px;
-  border-color: #e5e7e2;
-  color: #e5e7e2;
+  border-color: var(--lightGreen);
+  color: var(--lightGreen);
   margin-top: 20px;
   height: 35px;
   width: 25em;
@@ -128,21 +133,19 @@ body.active-modalCo {
 .inputCoBis {
   font-family: Play;
   border-radius: 3px;
-  border-color: #e5e7e2;
-  color: #e5e7e2;
+  border-color: var(--lightGreen);
+  color: var(--lightGreen);
   margin-top: 20px;
   height: 35px;
   width: 20em;
   background-color: var(--darkPink);
 }
 
-// Styles pour la ligne de séparation
 .ligneCo {
-  border: 1px solid #e5e7e2;
+  border: 1px solid var(--lightGreen);
   width: 80%;
 }
 
-// Styles pour les liens et messages
 .noAccountCo {
   cursor: pointer;
   font-style: italic;
@@ -168,7 +171,6 @@ body.active-modalCo {
   text-decoration: underline;
 }
 
-// Styles pour le bouton
 .buttonCo {
   color: var(--darkPink);
   font-family: Antic;
@@ -181,14 +183,14 @@ body.active-modalCo {
   transition: 0.5s;
   transition-property: box-shadow;
   background: var(--lightGreen);
-  box-shadow: 0 0 15px rgb(229, 231, 226);
+  box-shadow: 0 0 15px rgb(189, 201, 172);
   width: auto;
   margin-top: 40px;
   margin-bottom: 0px;
 
   &:hover {
     background: var(--lightGreen);
-    box-shadow: 0 0 25px rgb(229, 231, 226);
+    box-shadow: 0 0 25px rgb(189, 201, 172);
   }
 }
 
@@ -204,17 +206,16 @@ body.active-modalCo {
   transition: 0.5s;
   transition-property: box-shadow;
   background: var(--lightGreen);
-  box-shadow: 0 0 15px rgb(229, 231, 226);
+  box-shadow: 0 0 15px rgb(189, 201, 172);
   width: auto;
   margin-top: 40px;
 
   &:hover {
     background: var(--lightGreen);
-    box-shadow: 0 0 25px rgb(229, 231, 226);
+    box-shadow: 0 0 25px rgb(189, 201, 172);
   }
 }
 
-// Styles pour les bordures
 .borderCo {
   z-index: 99;
   padding: 14px 15px;
@@ -240,7 +241,6 @@ body.active-modalCo {
   background: var(--lightGreen);
   padding: 265px 50px;
   width: 530px;
-  /* height: 179px; */
 }
 
 .borderCo1Bis {
@@ -254,7 +254,6 @@ body.active-modalCo {
   width: 475px;
 }
 
-// Styles pour le titre
 .titleCo {
   font-size: 30px;
   margin-top: 20px;
@@ -325,8 +324,8 @@ body.active-modalCo {
   .inputCoBis {
     font-family: Play;
     border-radius: 3px;
-    border-color: #e5e7e2;
-    color: #e5e7e2;
+    border-color: var(--lightGreen);
+    color: var(--lightGreen);
     margin-top: 20px;
     height: 35px;
     width: 100%;
@@ -338,5 +337,13 @@ body.active-modalCo {
     font-size: 14px;
     cursor: pointer;
     margin-top: 11px;
+  }
+
+  .error {
+    text-align: center;
+    top: 330px;
+    font-size: 12px;
+    position: absolute;
+    color: var(--lightGreen);
   }
 }

@@ -25,7 +25,10 @@ function SellerCard({ seller, isSelected, onSelect, alternate }) {
           onSelect(seller.name);
         }
       }}
-      style={sellerCardStyle}
+      style={{
+        ...sellerCardStyle,
+        boxShadow: `0 0 4px ${seller.color}`,
+      }}
       // on ajout tabIndex pour rendre l'élément focusable via le clavier
       tabIndex="0"
       role="button"
@@ -38,6 +41,7 @@ function SellerCard({ seller, isSelected, onSelect, alternate }) {
             borderColor: seller.color,
             borderWidth: "1.5px",
             borderStyle: "solid",
+            boxShadow: `0 0 4px ${seller.color}`,
           }}
         >
           <img
@@ -47,7 +51,14 @@ function SellerCard({ seller, isSelected, onSelect, alternate }) {
           />
         </div>
       </div>
-      <div className="sellerCardName">{seller.name}</div>
+      <div
+        className="sellerCardName"
+        style={{
+          boxShadow: `0 0 4px ${seller.color}`,
+        }}
+      >
+        {seller.name}
+      </div>
     </div>
   );
 }

@@ -7,6 +7,9 @@ import Nouveautés from "../components/Nouveautés";
 import Phares from "../components/Phares";
 
 import { ModalProvider } from "../contexts/ConnexionContext";
+import Festival from "../components/Festival";
+import FooterBis from "../components/FooterBis";
+import Sellers from "../components/Sellers";
 
 function Home() {
   return (
@@ -17,7 +20,10 @@ function Home() {
       <BigTitle />
       <Nouveautés />
       <Comptoir />
+      <Sellers />
       <Phares />
+      <Festival />
+      <FooterBis />
     </ModalProvider>
   );
 }

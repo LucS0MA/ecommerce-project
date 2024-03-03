@@ -4,10 +4,18 @@
   margin: 100px 0;
   padding: 50px;
 
-  #ivyTopNew {
+  #ivyNew > :nth-child(1) {
     position: absolute;
     top: -7vh;
     left: 0;
+  }
+
+  #ivyNew > :nth-child(2) {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(40%);
+    right: 0;
+    z-index: -1;
   }
 
   #nouveautés-content {
@@ -15,10 +23,17 @@
     padding: 50px;
 
     #nouveautés-title {
-      color: rgba(141, 33, 76, 1);
+      background: linear-gradient(
+        180deg,
+        rgba(141, 33, 76, 1) 38%,
+        rgba(68, 35, 50, 1) 80%
+      );
+      background-clip: text;
+      color: transparent;
       font-family: "Abha", serif;
-      font-size: clamp(19px, 3.385vw, 76px);
-      margin: 50px auto 50px 200px;
+      font-size: clamp(1.2rem, 3.385vw, 76px);
+      text-align: center;
+      margin: 5vh auto;
     }
 
     #nouveautés-articles {
@@ -64,6 +79,20 @@
       #nouveautés-articles {
         flex-direction: column;
       }
+    }
+
+    #ivyNew > :nth-child(1) {
+      scale: 0.7;
+      top: -6rem;
+      left: -5.5rem;
+    }
+
+    #ivyNew > :nth-child(2) {
+      position: absolute;
+      bottom: 0;
+      transform: translateY(40%);
+      right: 0;
+      z-index: -1;
     }
   }
 }

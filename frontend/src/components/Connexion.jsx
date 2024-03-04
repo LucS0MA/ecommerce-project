@@ -237,6 +237,18 @@ function Connexion() {
                   <button className="buttonCoBis" type="submit">
                     CREÉ LE COMPTE
                   </button>
+                  <p className="noAcc">
+                    Vous avez déjà un compte ?{" "}
+                    <span
+                      onClick={toggleModalTwo}
+                      className="noAccountCo"
+                      onKeyDown=""
+                      tabIndex={0}
+                      role="button"
+                    >
+                      Connectez vous
+                    </span>
+                  </p>
                 </form>
               </div>
             </div>

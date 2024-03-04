@@ -213,6 +213,7 @@ body.active-modalTwoCo {
   box-shadow: 0 0 15px rgb(189, 201, 172);
   width: auto;
   margin-top: 40px;
+  margin-bottom: 10px;
 
   &:hover {
     background: var(--lightGreen);
@@ -265,7 +266,7 @@ body.active-modalTwoCo {
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--lightGreen);
-  padding: 240px 50px;
+  padding: 260px 50px;
   width: 475px;
 }
 
@@ -317,7 +318,7 @@ body.active-modalTwoCo {
 
   .borderCo1Bis {
     width: 50px;
-    padding: 243px 165px;
+    padding: 277px 165px;
   }
 
   .borderCo1 {

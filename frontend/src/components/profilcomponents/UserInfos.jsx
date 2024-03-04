@@ -53,23 +53,23 @@ function UserInfos() {
   return (
     <div>
       <div className="user-info">
-        <div className="tab-buttons">
+        <div className="user-buttons">
           <button
-            className={`tab-button ${subSectionActive === "infos" ? "active" : ""}`}
+            className={`user-button ${subSectionActive === "infos" ? "active" : ""}`}
             type="button"
             onClick={() => switchSubSection("infos")}
           >
             Informations personnelles
           </button>
           <button
-            className={`tab-button ${subSectionActive === "paiement" ? "active" : ""}`}
+            className={`user-button ${subSectionActive === "paiement" ? "active" : ""}`}
             type="button"
             onClick={() => switchSubSection("paiement")}
           >
             Informations de paiement
           </button>
         </div>
-        <div className="content-line" />
+        <div className="content-user-info" />
         {subSectionActive === "infos" && (
           <form className="user_form_info" onSubmit={handleSubmit}>
             <div className="fist-last-name-input">

@@ -13,19 +13,19 @@ INSERT INTO utilisateurs (
 INSERT INTO articles (
   nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité
 ) VALUES (
-  "BOUCLE D’OREILLES FEUILLES LOTUS", "/static/boucles_oreilles.png", 25.00, NOW(), 0, 5, "Elya", 12
+  "BOUCLE D’OREILLES FEUILLES LOTUS", "/static/boucles_oreilles.png", 25.00, NOW(), 10, 5, "Elya", 12
 ) , (
-  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.00, NOW(), 0, 15, "Achlys", 9
+  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 49.99, NOW(), 1, 15, "Achlys", 9
 ) , (
-  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 0, 32, "Doireann", 3
+  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 19.49, NOW(), 6, 32, "Doireann", 3
 ) , (
-  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.00, NOW(), 0, 15, "Achlys", 9
+  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.49, NOW(), 8, 15, "Achlys", 9
 ) , (
-  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 0, 32, "Doireann", 3
+  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 2, 32, "Doireann", 3
 ) , (
-  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.00, NOW(), 0, 15, "Achlys", 9
+  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.99, NOW(), 20, 15, "Achlys", 9
 ) , (
-  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 0, 32, "Doireann", 3
+  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 2, 32, "Doireann", 3
 );
 
 INSERT INTO couleurs (

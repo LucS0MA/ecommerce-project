@@ -9,7 +9,7 @@ function Phares() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3310/api/articles")
+      .get("http://localhost:3310/api/articles/?phares=1&limit=3")
       .then((data) => setArticles(data.data));
   }, []);
 
@@ -25,6 +25,7 @@ function Phares() {
           {articles.map((article) => (
             <Article
               key={article.id}
+              id={article.id}
               image={`http://localhost:3310${article.image}`}
               nom={article.nom}
               vendeuse={article.vendeuse}

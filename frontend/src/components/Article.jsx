@@ -1,9 +1,10 @@
+import axios from "axios";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "../styles/Article.scss";
 
-function Article({ image, nom, vendeuse, prix, isFav }) {
+function Article({ id, image, nom, vendeuse, prix }) {
   // const coeur = `<svg width="28.48" height="23.98" viewBox="0 0 30 25" fill="none" xmlns="http://www.w3.org/2000/svg">
   // <path d="M13.7311 22.2161L13.7296 22.2149C10.0411 19.1461 7.0645 16.6675 4.99804 14.3495C2.93954 12.0405 1.91382 10.0303 1.91382 7.91848C1.91382 4.52577 4.82965 1.73218 8.74647 1.73218C10.9524 1.73218 13.0631 2.67912 14.422 4.14326L15.155 4.93294L15.8879 4.14326C17.2469 2.67912 19.3576 1.73218 21.5635 1.73218C25.4803 1.73218 28.3962 4.52577 28.3962 7.91848C28.3962 10.0303 27.3704 12.0405 25.3117 14.3514C23.2452 16.671 20.269 19.1526 16.5808 22.2276C16.5804 22.2279 16.58 22.2283 16.5796 22.2286L15.1574 23.4074L13.7311 22.2161Z" stroke="#442332" stroke-width="2"/>
   // </svg>`;
@@ -20,7 +21,34 @@ function Article({ image, nom, vendeuse, prix, isFav }) {
   // <path d="M27.9133 17.3716V17.3716C25.2325 16.5153 23.0252 14.5832 21.8508 12.0525L21.2749 10.8116M21.2749 10.8116L21.8452 12.0405C23.0232 14.5789 25.2244 16.5127 27.9133 17.3716" stroke="#442332" stroke-linecap="round"/>
   // </svg>`;
 
-  const [fav, setFav] = useState(isFav);
+  const [userId] = useState(1);
+  const [articleId] = useState(id);
+  const [fav, setFav] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3310/api/isFav/?utilisateur_id=${userId}&article_id=${articleId}`
+      )
+      .then((data) => (data.data ? setFav(true) : setFav(false)));
+  }, []);
+
+  const axiosPost = () => {
+    axios.post("http://localhost:3310/api/isFav/", {
+      utilisateur_id: userId,
+      article_id: articleId,
+    });
+    console.info(articleId, "post");
+    setFav(true);
+  };
+
+  const axiosDelete = () => {
+    axios.delete(
+      `http://localhost:3310/api/isFav/?utilisateur_id=${userId}&article_id=${articleId}`
+    );
+    console.info(articleId, "delete");
+    setFav(false);
+  };
 
   return (
     <div className={`article-container ${vendeuse}`}>
@@ -40,7 +68,7 @@ function Article({ image, nom, vendeuse, prix, isFav }) {
       <div className="article-logos">
         {fav ? (
           <svg
-            onClick={() => setFav(!fav)}
+            onClick={() => (!fav ? axiosPost() : axiosDelete())}
             className="article-logo article-fav"
             width="28.48"
             height="23.98"
@@ -57,7 +85,7 @@ function Article({ image, nom, vendeuse, prix, isFav }) {
           </svg>
         ) : (
           <svg
-            onClick={() => setFav(!fav)}
+            onClick={() => (!fav ? axiosPost() : axiosDelete())}
             className="article-logo article-fav"
             width="28.48"
             height="23.98"
@@ -127,11 +155,11 @@ function Article({ image, nom, vendeuse, prix, isFav }) {
 }
 
 Article.propTypes = {
+  id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,
   vendeuse: PropTypes.string.isRequired,
   prix: PropTypes.string.isRequired,
-  isFav: PropTypes.bool.isRequired,
 };
 
 export default Article;

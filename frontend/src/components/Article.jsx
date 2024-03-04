@@ -21,22 +21,22 @@ function Article({ id, image, nom, vendeuse, prix }) {
   // <path d="M27.9133 17.3716V17.3716C25.2325 16.5153 23.0252 14.5832 21.8508 12.0525L21.2749 10.8116M21.2749 10.8116L21.8452 12.0405C23.0232 14.5789 25.2244 16.5127 27.9133 17.3716" stroke="#442332" stroke-linecap="round"/>
   // </svg>`;
 
-  const [userId] = useState(1);
+  const [utilisateurId] = useState(1);
   const [articleId] = useState(id);
   const [fav, setFav] = useState(false);
 
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3310/api/isFav/?utilisateur_id=${userId}&article_id=${articleId}`
+        `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
       )
       .then((data) => (data.data ? setFav(true) : setFav(false)));
   }, []);
 
   const axiosPost = () => {
     axios.post("http://localhost:3310/api/isFav/", {
-      utilisateur_id: userId,
-      article_id: articleId,
+      utilisateurId,
+      articleId,
     });
     console.info(articleId, "post");
     setFav(true);
@@ -44,7 +44,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
 
   const axiosDelete = () => {
     axios.delete(
-      `http://localhost:3310/api/isFav/?utilisateur_id=${userId}&article_id=${articleId}`
+      `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
     );
     console.info(articleId, "delete");
     setFav(false);

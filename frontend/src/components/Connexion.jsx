@@ -48,7 +48,7 @@ function Connexion() {
           setPasswordCo("");
           setAccountCreated(true);
         });
-      // .catch((err) => console.log(err));
+      // console.log("Email :", emailReg, "Password :", passwordReg);
     } else {
       setPasswordError(true);
     }

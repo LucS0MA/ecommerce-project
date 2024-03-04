@@ -13,9 +13,23 @@ function Connexion() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
+  const [authentification, setAuthentification] = useState(false);
 
   const handleSubmitCo = (e) => {
     e.preventDefault();
+
+    axios
+      .post("http://localhost:3310/api/auth/login", {
+        email: emailCo,
+        password: passwordCo,
+      })
+      .then((response) => {
+        setAuthentification(true);
+        console.info(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const closeAccountCreated = () => {
@@ -78,59 +92,71 @@ function Connexion() {
             className="overlayCo"
             aria-label="Close Modal"
           />
-          <div className="borderCo1" />
+          <div
+            className={`borderCo1 ${authentification ? "borderCo1Success" : "borderCo1"}`}
+          />
           <div className="modal-contentCo">
             <div className="borderCo">
-              <h2 className="titleCo">SE CONNECTER</h2>
+              {authentification ? (
+                ""
+              ) : (
+                <h2 className="titleCo">SE CONNECTER</h2>
+              )}
               <div className="modalContainerCo">
-                <img className="flowerCo" src={flower} alt="" />
-                <form className="formCo" onSubmit={handleSubmitCo}>
-                  <div>
-                    <label className="labelHidden" htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      className="inputCo"
-                      placeholder="Email"
-                      type="email"
-                      id="emailCo"
-                      value={emailCo}
-                      onChange={(e) => setEmailCo(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="labelHidden" htmlFor="password">
-                      Mdp
-                    </label>
-                    <input
-                      className="inputCo"
-                      placeholder="Mot de passe"
-                      type="password"
-                      id="passwordCo"
-                      value={passwordCo}
-                      onChange={(e) => setPasswordCo(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <p className="forgotCo">Mot de passe oublié ?</p>
-                  <button className="buttonCo" type="submit">
-                    Se connecter
-                  </button>
-                </form>
-                <div className="ligneCo" />
-                <p className="noAcc">
-                  Pas encore de compte ?{" "}
-                  <span
-                    onClick={toggleModalTwo}
-                    className="noAccountCo"
-                    onKeyDown=""
-                    tabIndex={0}
-                    role="button"
-                  >
-                    Crée ton compte
-                  </span>
-                </p>
+                {authentification ? (
+                  <h3 className="AuthSuccess">Connexion réussie !</h3>
+                ) : (
+                  <>
+                    <img className="flowerCo" src={flower} alt="" />
+                    <form className="formCo" onSubmit={handleSubmitCo}>
+                      <div>
+                        <label className="labelHidden" htmlFor="email">
+                          Email
+                        </label>
+                        <input
+                          className="inputCo"
+                          placeholder="Email"
+                          type="email"
+                          id="emailCo"
+                          value={emailCo}
+                          onChange={(e) => setEmailCo(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="labelHidden" htmlFor="password">
+                          Mdp
+                        </label>
+                        <input
+                          className="inputCo"
+                          placeholder="Mot de passe"
+                          type="password"
+                          id="passwordCo"
+                          value={passwordCo}
+                          onChange={(e) => setPasswordCo(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <p className="forgotCo">Mot de passe oublié ?</p>
+                      <button className="buttonCo" type="submit">
+                        Se connecter
+                      </button>
+                    </form>
+                    <div className="ligneCo" />
+                    <p className="noAcc">
+                      Pas encore de compte ?{" "}
+                      <span
+                        onClick={toggleModalTwo}
+                        className="noAccountCo"
+                        onKeyDown=""
+                        tabIndex={0}
+                        role="button"
+                      >
+                        Crée ton compte
+                      </span>
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>

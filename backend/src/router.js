@@ -39,6 +39,7 @@ router.get("/utilisateurs/:id", utilisateursControllers.read);
 router.post("/utilisateurs", utilisateursControllers.add);
 router.put("/utilisateurs/:id", utilisateursControllers.edit);
 router.delete("/utilisateurs/:id", utilisateursControllers.destroy);
+router.post("/auth/login", utilisateursControllers.login);
 
 router.get("/festivals", fesitvalsControllers.browse);
 router.get("/festivals/:id", fesitvalsControllers.read);

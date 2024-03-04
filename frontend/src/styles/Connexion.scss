@@ -159,6 +159,10 @@ body.active-modalTwoCo {
   color: var(--lightGreen);
 }
 
+.AuthSuccess {
+  color: var(--lightGreen);
+}
+
 .forgotCo {
   margin-right: 190px;
   position: relative;
@@ -243,6 +247,17 @@ body.active-modalTwoCo {
   width: 530px;
 }
 
+.borderCo1Success {
+  z-index: 99;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--lightGreen);
+  padding: 60px 50px;
+  width: 530px;
+}
+
 .borderCo1Bis {
   z-index: 99;
   position: absolute;
@@ -309,6 +324,10 @@ body.active-modalTwoCo {
     padding: 260px 20px;
     width: 90%;
     max-width: 330px;
+  }
+
+  .borderCo1Success {
+    padding: 50px 50px;
   }
 
   .btn-modalCo {

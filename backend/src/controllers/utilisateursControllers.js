@@ -80,6 +80,25 @@ const destroy = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Rechercher l'utilisateur dans la base de données en fonction de l'email
+    const utilisateur = await models.utilisateurs.findByEmail(email);
+
+    // Vérifier si l'utilisateur existe et si le mot de passe correspond
+    if (utilisateur && utilisateur.password === password) {
+      res.status(200).json({ message: "Connexion réussie", utilisateur });
+    } else {
+      res.status(401).json({ message: "Identifiants incorrects" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
 // The D of BREAD - Destroy (Delete) operation
 // This operation is not yet implemented
 
@@ -90,4 +109,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  login,
 };

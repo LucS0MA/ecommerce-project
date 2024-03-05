@@ -53,22 +53,46 @@ class ArticlesManager extends AbstractManager {
     const select = sql;
     const sqlValues = [];
 
+    // Filtrer par 'nom'
+    if (filtres.nom) {
+      sql += " WHERE nom LIKE ? ";
+      sqlValues.push(filtres.nom);
+    } else {
+      sql += " WHERE nom LIKE ? ";
+      sqlValues.push("%");
+    }
+
+    // Filtrer par 'prix'
+    if (filtres.minPrix) {
+      sql += "AND prix >= ?";
+      sqlValues.push(parseInt(filtres.minPrix, 10));
+
+      // MINPRIX +
+      if (filtres.maxPrix) {
+        sql += " AND prix <= ?";
+        sqlValues.push(parseInt(filtres.maxPrix, 10));
+      }
+    } else if (filtres.maxPrix) {
+      sql += "AND prix <= ?";
+      sqlValues.push(parseInt(filtres.maxPrix, 10));
+    }
+
     // Filtrer par...
     if (filtres.couleurs) {
       if (filtres.couleurs[1].length > 1) {
-        for (let i = 0; i < filtres.couleurs.length; i + 1) {
+        for (let i = 0; i < filtres.couleurs.length; i += 1) {
           sql += ` INTERSECT ${select}WHERE couleurs.couleur = ?`;
           sqlValues.push(filtres.couleurs[i]);
         }
       } else {
-        sql += "WHERE couleurs.couleur = ?";
+        sql += "AND couleurs.couleur = ?";
         sqlValues.push(filtres.couleurs);
       }
 
       // COULEURS +
       if (filtres.thematiques) {
         if (filtres.thematiques[1].length > 1) {
-          for (let i = 0; i < filtres.thematiques.length; i + 1) {
+          for (let i = 0; i < filtres.thematiques.length; i += 1) {
             sql += ` INTERSECT ${select}WHERE thematiques.thematique = ?`;
             sqlValues.push(filtres.thematiques[i]);
           }
@@ -80,7 +104,7 @@ class ArticlesManager extends AbstractManager {
         // COULEURS + THEMATIQUES +
         if (filtres.types) {
           if (filtres.types[1].length > 1) {
-            for (let i = 0; i < filtres.types.length; i + 1) {
+            for (let i = 0; i < filtres.types.length; i += 1) {
               sql += ` INTERSECT ${select}WHERE types.type = ?`;
               sqlValues.push(filtres.types[i]);
             }
@@ -91,7 +115,7 @@ class ArticlesManager extends AbstractManager {
         }
       } else if (filtres.types) {
         if (filtres.types[1].length > 1) {
-          for (let i = 0; i < filtres.types.length; i + 1) {
+          for (let i = 0; i < filtres.types.length; i += 1) {
             sql += ` INTERSECT ${select}WHERE types.type = ?`;
             sqlValues.push(filtres.types[i]);
           }
@@ -102,19 +126,19 @@ class ArticlesManager extends AbstractManager {
       }
     } else if (filtres.thematiques) {
       if (filtres.thematiques[1].length > 1) {
-        for (let i = 0; i < filtres.thematiques.length; i + 1) {
+        for (let i = 0; i < filtres.thematiques.length; i += 1) {
           sql += ` INTERSECT ${select}WHERE thematiques.thematique = ?`;
           sqlValues.push(filtres.thematiques[i]);
         }
       } else {
-        sql += "WHERE thematiques.thematique = ?";
+        sql += "AND thematiques.thematique = ?";
         sqlValues.push(filtres.thematiques);
       }
 
       // THEMATIQUES +
       if (filtres.types) {
         if (filtres.types[1].length > 1) {
-          for (let i = 0; i < filtres.types.length; i + 1) {
+          for (let i = 0; i < filtres.types.length; i += 1) {
             sql += ` INTERSECT ${select}WHERE types.type = ?`;
             sqlValues.push(filtres.types[i]);
           }
@@ -125,12 +149,12 @@ class ArticlesManager extends AbstractManager {
       }
     } else if (filtres.types) {
       if (filtres.types[1].length > 1) {
-        for (let i = 0; i < filtres.types.length; i + 1) {
+        for (let i = 0; i < filtres.types.length; i += 1) {
           sql += ` INTERSECT ${select}WHERE types.type = ?`;
           sqlValues.push(filtres.types[i]);
         }
       } else {
-        sql += "WHERE types.type = ?";
+        sql += "AND types.type = ?";
         sqlValues.push(filtres.types);
       }
     }

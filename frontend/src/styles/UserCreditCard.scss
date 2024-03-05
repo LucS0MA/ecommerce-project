@@ -62,7 +62,7 @@
 .input-group {
   margin: 0.5rem 0;
 
-  label {
+  .labels-cb {
     font-family: Antic;
     color: var(--lightGreen);
     font-weight: lighter;
@@ -70,7 +70,7 @@
     margin-bottom: 5px;
   }
 
-  input {
+  .inputs-cb {
     color: var(--lightGreen);
     width: 100%;
     background-color: var(--darkPink);

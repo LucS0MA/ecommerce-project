@@ -168,6 +168,14 @@ class UtilisateursManager extends AbstractManager {
   // async delete(id) {
   //   ...
   // }
+  async findByEmail(email) {
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE email = ?`,
+      [email]
+    );
+
+    return rows[0];
+  }
 }
 
 module.exports = UtilisateursManager;

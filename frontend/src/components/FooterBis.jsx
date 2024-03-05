@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/FooterBis.scss";
-import Icon from "../assets/seelieF.png";
+import Icon from "../assets/logoFooter.svg";
 import Insta from "../assets/instag.png";
 import Fb from "../assets/fb.png";
 import Tiktok from "../assets/tiktok.png";

@@ -102,11 +102,15 @@
     flex-direction: column;
     align-items: center;
   }
+  .copyRight {
+    visibility: hidden;
+    display: none;
+  }
 
   .footer-left,
   .footer-right {
-    width: 100%;
-    gap: 2em;
+    width: 80%;
+    gap: 5em;
     justify-content: center;
   }
 
@@ -115,5 +119,12 @@
   .footer-others {
     text-align: center;
     gap: 1em;
+    width: 45%;
+  }
+  .social-icon {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
   }
 }

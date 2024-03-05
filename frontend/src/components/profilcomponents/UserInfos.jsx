@@ -20,9 +20,11 @@ function UserInfos() {
     telephone: "",
   });
 
+  // on utilise le Useeffect pour excuter le code au montage du composant
+  // ici on fait une requête GET pour récupérer les données de l'utilisateur depuis la BDD
   useEffect(() => {
     axios
-      .get("http://localhost:3310/api/utilisateurs/2")
+      .get("http://localhost:3310/api/utilisateurs/1")
       .then((response) => {
         const {
           nom,
@@ -35,13 +37,14 @@ function UserInfos() {
           pays,
           telephone,
         } = response.data;
+        // on met a jout l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
         setFormData({
           nom,
           prenom: prénom,
           email,
           adresse1,
           adresse2,
-          codePostal: CP, // Assurez-vous que la clé correspond à votre modèle de données
+          codePostal: CP,
           ville,
           pays,
           telephone,
@@ -53,24 +56,24 @@ function UserInfos() {
           error
         )
       );
-  }, []); // Le tableau vide assure que l'effet ne s'exécute qu'une fois après le premier rendu
+  }, []); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois
 
-  // Définition de la fonction handleInputChange
+  // la on va gérer les changements avec le HandleInputChange
+  // on met à jour 'formData' avec les nouvelles valeurs saisies par l'utilisateur
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target; // on recupern le nom et la valeur de l'élément de formulaire modifié
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
+      ...prevFormData, // Copie de l'état précédent.
+      [name]: value, // Mise à jour de la propriété modifiée. Ex : si on modifie le nom on met à jour la propriété nom
     }));
   };
 
+  // on va gérer la soumission du formulaire
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
-      // Utilisation de PUT pour une mise à jour, avec l'ID de l'utilisateur dans l'URL
-      await axios.put("http://localhost:3110/api/utilisateurs/2", formData);
-      console.info("Mise à jour réussie");
-      // Réinitialiser le formulaire ou effectuer d'autres opérations après la mise à jour
+      await axios.put("http://localhost:3310/api/utilisateurs/1", formData); // on fait une requete PUT pour mettre à jour les données de l'utilisateur dans la bdd
+      console.info(formData);
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'utilisateur", error);
     }
@@ -210,7 +213,7 @@ function UserInfos() {
               required
             />
             <div className="submit-container">
-              <button className="button-info-send" type="button">
+              <button className="button-info-send" type="submit">
                 Enregistrer
               </button>
             </div>

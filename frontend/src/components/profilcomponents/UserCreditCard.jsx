@@ -47,15 +47,14 @@ function UserCreditCard() {
     const formattedValue = value
       .replace(
         /[^0-9]/g,
-        "" // Supprime tous les caractères non numériques
+        "" // Là on supprime tous les caracteres non numériques
       )
       .replace(
         /^([0-9]{2})/,
-        "$1 / " // Ajoute ' / ' après 2 chiffres
+        "$1 / " // Automatiquement ca va jouter ' / ' après 2 chiffres
       )
-      .slice(0, 7); // Limite à 7 caractères pour le format 'MM / AA'
+      .slice(0, 7); // Ca ne marchait pas avec 0, 5, je l'ai changé en 0, 7
 
-    // Met à jour l'état avec la valeur formatée
     setCardInfo((prevInfo) => ({
       ...prevInfo,
       expiration: formattedValue,

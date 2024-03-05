@@ -53,6 +53,7 @@ class ArticlesManager extends AbstractManager {
     const select = sql;
     const sqlValues = [];
 
+    // Filtrer par...
     if (filtres.couleurs) {
       if (filtres.couleurs[1].length > 1) {
         for (let i = 0; i < filtres.couleurs.length; i + 1) {
@@ -134,6 +135,19 @@ class ArticlesManager extends AbstractManager {
       }
     }
 
+    // Trier par...
+    if (parseInt(filtres.nouveautes, 10) === 1) {
+      sql += "ORDER BY ajout_date DESC";
+    } else if (parseInt(filtres.phares, 10) === 1) {
+      sql += "ORDER BY nb_ventes DESC";
+    }
+
+    // LIMIT
+    if (filtres.limit) {
+      sql += " LIMIT ?";
+      sqlValues.push(parseInt(filtres.limit, 10));
+    }
+
     // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await this.database.query(sql, sqlValues);
 
@@ -173,12 +187,12 @@ class ArticlesManager extends AbstractManager {
     if (article.ajoutDate) {
       ajoutDate = article.ajoutDate;
     } else if (product[0]) {
-      ajoutDate = product[0].ajoutDate;
+      ajoutDate = product[0].ajout_date;
     }
     if (article.nbVentes) {
       nbVentes = article.nbVentes;
     } else if (product[0]) {
-      nbVentes = product[0].nbVentes;
+      nbVentes = product[0].nb_ventes;
     }
     if (article.taille) {
       taille = article.taille;

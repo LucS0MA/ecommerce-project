@@ -73,91 +73,120 @@ function UserInfos() {
         {subSectionActive === "infos" && (
           <form className="user_form_info" onSubmit={handleSubmit}>
             <div className="fist-last-name-input">
-              <label htmlFor="nom">Nom</label>
+              <label className="labels-info" htmlFor="nom">
+                Nom
+              </label>
               <input
                 type="text"
                 name="nom"
                 id="nom"
+                className="inputs-info input-name-info"
                 value={formData.nom}
                 onChange={handleInputChange}
                 required
               />
-              <label htmlFor="prenom">Prénom</label>
+              <label className="labels-info" htmlFor="prenom">
+                Prénom
+              </label>
               <input
                 type="text"
                 name="prénom"
                 id="prenom"
+                className="inputs-info input-firstname-info"
                 value={formData.prenom}
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <label htmlFor="email">Email</label>
+            <label className="labels-info" htmlFor="email">
+              Email
+            </label>
             <input
               type="email"
               name="email"
               id="email"
+              className="inputs-info input-email-info"
               value={formData.email}
               onChange={handleInputChange}
               readOnly
             />
-            <label htmlFor="adresse1">Adresse 1</label>
+            <label className="labels-info" htmlFor="adresse1">
+              Adresse 1
+            </label>
             <input
               type="text"
               name="adresse1"
               id="adresse1"
+              className="inputs-info input-add1-info"
               value={formData.adresse1}
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="adresse2">Adresse 2</label>
+            <label className="labels-info" htmlFor="adresse2">
+              Adresse 2
+            </label>
             <input
               type="text"
               name="adresse2"
               id="adresse2"
+              className="inputs-info input-add2-info"
               value={formData.adresse2}
               onChange={handleInputChange}
               required
             />
             <div className="city-cp-input">
-              <label htmlFor="codePostal">Code Postal</label>
+              <label className="labels-info" htmlFor="codePostal">
+                Code Postal
+              </label>
               <input
                 type="number"
                 name="CP"
                 id="codePostal"
+                className="inputs-info input-cp-info"
                 value={formData.codePostal}
                 onChange={handleInputChange}
               />
-              <label htmlFor="ville">Ville</label>
+              <label className="labels-info" htmlFor="ville">
+                Ville
+              </label>
               <input
                 type="text"
                 name="ville"
                 id="ville"
+                className="inputs-info input-city-info"
                 value={formData.ville}
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <label htmlFor="pays">Pays</label>
+            <label className="labels-info" htmlFor="pays">
+              Pays
+            </label>
             <input
               type="text"
               name="pays"
               id="pays"
+              className="inputs-info input-country-info"
               value={formData.pays}
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="telephone">Numéro de téléphone</label>
+            <label className="labels-info" htmlFor="telephone">
+              Numéro de téléphone
+            </label>
             <input
               type="tel"
               name="telepphone"
               id="phone"
+              className="inputs-info input-phone-info"
               value={formData.telephone}
               onChange={handleInputChange}
               required
             />
             <div className="submit-container">
-              <button type="submit">Enregistrer</button>
+              <button className="button-info-send" type="button">
+                Enregistrer
+              </button>
             </div>
           </form>
         )}

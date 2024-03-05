@@ -89,42 +89,54 @@ function UserCreditCard() {
       </div>
 
       <div className="input-group">
-        <label htmlFor="nom">Nom</label>
+        <label className="labels-cb" htmlFor="nom">
+          Nom
+        </label>
         <input
           type="text"
           id="nom"
           name="nom"
+          className="inputs-cb input-name-cb"
           value={cardInfo.nom}
           onChange={handleInputChange}
         />
       </div>
       <div className="input-group">
-        <label htmlFor="numero">Numéro de la carte</label>
+        <label className="labels-cb" htmlFor="numero">
+          Numéro de la carte
+        </label>
         <input
           type="text"
           id="numero"
           name="numero"
+          className="inputs-cb input-number-cb"
           value={cardInfo.numero}
           maxLength={16}
           onChange={handleInputChange}
         />
       </div>
       <div className="input-group">
-        <label htmlFor="expiration">Date d'expiration</label>
+        <label className="labels-cb" htmlFor="expiration">
+          Date d'expiration
+        </label>
         <input
           type="text"
           id="expiration"
           name="expiration"
+          className="inputs-cb input-exp-cb"
           value={cardInfo.expiration}
           onChange={handleInputChange}
         />
       </div>
       <div className="input-group">
-        <label htmlFor="cvv">CVV / CCV</label>
+        <label className="labels-cb" htmlFor="cvv">
+          CVV / CCV
+        </label>
         <input
           type="password"
           id="cvv"
           name="cvv"
+          className="inputs-cb input-cvv-cb"
           value={cardInfo.cvv}
           onChange={handleInputChange}
           maxLength={3}

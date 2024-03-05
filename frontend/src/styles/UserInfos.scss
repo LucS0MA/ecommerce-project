@@ -79,11 +79,11 @@
     margin-top: 1.5vh;
   }
 }
-#phone {
+.input-phone-info {
   width: 60%;
 }
 
-input {
+.inputs-info {
   font-family: Antic;
   color: var(--lightGreen);
   font-weight: lighter;
@@ -96,7 +96,7 @@ input {
   }
 }
 
-label {
+.labels-info {
   margin-top: 1.5vh;
   font-family: Antic;
   color: var(--lightGreen);
@@ -104,7 +104,7 @@ label {
   text-transform: uppercase;
   margin-bottom: 2px;
 }
-#email {
+.input-email-info {
   width: 80%;
 }
 
@@ -113,7 +113,7 @@ label {
   justify-content: end;
   margin-top: 10px;
 }
-button[type="submit"] {
+.button-info-send {
   background: var(--pink);
   border: none;
   padding: 20px 60px;

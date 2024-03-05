@@ -1,4 +1,5 @@
 import Connexion from "../components/Connexion";
+import FiltresArticles from "../components/FiltresArticles";
 import FooterBis from "../components/FooterBis";
 import Navbar from "../components/Navbar";
 import { ModalProvider } from "../contexts/ConnexionContext";
@@ -11,7 +12,7 @@ function Catalogue() {
         <Connexion />
       </header>
       <main>
-        <h1>Catalogue</h1>
+        <FiltresArticles />
       </main>
       <footer>
         <FooterBis />

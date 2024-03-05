@@ -1,0 +1,104 @@
+.filtres_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #bdc9ac;
+  color: #bdc9ac;
+  width: 22%;
+  height: 100%;
+  padding: 5% 2% 5% 2%;
+  margin-left: 1%;
+  font-size: 0.7rem;
+  gap: 30px;
+}
+
+.filters_title {
+  text-align: center;
+  font-size: 1.7rem;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 2px #bdc9ac;
+  height: 40px;
+  gap: 15px;
+  background-color: #442332;
+  margin: 30px 0px 30px 0px;
+  padding-left: 5px;
+}
+
+.input_search {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: #442332;
+  color: #bdc9ac;
+}
+.input_search::placeholder {
+  color: #bdc9ac;
+}
+
+.filtre_container {
+  margin-bottom: 30px;
+}
+
+.filtre_title {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  padding-bottom: 20px;
+  gap: 2px;
+}
+
+.label_price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.input_range {
+  width: 100%;
+  accent-color: #b86a46;
+}
+
+.thematique_buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.thematique_button {
+  background-color: #442332;
+  color: #bdc9ac;
+  border: 2px solid #bdc9ac;
+  height: 50px;
+  font-size: 0.7rem;
+
+  &:hover {
+    background-color: #bdc9ac;
+    color: #442332;
+  }
+}
+
+.types_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.type_button {
+  margin-right: 10px;
+  font-size: 0.7rem;
+  accent-color: #bdc9ac;
+}
+
+.colors_buttons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}

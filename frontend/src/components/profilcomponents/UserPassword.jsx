@@ -22,7 +22,9 @@ function UserChangePassword({ handleInputChange, handleSubmit }) {
         placeholder="Confirmer nouveau mot de passe"
         onChange={handleInputChange}
       />
-      <button type="submit">Changer le mot de passe</button>
+      <button className="button-psw-send" type="button">
+        Changer le mot de passe
+      </button>
     </form>
   );
 }

@@ -4,6 +4,7 @@ import { ProfileProvider } from "../components/profilcomponents/ProfileContext";
 import ProfilContainer from "../components/profilcomponents/ProfilContainer"; // Importez ProfilContainer
 import NavBar from "../components/Navbar";
 import { ModalProvider } from "../contexts/ConnexionContext";
+import FooterBis from "../components/FooterBis";
 
 function Profil() {
   return (
@@ -15,6 +16,7 @@ function Profil() {
           {/* Ceci inclut MenuProfil et le contenu conditionnel */}
         </div>
       </ProfileProvider>
+      <FooterBis />
     </ModalProvider>
   );
 }

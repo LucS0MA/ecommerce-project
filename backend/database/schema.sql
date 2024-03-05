@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`articles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
   `image` VARCHAR(45) NOT NULL,
-  `prix` INT NOT NULL,
+  `prix` FLOAT NOT NULL,
   `ajout_date` DATETIME NOT NULL,
   `nb_ventes` INT NULL DEFAULT NULL,
   `taille` INT NOT NULL,
@@ -325,6 +325,31 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`retours` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Table `le_comptoir_des_seelies`.`isFav`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`isFav` (
+  `utilisateurs_id` INT NOT NULL,
+  `articles_id` INT NOT NULL,
+  PRIMARY KEY (`utilisateurs_id`, `articles_id`),
+  INDEX `fk_isFav_articles1_idx` (`articles_id` ASC) VISIBLE,
+  CONSTRAINT `fk_isFav_utilisateurs1`
+    FOREIGN KEY (`utilisateurs_id`)
+    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_isFav_articles1`
+    FOREIGN KEY (`articles_id`)
+    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

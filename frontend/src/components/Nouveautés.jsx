@@ -1,12 +1,20 @@
-import { useRef } from "react";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import Article from "./Article";
-import imageSRC from "../assets/image 6.png";
 import "../styles/Nouveautés.scss";
 import IvyBranch1 from "./animations/svg/IvyBranch1";
 import IvyAnimation from "./animations/IvyAnimation";
 
 function Nouveautés() {
   const ivyRef = useRef(null);
+
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/articles/?nouveautes=1&limit=3")
+      .then((data) => setArticles(data.data));
+  }, []);
 
   return (
     <section id="nouveautés">
@@ -21,27 +29,16 @@ function Nouveautés() {
       <div id="nouveautés-content">
         <h2 id="nouveautés-title">NOUVEAUTÉS SUR LE SITE</h2>
         <div id="nouveautés-articles">
-          <Article
-            image={imageSRC}
-            nom="BOUCLE D’OREILLES FEUILLES LOTUS"
-            vendeuse="Elya"
-            prix="25,00 €"
-            isFav={false}
-          />
-          <Article
-            image={imageSRC}
-            nom="ILLUSTRATION SIRENE"
-            vendeuse="Achlys"
-            prix="25,00 €"
-            isFav={false}
-          />
-          <Article
-            image={imageSRC}
-            nom="PELUCHE CHAMPIGNON"
-            vendeuse="Doireann"
-            prix="25,00 €"
-            isFav={false}
-          />
+          {articles.map((article) => (
+            <Article
+              key={article.id}
+              id={article.id}
+              image={`http://localhost:3310${article.image}`}
+              nom={article.nom}
+              vendeuse={article.vendeuse}
+              prix={`${article.prix} €`}
+            />
+          ))}
           <button type="button">EN VOIR PLUS</button>
         </div>
       </div>

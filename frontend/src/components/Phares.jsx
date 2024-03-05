@@ -1,9 +1,18 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Article from "./Article";
-import imageSRC from "../assets/image 6.png";
 import Star2 from "./animations/svg/Star2";
 import "../styles/Phares.scss";
 
 function Phares() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/articles/?phares=1&limit=3")
+      .then((data) => setArticles(data.data));
+  }, []);
+
   return (
     <section id="phares">
       <div id="phares-title">
@@ -13,27 +22,17 @@ function Phares() {
       </div>
       <div id="phares-articles">
         <div id="phares-articles-content">
-          <Article
-            image={imageSRC}
-            nom="BOUCLE D’OREILLES FEUILLES LOTUS"
-            vendeuse="Elya"
-            prix="25,00 €"
-            isFav={false}
-          />
-          <Article
-            image={imageSRC}
-            nom="ILLUSTRATION SIRENE"
-            vendeuse="Achlys"
-            prix="25,00 €"
-            isFav={false}
-          />
-          <Article
-            image={imageSRC}
-            nom="PELUCHE CHAMPIGNON"
-            vendeuse="Doireann"
-            prix="25,00 €"
-            isFav={false}
-          />
+          {articles.map((article) => (
+            <Article
+              key={article.id}
+              id={article.id}
+              image={`http://localhost:3310${article.image}`}
+              nom={article.nom}
+              vendeuse={article.vendeuse}
+              prix={`${article.prix} €`}
+              isFav={false}
+            />
+          ))}
         </div>
       </div>
     </section>

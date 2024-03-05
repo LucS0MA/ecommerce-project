@@ -5,7 +5,8 @@ import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
 function Connexion() {
-  const { modal, modalTwo, closeModal, toggleModalTwo } = useConnexionContext();
+  const { modal, modalTwo, closeModal, toggleModalTwo, setAuthentification } =
+    useConnexionContext();
   const [emailReg, setEmailReg] = useState("");
   const [emailCo, setEmailCo] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
@@ -13,7 +14,7 @@ function Connexion() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
-  const [authentification, setAuthentification] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const handleSubmitCo = (e) => {
     e.preventDefault();
@@ -25,6 +26,8 @@ function Connexion() {
       })
       .then((response) => {
         setAuthentification(true);
+        localStorage.setItem("authentification", "true");
+        setLoginSuccess(true);
         console.info(response.data);
       })
       .catch((error) => {
@@ -85,7 +88,9 @@ function Connexion() {
       {modal && (
         <div className="modalCo">
           <div
-            onClick={closeModal}
+            onClick={() => {
+              closeModal();
+            }}
             onKeyDown=""
             tabIndex={0}
             role="button"
@@ -93,17 +98,13 @@ function Connexion() {
             aria-label="Close Modal"
           />
           <div
-            className={`borderCo1 ${authentification ? "borderCo1Success" : "borderCo1"}`}
+            className={`borderCo1 ${loginSuccess ? "borderCo1Success" : "borderCo1"}`}
           />
           <div className="modal-contentCo">
             <div className="borderCo">
-              {authentification ? (
-                ""
-              ) : (
-                <h2 className="titleCo">SE CONNECTER</h2>
-              )}
+              {loginSuccess ? "" : <h2 className="titleCo">SE CONNECTER</h2>}
               <div className="modalContainerCo">
-                {authentification ? (
+                {loginSuccess ? (
                   <h3 className="AuthSuccess">Connexion réussie !</h3>
                 ) : (
                   <>

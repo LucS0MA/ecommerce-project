@@ -26,6 +26,7 @@ function Connexion() {
       })
       .then((response) => {
         setAuthentification(true);
+        localStorage.setItem("authentification", "true");
         setLoginSuccess(true);
         console.info(response.data);
       })
@@ -87,7 +88,9 @@ function Connexion() {
       {modal && (
         <div className="modalCo">
           <div
-            onClick={closeModal}
+            onClick={() => {
+              closeModal();
+            }}
             onKeyDown=""
             tabIndex={0}
             role="button"

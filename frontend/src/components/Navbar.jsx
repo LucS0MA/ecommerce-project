@@ -39,20 +39,20 @@ function Navbar() {
         </ul>
         <div className="items_nav">
           <img src={panierIcon} alt="basket_icon" />
-          <div
-            className="modalToogle"
-            role="button"
-            tabIndex={0}
-            onClick={authentification ? null : toggleModal}
-          >
-            {authentification ? (
-              <Link to="/profil">
-                <img src={utilisateurIcon} alt="user_icon" />
-              </Link>
-            ) : (
+          {authentification ? (
+            <Link to="/profil">
               <img src={utilisateurIcon} alt="user_icon" />
-            )}
-          </div>
+            </Link>
+          ) : (
+            <div
+              className="modalToogle"
+              role="button"
+              tabIndex={0}
+              onClick={toggleModal}
+            >
+              <img src={utilisateurIcon} alt="user_icon" />
+            </div>
+          )}
         </div>
       </div>
     </nav>

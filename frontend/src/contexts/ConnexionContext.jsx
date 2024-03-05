@@ -10,7 +10,9 @@ export const useConnexionContext = () => {
 export function ModalProvider({ children }) {
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
-  const [authentification, setAuthentification] = useState(false);
+  const [authentification, setAuthentification] = useState(
+    localStorage.getItem("authentification") === "true"
+  );
 
   const toggleModal = () => {
     setModal(!modal);
@@ -34,7 +36,7 @@ export function ModalProvider({ children }) {
       authentification,
       setAuthentification,
     }),
-    [modal, modalTwo]
+    [modal, modalTwo, authentification]
   );
 
   return (

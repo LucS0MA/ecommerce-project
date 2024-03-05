@@ -3,10 +3,10 @@ import "../../styles/UserCreditCard.scss";
 
 function UserCreditCard() {
   const [cardInfo, setCardInfo] = useState({
-    nom: "",
-    numero: "",
-    expiration: "",
-    cvv: "",
+    nom: "NOM DU TITULAIRE",
+    numero: "................",
+    expiration: "MM/AA",
+    cvv: "•••",
   });
 
   const handleInputChange = (e) => {
@@ -39,6 +39,27 @@ function UserCreditCard() {
     } catch (error) {
       console.error("Une erreur de réseau est survenue", error);
     }
+  };
+
+  const handleExpirationChange = (e) => {
+    const { value } = e.target;
+    // Permet uniquement les chiffres et garde le format ".. / .."
+    const formattedValue = value
+      .replace(
+        /[^0-9]/g,
+        "" // Supprime tous les caractères non numériques
+      )
+      .replace(
+        /^([0-9]{2})/,
+        "$1 / " // Ajoute ' / ' après 2 chiffres
+      )
+      .slice(0, 7); // Limite à 7 caractères pour le format 'MM / AA'
+
+    // Met à jour l'état avec la valeur formatée
+    setCardInfo((prevInfo) => ({
+      ...prevInfo,
+      expiration: formattedValue,
+    }));
   };
 
   const handleDeleteCard = async () => {
@@ -75,7 +96,11 @@ function UserCreditCard() {
               .trim()}
           </div>
           <div className="carte-expiration">{cardInfo.expiration}</div>
-          <img src="../src/assets/visa.svg" alt="logo carte VISA" />
+          <img
+            className="logo-visa"
+            src="../src/assets/visa.svg"
+            alt="logo carte VISA"
+          />
         </div>
 
         <div className="buttons-card">
@@ -125,7 +150,7 @@ function UserCreditCard() {
           name="expiration"
           className="inputs-cb input-exp-cb"
           value={cardInfo.expiration}
-          onChange={handleInputChange}
+          onChange={handleExpirationChange}
         />
       </div>
       <div className="input-group">
@@ -142,9 +167,11 @@ function UserCreditCard() {
           maxLength={3}
         />
       </div>
-      <button type="button" className="sauvegarder-btn">
-        Sauvegarder
-      </button>
+      <div className="cb-validate">
+        <button type="button" className="sauvegarder-btn">
+          Sauvegarder
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useProfile } from "./ProfileContext";
 import UserCreditCard from "./UserCreditCard";
 import "../../styles/UserInfos.scss";
@@ -9,7 +10,7 @@ function UserInfos() {
   // Initialisation de l'état formData
   const [formData, setFormData] = useState({
     nom: "",
-    prenom: "",
+    prénom: "",
     email: "",
     adresse1: "",
     adresse2: "",
@@ -18,6 +19,41 @@ function UserInfos() {
     pays: "",
     telephone: "",
   });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/utilisateurs/2")
+      .then((response) => {
+        const {
+          nom,
+          prénom,
+          email,
+          adresse1,
+          adresse2,
+          CP,
+          ville,
+          pays,
+          telephone,
+        } = response.data;
+        setFormData({
+          nom,
+          prenom: prénom,
+          email,
+          adresse1,
+          adresse2,
+          codePostal: CP, // Assurez-vous que la clé correspond à votre modèle de données
+          ville,
+          pays,
+          telephone,
+        });
+      })
+      .catch((error) =>
+        console.error(
+          "Erreur lors du chargement des données de l'utilisateur:",
+          error
+        )
+      );
+  }, []); // Le tableau vide assure que l'effet ne s'exécute qu'une fois après le premier rendu
 
   // Définition de la fonction handleInputChange
   const handleInputChange = (event) => {
@@ -31,22 +67,12 @@ function UserInfos() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:4242/api/utilisateurs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.info(result);
-      } else {
-        console.error("Une erreur est survenue lors de l'envoi des données");
-      }
+      // Utilisation de PUT pour une mise à jour, avec l'ID de l'utilisateur dans l'URL
+      await axios.put("http://localhost:3110/api/utilisateurs/2", formData);
+      console.info("Mise à jour réussie");
+      // Réinitialiser le formulaire ou effectuer d'autres opérations après la mise à jour
     } catch (error) {
-      console.error("Une erreur de réseau est survenue", error);
+      console.error("Erreur lors de la mise à jour de l'utilisateur", error);
     }
   };
 
@@ -91,7 +117,7 @@ function UserInfos() {
               <input
                 type="text"
                 name="prénom"
-                id="prenom"
+                id="prénom"
                 className="inputs-info input-firstname-info"
                 value={formData.prenom}
                 onChange={handleInputChange}
@@ -177,7 +203,7 @@ function UserInfos() {
             <input
               type="tel"
               name="telepphone"
-              id="phone"
+              id="telephone"
               className="inputs-info input-phone-info"
               value={formData.telephone}
               onChange={handleInputChange}

@@ -98,10 +98,10 @@ function UserInfos() {
             Informations de paiement
           </button>
         </div>
-        <div className="content-user-info" />
+        <div className="line-user-info" />
         {subSectionActive === "infos" && (
           <form className="user_form_info" onSubmit={handleSubmit}>
-            <div className="fist-last-name-input">
+            <div className="first-last-name-input">
               <label className="labels-info" htmlFor="nom">
                 Nom
               </label>

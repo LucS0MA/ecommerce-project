@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useProfile } from "./ProfileContext";
 import UserCreditCard from "./UserCreditCard";
 import "../../styles/UserInfos.scss";
@@ -9,7 +10,7 @@ function UserInfos() {
   // Initialisation de l'état formData
   const [formData, setFormData] = useState({
     nom: "",
-    prenom: "",
+    prénom: "",
     email: "",
     adresse1: "",
     adresse2: "",
@@ -19,34 +20,62 @@ function UserInfos() {
     telephone: "",
   });
 
-  // Définition de la fonction handleInputChange
+  // on utilise le Useeffect pour excuter le code au montage du composant
+  // ici on fait une requête GET pour récupérer les données de l'utilisateur depuis la BDD
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/utilisateurs/1")
+      .then((response) => {
+        const {
+          nom,
+          prénom,
+          email,
+          adresse1,
+          adresse2,
+          CP,
+          ville,
+          pays,
+          telephone,
+        } = response.data;
+        // on met a jout l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
+        setFormData({
+          nom,
+          prenom: prénom,
+          email,
+          adresse1,
+          adresse2,
+          codePostal: CP,
+          ville,
+          pays,
+          telephone,
+        });
+      })
+      .catch((error) =>
+        console.error(
+          "Erreur lors du chargement des données de l'utilisateur:",
+          error
+        )
+      );
+  }, []); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois
+
+  // la on va gérer les changements avec le HandleInputChange
+  // on met à jour 'formData' avec les nouvelles valeurs saisies par l'utilisateur
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target; // on recupern le nom et la valeur de l'élément de formulaire modifié
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
+      ...prevFormData, // Copie de l'état précédent.
+      [name]: value, // Mise à jour de la propriété modifiée. Ex : si on modifie le nom on met à jour la propriété nom
     }));
   };
 
+  // on va gérer la soumission du formulaire
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
-      const response = await fetch("http://localhost:4242/api/utilisateurs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.info(result);
-      } else {
-        console.error("Une erreur est survenue lors de l'envoi des données");
-      }
+      await axios.put("http://localhost:3310/api/utilisateurs/1", formData); // on fait une requete PUT pour mettre à jour les données de l'utilisateur dans la bdd
+      console.info(formData);
     } catch (error) {
-      console.error("Une erreur de réseau est survenue", error);
+      console.error("Erreur lors de la mise à jour de l'utilisateur", error);
     }
   };
 
@@ -91,7 +120,7 @@ function UserInfos() {
               <input
                 type="text"
                 name="prénom"
-                id="prenom"
+                id="prénom"
                 className="inputs-info input-firstname-info"
                 value={formData.prenom}
                 onChange={handleInputChange}
@@ -177,14 +206,14 @@ function UserInfos() {
             <input
               type="tel"
               name="telepphone"
-              id="phone"
+              id="telephone"
               className="inputs-info input-phone-info"
               value={formData.telephone}
               onChange={handleInputChange}
               required
             />
             <div className="submit-container">
-              <button className="button-info-send" type="button">
+              <button className="button-info-send" type="submit">
                 Enregistrer
               </button>
             </div>

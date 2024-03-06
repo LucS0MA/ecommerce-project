@@ -111,6 +111,14 @@ body.active-modalTwoCo {
   top: 305px;
   position: absolute;
   color: var(--lightGreen);
+  font-size: 14px;
+}
+
+.errorMail {
+  position: absolute;
+  color: var(--lightGreen);
+  font-size: 13px;
+  margin-top: 3px;
 }
 
 .success {

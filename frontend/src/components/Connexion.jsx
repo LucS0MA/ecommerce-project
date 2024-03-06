@@ -4,6 +4,8 @@ import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 function Connexion() {
   const { modal, modalTwo, closeModal, toggleModalTwo, setAuthentification } =
     useConnexionContext();
@@ -13,8 +15,10 @@ function Connexion() {
   const [passwordCo, setPasswordCo] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginFail, setloginFail] = useState("");
 
   const handleSubmitCo = (e) => {
     e.preventDefault();
@@ -28,10 +32,12 @@ function Connexion() {
         setAuthentification(true);
         localStorage.setItem("authentification", "true");
         setLoginSuccess(true);
-        console.info(response.data);
+        console.info("Authentification success:", response.data);
+        setloginFail("");
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Authentification failed:", error);
+        setloginFail("Identifiants incorrects");
       });
   };
 
@@ -41,7 +47,15 @@ function Connexion() {
 
   const handleInputReg = (e) => {
     if (e.target.id === "email") {
-      setEmailReg(e.target.value);
+      const email = e.target.value;
+      setEmailReg(email);
+
+      // Use the regex.test method to check the email format
+      if (!emailRegex.test(email)) {
+        setEmailError("Le format du mail n'est pas correct.");
+      } else {
+        setEmailError(""); // Clear the error when the format is correct
+      }
     } else if (e.target.id === "passwordLog") {
       setPasswordReg(e.target.value);
     } else if (e.target.id === "passwordConfirmation") {
@@ -139,6 +153,7 @@ function Connexion() {
                         />
                       </div>
                       <p className="forgotCo">Mot de passe oublié ?</p>
+                      {loginFail && <p className="errorLogin">{loginFail}</p>}
                       <button className="buttonCo" type="submit">
                         Se connecter
                       </button>
@@ -196,6 +211,7 @@ function Connexion() {
                       onChange={handleInputReg}
                       required
                     />
+                    {emailError && <p className="errorMail">{emailError}</p>}
                   </div>
                   <div>
                     <label className="labelHidden" htmlFor="password">

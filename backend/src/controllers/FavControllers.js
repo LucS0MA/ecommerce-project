@@ -14,6 +14,20 @@ const read = async (req, res) => {
   }
 };
 
+const browse = async (req, res) => {
+  try {
+    const fav = await models.isFav.readAll(req.params.id);
+
+    if (fav == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(fav);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const add = async (req, res) => {
   const fav = req.body;
 
@@ -45,6 +59,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
   read,
+  browse,
   add,
   destroy,
 };

@@ -24,7 +24,7 @@
       transform: rotate(-90deg);
 
       font-family: "Abha", serif;
-      font-size: 56px;
+      font-size: clamp(2rem, 3vw, 56px);
 
       background: linear-gradient(
         180deg,
@@ -83,7 +83,6 @@
       width: 100%;
 
       h2 {
-        font-size: 5vw;
         transform: rotate(0);
 
         min-width: 80%;

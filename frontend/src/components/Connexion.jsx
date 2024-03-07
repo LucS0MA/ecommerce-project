@@ -73,17 +73,13 @@ function Connexion() {
     e.preventDefault();
 
     if (passwordReg === passwordConfirmation) {
-      // Check if the password meets the specified format
       if (!passwordRegex.test(passwordReg)) {
         setPasswordFormat(true);
         return;
       }
 
-      // Hash the password on the client side using bcryptjs
       const hashedPassword = await bcrypt.hash(passwordReg, 10);
 
-      // Now you can send hashedPassword to the server
-      // for further processing and storage
       axios
         .post("http://localhost:3310/api/utilisateurs", {
           email: emailReg,

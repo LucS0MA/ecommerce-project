@@ -25,6 +25,8 @@ function Article({ id, image, nom, vendeuse, prix }) {
   const [articleId] = useState(id);
   const [fav, setFav] = useState(false);
 
+  // On demande à la bdd si elle contient l'article dans ses favoris
+  // Si elle le contient alors on actualise l'état de 'fav' sinon on laisse l'état par défaut (false)
   useEffect(() => {
     axios
       .get(
@@ -34,6 +36,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
       .catch((err) => console.error(err));
   }, []);
 
+  // On ajoute l'article au tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosPost = () => {
     axios
       .post("http://localhost:3310/api/isFav/", {
@@ -42,9 +45,11 @@ function Article({ id, image, nom, vendeuse, prix }) {
       })
       .catch((err) => console.error(err));
     console.info(articleId, "post");
+    // On actualise l'état
     setFav(true);
   };
 
+  // On supprime l'article du tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosDelete = () => {
     axios
       .delete(
@@ -52,16 +57,13 @@ function Article({ id, image, nom, vendeuse, prix }) {
       )
       .catch((err) => console.error(err));
     console.info(articleId, "delete");
+    // On actualise l'état
     setFav(false);
   };
 
   return (
     <div className={`article-container ${vendeuse}`}>
-      <img
-        className="article-image"
-        src={image}
-        alt="aBOUCLE D’OREILLES FEUILLES LOTUS"
-      />
+      <img className="article-image" src={image} alt={nom} />
       <div className="article-titre-container">
         <h2 className="article-titre">{nom}</h2>
       </div>
@@ -70,6 +72,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
         <p>{vendeuse}</p>
       </div>
       <p className="article-prix">{prix}</p>
+      {/* LOGO FAV ET LOGO PANIER */}
       <div className="article-logos">
         {fav ? (
           <svg

@@ -5,20 +5,24 @@ import { useState } from "react";
 function Favori({ id, nom, prix, utilisateurId }) {
   const [fav, setFav] = useState(true);
 
+  // On ajoute l'article au tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosPost = () => {
     axios.post("http://localhost:3310/api/isFav/", {
       utilisateurId,
       articleId: id,
     });
     console.info(id, "post");
+    // On actualise l'état
     setFav(true);
   };
 
+  // On supprime l'article du tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosDelete = () => {
     axios.delete(
       `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${id}`
     );
     console.info(id, "delete");
+    // On actualise l'état
     setFav(false);
   };
 
@@ -31,6 +35,7 @@ function Favori({ id, nom, prix, utilisateurId }) {
         </div>
         <div className="logos">
           <div className="fav-ligne-v" />
+          {/* LOGO FAV ET LOGO PANIER */}
           <div className="article-logos">
             {fav ? (
               <svg

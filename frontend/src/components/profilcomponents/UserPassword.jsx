@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 import "../../styles/UserPassword.scss";
 
-function UserChangePassword({ userId }) {
+function UserChangePassword() {
   const [passwordFields, setPasswordFields] = useState({
     oldPassword: "",
     newPassword: "",
@@ -40,7 +39,7 @@ function UserChangePassword({ userId }) {
           error
         );
       });
-  }, [userId]);
+  }, []);
 
   const getPasswordStrength = (password) => {
     let strength = 0;
@@ -120,6 +119,7 @@ function UserChangePassword({ userId }) {
           placeholder="Ancien mot de passe"
           value={passwordFields.oldPassword}
           onChange={handleInputChange}
+          autoComplete="current-password"
         />
         <button
           type="button"
@@ -138,6 +138,7 @@ function UserChangePassword({ userId }) {
           placeholder="Nouveau mot de passe"
           value={passwordFields.newPassword}
           onChange={handleInputChange}
+          autoComplete="new-password"
         />
         <button
           type="button"
@@ -167,6 +168,7 @@ function UserChangePassword({ userId }) {
           placeholder="Confirmer nouveau mot de passe"
           value={passwordFields.confirmPassword}
           onChange={handleInputChange}
+          autoComplete="new-password"
         />
         <button
           type="button"
@@ -186,9 +188,5 @@ function UserChangePassword({ userId }) {
     </form>
   );
 }
-
-UserChangePassword.propTypes = {
-  userId: PropTypes.number.isRequired,
-};
 
 export default UserChangePassword;

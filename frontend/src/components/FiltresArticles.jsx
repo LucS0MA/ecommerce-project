@@ -1,21 +1,13 @@
 import "../styles/FiltresArticles.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import loupe from "../assets/loupe.svg";
 import line from "../assets/line.svg";
+import Article from "./Article";
 
 function FiltresArticles() {
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3310/api/articles")
-      .then((res) => setArticles(res.data));
-  }, []);
-
   const [search, setSearch] = useState("");
-
   const [rangeValue, setRangeValue] = useState(0);
+  const [thematiqueValue, setThematiqueValue] = useState("");
 
   const thematiques = [
     "STEAMPUNK",
@@ -46,6 +38,14 @@ function FiltresArticles() {
     "#5A38A3",
   ];
 
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/articles")
+      .then((res) => setArticles(res.data));
+  }, []);
+
   return (
     <main>
       <section id="main_container">
@@ -55,7 +55,6 @@ function FiltresArticles() {
 
           {/* Barre de recherche */}
           <div className="searchBar_container">
-            <img src={loupe} alt="icone_loupe" />
             <input
               className="input_search"
               type="search"
@@ -93,9 +92,11 @@ function FiltresArticles() {
             <div className="thematique_buttons">
               {thematiques.map((thematique) => (
                 <button
+                  key={thematique.id}
                   className="thematique_button"
                   type="button"
                   value={thematique}
+                  onClick={(e) => setThematiqueValue(e.target.value)}
                 >
                   {thematique}
                 </button>
@@ -110,7 +111,7 @@ function FiltresArticles() {
             </div>
             <div className="types_buttons">
               {types.map((type) => (
-                <div>
+                <div key={type.id}>
                   <input className="type_button" type="checkbox" id={type} />
                   <label htmlFor={type}>{type}</label>
                 </div>
@@ -126,9 +127,9 @@ function FiltresArticles() {
             <div className="colors_buttons">
               {couleurs.map((couleur) => (
                 <button
+                  key={couleur.id}
                   className="color_button"
                   aria-label="bbb"
-                  key={couleur}
                   type="button"
                   style={{ backgroundColor: couleur }}
                 />
@@ -139,10 +140,23 @@ function FiltresArticles() {
         <div>
           <div className="view_articles">
             {articles
-              .filter((article) => article.nom.includes(search))
-              .filter((article) => article.prix <= rangeValue)
+              .filter(
+                (article) =>
+                  (article.nom.includes(search) &&
+                    article.prix >= rangeValue &&
+                    article.type === thematiqueValue) ||
+                  thematiqueValue === ""
+              )
               .map((article) => (
-                <p>{article.nom}</p>
+                <Article
+                  key={article.id}
+                  id={article.id}
+                  image={`http://localhost:3310${article.image}`}
+                  nom={article.nom}
+                  vendeuse={article.vendeuse}
+                  prix={`${article.prix} €`}
+                  isFav={false}
+                />
               ))}
             ;
           </div>

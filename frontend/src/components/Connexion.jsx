@@ -87,7 +87,11 @@ function Connexion() {
           setAccountCreated(true);
         })
         .catch((error) => {
-          console.error("Erreur lors de la création du compte :", error);
+          if (error.response.status === 422) {
+            console.warn(error.response.data);
+          } else {
+            console.error("Erreur lors de la création du compte :", error);
+          }
         });
     } else {
       setPasswordFormat(true);

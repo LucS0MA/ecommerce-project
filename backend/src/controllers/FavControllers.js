@@ -5,7 +5,11 @@ const read = async (req, res) => {
     const fav = await models.isFav.read(req.query);
 
     if (fav == null) {
-      res.sendStatus(404);
+      if (req.query.utilisateurId && req.query.articleId) {
+        res.json(0);
+      } else {
+        res.sendStatus(404);
+      }
     } else {
       res.json(fav);
     }

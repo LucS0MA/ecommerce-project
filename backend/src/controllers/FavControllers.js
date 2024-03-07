@@ -4,14 +4,19 @@ const read = async (req, res) => {
   try {
     const fav = await models.isFav.read(req.query);
 
+    // Si le favori n'existe pas
     if (fav == null) {
+      // et si le FRONT a bien envoyé l'id de l'uitlisateur ainsi que l'id de l'article au BACK
       if (req.query.utilisateurId && req.query.articleId) {
+        // Alors envoyer 0 au FRONT, afin qu'il ait l'information de l'abscence de l'article en question dans la table des favoris
         res.json(0);
       } else {
+        // Envoyer une erreur 404 si le FRONT n'a pas envoyé l'id de l'utilisateur (utilisateurId) et / ou l'id de l'article (articleId) au BACK
         res.sendStatus(404);
       }
     } else {
-      res.json(fav);
+      // Envoyer 1 au FRONT, afin qu'il est l'information de la présence de l'article en question dans la table des favoris
+      res.json(1);
     }
   } catch (err) {
     console.error(err);

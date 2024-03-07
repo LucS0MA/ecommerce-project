@@ -20,7 +20,7 @@ function Connexion() {
   const [emailError, setEmailError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const [loginFail, setloginFail] = useState("");
+  const [loginFail, setloginFail] = useState(false);
   const [passwordFormat, setPasswordFormat] = useState(false);
 
   const handleSubmitCo = (e) => {
@@ -40,7 +40,7 @@ function Connexion() {
       })
       .catch((error) => {
         console.error("Authentification failed:", error);
-        setloginFail("Identifiants incorrects");
+        setloginFail(true);
       });
   };
 
@@ -146,6 +146,9 @@ function Connexion() {
                           placeholder="Email"
                           type="email"
                           id="emailCo"
+                          onClick={() => {
+                            setloginFail(false);
+                          }}
                           value={emailCo}
                           onChange={(e) => setEmailCo(e.target.value)}
                           required
@@ -159,6 +162,9 @@ function Connexion() {
                           className="inputCo"
                           placeholder="Mot de passe"
                           type="password"
+                          onClick={() => {
+                            setloginFail(false);
+                          }}
                           id="passwordCo"
                           value={passwordCo}
                           onChange={(e) => setPasswordCo(e.target.value)}
@@ -166,7 +172,9 @@ function Connexion() {
                         />
                       </div>
                       <p className="forgotCo">Mot de passe oublié ?</p>
-                      {loginFail && <p className="errorLogin">{loginFail}</p>}
+                      {loginFail && (
+                        <p className="errorLogin">Identifiants incorrects</p>
+                      )}
                       <button className="buttonCo" type="submit">
                         Se connecter
                       </button>
@@ -250,7 +258,10 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Confirmation du mot de passe"
-                      onClick={closeAccountCreated}
+                      onClick={() => {
+                        closeAccountCreated();
+                        setPasswordFormat(false);
+                      }}
                       type="password"
                       id="passwordConfirmation"
                       onChange={(e) => handleInputReg(e)}

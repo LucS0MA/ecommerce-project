@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import bcrypt from "bcryptjs";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&?])[A-Za-z\d#$@!%&?]{8,15}$/;
 
@@ -67,19 +69,25 @@ function Connexion() {
     }
   };
 
-  const handleSubmitReg = (e) => {
+  const handleSubmitReg = async (e) => {
     e.preventDefault();
 
     if (passwordReg === passwordConfirmation) {
-      // Vérification du mot de passe avec la règle passwordRegex
+      // Check if the password meets the specified format
       if (!passwordRegex.test(passwordReg)) {
         setPasswordFormat(true);
-        return; // Arrête le processus d'inscription si la règle n'est pas respectée
+        return;
       }
+
+      // Hash the password on the client side using bcryptjs
+      const hashedPassword = await bcrypt.hash(passwordReg, 10);
+
+      // Now you can send hashedPassword to the server
+      // for further processing and storage
       axios
         .post("http://localhost:3310/api/utilisateurs", {
           email: emailReg,
-          password: passwordReg,
+          password: hashedPassword,
         })
         .then(() => {
           setEmailCo("");

@@ -1,4 +1,5 @@
 // Import access to database tables
+const bcrypt = require("bcrypt");
 const models = require("../modelsProviders");
 
 // The B of BREAD - Browse (Read All) operation
@@ -86,8 +87,17 @@ const login = async (req, res) => {
   try {
     const utilisateur = await models.utilisateurs.findByEmail(email);
 
-    if (utilisateur && utilisateur.password === password) {
-      res.status(200).json({ message: "Connexion réussie", utilisateur });
+    if (utilisateur) {
+      const passwordMatch = await bcrypt.compare(
+        password,
+        utilisateur.password
+      );
+
+      if (passwordMatch) {
+        res.status(200).json({ message: "Connexion réussie", utilisateur });
+      } else {
+        res.status(401).json({ message: "Identifiants incorrects" });
+      }
     } else {
       res.status(401).json({ message: "Identifiants incorrects" });
     }

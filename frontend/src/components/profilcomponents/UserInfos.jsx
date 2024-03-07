@@ -39,15 +39,15 @@ function UserInfos() {
         } = response.data;
         // on met a jout l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
         setFormData({
-          nom,
-          prenom: prénom,
-          email,
-          adresse1,
-          adresse2,
-          codePostal: CP,
-          ville,
-          pays,
-          telephone,
+          nom: nom || "",
+          prénom: prénom || "",
+          email: email || "",
+          adresse1: adresse1 || "",
+          adresse2: adresse2 || "",
+          codePostal: CP || "",
+          ville: ville || "",
+          pays: pays || "",
+          telephone: telephone || "",
         });
       })
       .catch((error) =>
@@ -98,10 +98,10 @@ function UserInfos() {
             Informations de paiement
           </button>
         </div>
-        <div className="content-user-info" />
+        <div className="line-user-info" />
         {subSectionActive === "infos" && (
           <form className="user_form_info" onSubmit={handleSubmit}>
-            <div className="fist-last-name-input">
+            <div className="first-last-name-input">
               <label className="labels-info" htmlFor="nom">
                 Nom
               </label>
@@ -205,7 +205,7 @@ function UserInfos() {
             </label>
             <input
               type="tel"
-              name="telepphone"
+              name="telephone"
               id="telephone"
               className="inputs-info input-phone-info"
               value={formData.telephone}

@@ -1,9 +1,9 @@
 //Ici on gere le formulaire de la CB
 
-@font-face {
-  font-family: Antic;
-  src: url("../assets/fonts/AnticSlab-Regular.ttf");
-}
+// @font-face {
+//   font-family: Antic;
+//   src: url("../assets/fonts/AnticSlab-Regular.ttf");
+// }
 
 .card-container {
   margin: 5%;
@@ -88,6 +88,7 @@
   margin: 0.5rem 0;
 
   .labels-cb {
+    margin: 1.5vh;
     font-family: Antic;
     color: var(--lightGreen);
     font-weight: lighter;

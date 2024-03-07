@@ -1,9 +1,9 @@
 //ici on peut gerer dans informations personelles Les Deux bouttons (info perso et bancaire) les input et le boutton enregistrer
 
-@font-face {
-  font-family: Antic;
-  src: url("../assets/fonts/AnticSlab-Regular.ttf");
-}
+// @font-face {
+//   font-family: Antic;
+//   src: url("../assets/fonts/AnticSlab-Regular.ttf");
+// }
 
 .user-info {
   margin-top: 10px;
@@ -14,7 +14,6 @@
   .user-buttons {
     display: flex;
     justify-content: space-around;
-
     margin-bottom: 2vh;
 
     .user-button {
@@ -47,7 +46,7 @@
   }
 }
 
-.content-user-info {
+.line-user-info {
   height: 1px;
   background-color: var(--lightGreen);
   width: 100%;
@@ -97,7 +96,7 @@
 }
 
 .labels-info {
-  margin-top: 1.5vh;
+  margin: 1.5vh;
   font-family: Antic;
   color: var(--lightGreen);
   font-weight: lighter;

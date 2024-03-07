@@ -11,6 +11,7 @@ const router = express.Router();
 const itemControllers = require("./controllers/itemControllers");
 const articlesControllers = require("./controllers/articlesControllers");
 const utilisateursControllers = require("./controllers/utilisateursControllers");
+const validateUser = require("./middlewares/validateUser");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
 // const moviesControllers = require("./controllers/moviesControllers");
@@ -34,7 +35,7 @@ router.delete("/articles/:id", articlesControllers.destroy);
 
 router.get("/utilisateurs", utilisateursControllers.browse);
 router.get("/utilisateurs/:id", utilisateursControllers.read);
-router.post("/utilisateurs", utilisateursControllers.add);
+router.post("/utilisateurs", validateUser, utilisateursControllers.add);
 router.put("/utilisateurs/:id", utilisateursControllers.edit);
 router.delete("/utilisateurs/:id", utilisateursControllers.destroy);
 router.post("/auth/login", utilisateursControllers.login);

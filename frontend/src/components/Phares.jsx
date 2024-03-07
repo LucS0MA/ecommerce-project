@@ -10,7 +10,8 @@ function Phares() {
   useEffect(() => {
     axios
       .get("http://localhost:3310/api/articles/?phares=1&limit=3")
-      .then((data) => setArticles(data.data));
+      .then((response) => setArticles(response.data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (

@@ -44,6 +44,7 @@ router.get("/festivals/:id", fesitvalsControllers.read);
 router.post("/festivals", fesitvalsControllers.add);
 
 router.get("/isFav", isFav.read);
+router.get("/isFav/:id", isFav.browse);
 router.post("/isFav", isFav.add);
 router.delete("/isFav", isFav.destroy);
 

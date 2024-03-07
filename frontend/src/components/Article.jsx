@@ -30,22 +30,27 @@ function Article({ id, image, nom, vendeuse, prix }) {
       .get(
         `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
       )
-      .then((data) => (data.data ? setFav(true) : setFav(false)));
+      .then((response) => response.data && setFav(true))
+      .catch((err) => console.error(err));
   }, []);
 
   const axiosPost = () => {
-    axios.post("http://localhost:3310/api/isFav/", {
-      utilisateurId,
-      articleId,
-    });
+    axios
+      .post("http://localhost:3310/api/isFav/", {
+        utilisateurId,
+        articleId,
+      })
+      .catch((err) => console.error(err));
     console.info(articleId, "post");
     setFav(true);
   };
 
   const axiosDelete = () => {
-    axios.delete(
-      `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
-    );
+    axios
+      .delete(
+        `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
+      )
+      .catch((err) => console.error(err));
     console.info(articleId, "delete");
     setFav(false);
   };

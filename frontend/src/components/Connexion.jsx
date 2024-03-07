@@ -4,6 +4,10 @@ import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&?])[A-Za-z\d#$@!%&?]{8,15}$/;
+
 function Connexion() {
   const { modal, modalTwo, closeModal, toggleModalTwo, setAuthentification } =
     useConnexionContext();
@@ -13,8 +17,11 @@ function Connexion() {
   const [passwordCo, setPasswordCo] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginFail, setloginFail] = useState("");
+  const [passwordFormat, setPasswordFormat] = useState(false);
 
   const handleSubmitCo = (e) => {
     e.preventDefault();
@@ -25,13 +32,15 @@ function Connexion() {
         password: passwordCo,
       })
       .then((response) => {
+        setloginFail("");
         setAuthentification(true);
         localStorage.setItem("authentification", "true");
         setLoginSuccess(true);
-        console.info(response.data);
+        console.info("Authentification success:", response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Authentification failed:", error);
+        setloginFail("Identifiants incorrects");
       });
   };
 
@@ -41,7 +50,14 @@ function Connexion() {
 
   const handleInputReg = (e) => {
     if (e.target.id === "email") {
-      setEmailReg(e.target.value);
+      const email = e.target.value;
+      setEmailReg(email);
+
+      if (!emailRegex.test(email)) {
+        setEmailError("Le format du mail n'est pas correct.");
+      } else {
+        setEmailError("");
+      }
     } else if (e.target.id === "passwordLog") {
       setPasswordReg(e.target.value);
     } else if (e.target.id === "passwordConfirmation") {
@@ -55,6 +71,11 @@ function Connexion() {
     e.preventDefault();
 
     if (passwordReg === passwordConfirmation) {
+      // Vérification du mot de passe avec la règle passwordRegex
+      if (!passwordRegex.test(passwordReg)) {
+        setPasswordFormat(true);
+        return; // Arrête le processus d'inscription si la règle n'est pas respectée
+      }
       axios
         .post("http://localhost:3310/api/utilisateurs", {
           email: emailReg,
@@ -64,10 +85,12 @@ function Connexion() {
           setEmailCo("");
           setPasswordCo("");
           setAccountCreated(true);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la création du compte :", error);
         });
-      // console.log("Email :", emailReg, "Password :", passwordReg);
     } else {
-      setPasswordError(true);
+      setPasswordFormat(true);
     }
   };
 
@@ -139,6 +162,7 @@ function Connexion() {
                         />
                       </div>
                       <p className="forgotCo">Mot de passe oublié ?</p>
+                      {loginFail && <p className="errorLogin">{loginFail}</p>}
                       <button className="buttonCo" type="submit">
                         Se connecter
                       </button>
@@ -196,6 +220,7 @@ function Connexion() {
                       onChange={handleInputReg}
                       required
                     />
+                    {emailError && <p className="errorMail">{emailError}</p>}
                   </div>
                   <div>
                     <label className="labelHidden" htmlFor="password">
@@ -204,7 +229,10 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Mot de passe"
-                      onClick={closeAccountCreated}
+                      onClick={() => {
+                        closeAccountCreated();
+                        setPasswordFormat(false);
+                      }}
                       type="password"
                       id="passwordLog"
                       onChange={handleInputReg}
@@ -224,12 +252,17 @@ function Connexion() {
                       onChange={(e) => handleInputReg(e)}
                       required
                     />
+                    {passwordFormat && (
+                      <p className="error">
+                        Le format du mot de passe n'est pas respecté.
+                      </p>
+                    )}
+                    {passwordError && (
+                      <p className="error">
+                        Les mots de passe ne correspondent pas.
+                      </p>
+                    )}
                   </div>
-                  {passwordError && (
-                    <p className="error">
-                      Les mots de passe ne correspondent pas.
-                    </p>
-                  )}
                   {accountCreated && (
                     <p className="success">
                       Merci, votre compte à bein été créé.

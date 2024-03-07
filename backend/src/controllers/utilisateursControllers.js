@@ -92,7 +92,7 @@ const login = async (req, res) => {
       res.status(401).json({ message: "Identifiants incorrects" });
     }
   } catch (error) {
-    console.error(error);
+    console.error("Server-side error");
     res.status(500).json({ message: "Erreur serveur" });
   }
 };

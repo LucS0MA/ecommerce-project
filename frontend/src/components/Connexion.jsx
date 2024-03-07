@@ -246,7 +246,10 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Confirmation du mot de passe"
-                      onClick={closeAccountCreated}
+                      onClick={() => {
+                        closeAccountCreated();
+                        setPasswordFormat(false);
+                      }}
                       type="password"
                       id="passwordConfirmation"
                       onChange={(e) => handleInputReg(e)}

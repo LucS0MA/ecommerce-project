@@ -89,6 +89,7 @@ function Connexion() {
           setEmailCo("");
           setPasswordCo("");
           setAccountCreated(true);
+          console.info(hashedPassword);
         })
         .catch((error) => {
           if (error.response.status === 422) {

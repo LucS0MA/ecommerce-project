@@ -397,4 +397,11 @@ body.active-modalTwoCo {
     position: absolute;
     color: var(--yellow);
   }
+  .flowerCoBis {
+    position: absolute;
+    top: -0.5%;
+    right: -10%;
+    pointer-events: none;
+    width: 60%;
+  }
 }

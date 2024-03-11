@@ -23,7 +23,7 @@ const read = async (req, res) => {
         res.sendStatus(404);
       }
     } else {
-      res.json(`quantité: ${cart.quantité}`);
+      res.json({ quantité: cart.quantité });
     }
   } catch (err) {
     console.error(err);

@@ -2,38 +2,27 @@
 const bcrypt = require("bcrypt");
 const models = require("../modelsProviders");
 
-// The B of BREAD - Browse (Read All) operation
 const browse = (req, res) => {
-  // Fetch all utilisateurs from the database
   models.utilisateurs
     .findAll()
     .then((utilisateurs) => res.json(utilisateurs))
     .catch((err) => console.error(err));
 };
 
-// The R of BREAD - Read operation
 const read = async (req, res) => {
   try {
-    // Fetch a specific utilisateur from the database based on the provided ID
     const utilisateur = await models.utilisateurs.read(req.params.id);
 
-    // If the utilisateur is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the utilisateur in JSON format
     if (utilisateur == null) {
       res.sendStatus(404);
     } else {
       res.json(utilisateur);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     console.error(err);
   }
 };
 
-// The E of BREAD - Edit (Update) operation
-// This operation is not yet implemented
-
-// The A of BREAD - Add (Create) operation
 const add = async (req, res) => {
   const { email, password } = req.body; // Récupère l'email et le mot de passe de la requête
 
@@ -113,10 +102,6 @@ function login(req, res) {
   }
 }
 
-// The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
-
-// Ready to export the controller functions
 module.exports = {
   browse,
   read,

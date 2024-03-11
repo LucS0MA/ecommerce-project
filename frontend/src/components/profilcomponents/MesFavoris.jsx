@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import Favori from "./Favori";
+
 import "../../styles/MesFavoris.scss";
 
 function MesFavoris() {
   const [utilisateurId] = useState(1);
   const [articles, setArticles] = useState([]);
 
+  // On récupère les articles favoris de l'utilisateur
   useEffect(() => {
     axios
       .get(`http://localhost:3310/api/isFav/${utilisateurId}`)
@@ -18,6 +21,7 @@ function MesFavoris() {
       <h2>FAVORIS</h2>
       <div className="fav-ligne-h" />
       <div id="favs">
+        {/* On affiche tous les articles favoris de l'utilisateur */}
         {articles.map((article) => (
           <Favori
             key={article.articles_id}

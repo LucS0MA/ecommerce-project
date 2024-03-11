@@ -24,7 +24,10 @@ function Article({ id, image, nom, vendeuse, prix }) {
   const [utilisateurId] = useState(1);
   const [articleId] = useState(id);
   const [fav, setFav] = useState(false);
+  const [nbCart, setNbCart] = useState(0);
 
+  // On demande à la bdd si elle contient l'article dans ses favoris
+  // Si elle le contient alors on actualise l'état de 'fav' sinon on laisse l'état par défaut (false)
   useEffect(() => {
     axios
       .get(
@@ -32,8 +35,16 @@ function Article({ id, image, nom, vendeuse, prix }) {
       )
       .then((response) => response.data && setFav(true))
       .catch((err) => console.error(err));
+
+    axios
+      .get(
+        `http://localhost:3310/api/panier/?utilisateurId=${utilisateurId}&articleId=${articleId}`
+      )
+      .then((response) => response.data && setNbCart(response.data.quantité))
+      .catch((err) => console.error(err));
   }, []);
 
+  // On ajoute l'article au tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosPost = () => {
     axios
       .post("http://localhost:3310/api/isFav/", {
@@ -42,9 +53,11 @@ function Article({ id, image, nom, vendeuse, prix }) {
       })
       .catch((err) => console.error(err));
     console.info(articleId, "post");
+    // On actualise l'état
     setFav(true);
   };
 
+  // On supprime l'article du tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosDelete = () => {
     axios
       .delete(
@@ -52,16 +65,48 @@ function Article({ id, image, nom, vendeuse, prix }) {
       )
       .catch((err) => console.error(err));
     console.info(articleId, "delete");
+    // On actualise l'état
     setFav(false);
+  };
+
+  const axiosPostPanier = () => {
+    axios
+      .post("http://localhost:3310/api/panier/", {
+        utilisateurId,
+        articleId,
+        quantité: 1,
+      })
+      .catch((err) => console.error(err));
+    console.info(articleId, "add to cart");
+  };
+
+  const axiosPutPanier = (nb) => {
+    axios
+      .put(
+        `http://localhost:3310/api/panier/?utilisateurId=${utilisateurId}&articleId=${articleId}`,
+        {
+          quantité: nb + 1,
+        }
+      )
+      .catch((err) => console.error(err));
+    console.info(articleId, "add another to cart");
+  };
+
+  const handleCart = () => {
+    if (nbCart === 0) {
+      axiosPostPanier();
+      setNbCart(nbCart + 1);
+    }
+
+    if (nbCart > 0) {
+      axiosPutPanier(nbCart);
+      setNbCart(nbCart + 1);
+    }
   };
 
   return (
     <div className={`article-container ${vendeuse}`}>
-      <img
-        className="article-image"
-        src={image}
-        alt="aBOUCLE D’OREILLES FEUILLES LOTUS"
-      />
+      <img className="article-image" src={image} alt={nom} />
       <div className="article-titre-container">
         <h2 className="article-titre">{nom}</h2>
       </div>
@@ -70,6 +115,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
         <p>{vendeuse}</p>
       </div>
       <p className="article-prix">{prix}</p>
+      {/* LOGO FAV ET LOGO PANIER */}
       <div className="article-logos">
         {fav ? (
           <svg
@@ -106,6 +152,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
           </svg>
         )}
         <svg
+          onClick={() => handleCart()}
           className="article-logo article-panier"
           width="30.59"
           height="31.79"

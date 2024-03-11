@@ -7,37 +7,27 @@ class UtilisateursManager extends AbstractManager {
     super({ table: "utilisateurs" });
   }
 
-  // The C of CRUD - Create operation
-
   async create(utilisateur) {
-    // Execute the SQL INSERT query to add a new utilisateurs to the "utilisateurs" table
     const [result] = await this.database.query(
       `insert into ${this.table} (email,password) values (?,?)`,
       [utilisateur.email, utilisateur.password]
     );
 
-    // Return the ID of the newly inserted utilisateurs
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
-
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific utilisateurs by its ID
     const [rows] = await this.database.query(
       `select * from ${this.table} where id = ?`,
       [id]
     );
 
-    // Return the first row of the result, which represents the utilisateurs
     return rows[0];
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all utilisateurs from the "utilisateurs" table
     const [rows] = await this.database.query(`select * from ${this.table}`);
 
-    // Return the array of utilisateurs
     return rows;
   }
 
@@ -46,6 +36,7 @@ class UtilisateursManager extends AbstractManager {
       `select * from ${this.table} where id = ?`,
       [id]
     );
+    // Initialisation des variables
     let nom = "";
     let prénom = "";
     let dateDeNaissance = "";
@@ -58,9 +49,13 @@ class UtilisateursManager extends AbstractManager {
     let ville = "";
     let pays = "";
 
+    // Si le FRONT envoie une nouvelle adresse email pour l'utilisateur au BACK
     if (utilisateur.email) {
+      // alors on attribue la nouvelle adresse email à la variable initialisée
       email = utilisateur.email;
+      // Sinon, et si l'utilisateur avait déjà une adresse email
     } else if (user[0]) {
+      // alors on attribue l'ancienne adresse email à la variable initialisée
       email = user[0].email;
     }
     if (utilisateur.password) {
@@ -114,6 +109,7 @@ class UtilisateursManager extends AbstractManager {
       pays = user[0].pays;
     }
 
+    // Attribution des variables initialisées à la base de donnée
     const [rows] = await this.database.query(
       `UPDATE ${this.table} SET nom = ?,
       prénom = ?,
@@ -155,19 +151,6 @@ class UtilisateursManager extends AbstractManager {
     return rows.affectedRows;
   }
 
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing utilisateurs
-
-  // async update(utilisateurs) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an utilisateurs by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
   async findByEmail(email) {
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE email = ?`,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
@@ -78,18 +78,15 @@ function Connexion() {
         return;
       }
 
-      const hashedPassword = await bcrypt.hash(passwordReg, 10);
-
       axios
         .post("http://localhost:3310/api/utilisateurs", {
           email: emailReg,
-          password: hashedPassword,
+          password: passwordReg,
         })
         .then(() => {
           setEmailCo("");
           setPasswordCo("");
           setAccountCreated(true);
-          console.info(hashedPassword);
         })
         .catch((error) => {
           if (error.response.status === 422) {

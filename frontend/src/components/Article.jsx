@@ -24,6 +24,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
   const [utilisateurId] = useState(1);
   const [articleId] = useState(id);
   const [fav, setFav] = useState(false);
+  const [nbCart, setNbCart] = useState(0);
 
   // On demande à la bdd si elle contient l'article dans ses favoris
   // Si elle le contient alors on actualise l'état de 'fav' sinon on laisse l'état par défaut (false)
@@ -33,6 +34,13 @@ function Article({ id, image, nom, vendeuse, prix }) {
         `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
       )
       .then((response) => response.data && setFav(true))
+      .catch((err) => console.error(err));
+
+    axios
+      .get(
+        `http://localhost:3310/api/panier/?utilisateurId=${utilisateurId}&articleId=${articleId}`
+      )
+      .then((response) => response.data && setNbCart(response.data.quantité))
       .catch((err) => console.error(err));
   }, []);
 
@@ -59,6 +67,41 @@ function Article({ id, image, nom, vendeuse, prix }) {
     console.info(articleId, "delete");
     // On actualise l'état
     setFav(false);
+  };
+
+  const axiosPostPanier = () => {
+    axios
+      .post("http://localhost:3310/api/panier/", {
+        utilisateurId,
+        articleId,
+        quantité: 1,
+      })
+      .catch((err) => console.error(err));
+    console.info(articleId, "add to cart");
+  };
+
+  const axiosPutPanier = (nb) => {
+    axios
+      .put(
+        `http://localhost:3310/api/panier/?utilisateurId=${utilisateurId}&articleId=${articleId}`,
+        {
+          quantité: nb + 1,
+        }
+      )
+      .catch((err) => console.error(err));
+    console.info(articleId, "add another to cart");
+  };
+
+  const handleCart = () => {
+    if (nbCart === 0) {
+      axiosPostPanier();
+      setNbCart(nbCart + 1);
+    }
+
+    if (nbCart > 0) {
+      axiosPutPanier(nbCart);
+      setNbCart(nbCart + 1);
+    }
   };
 
   return (
@@ -109,6 +152,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
           </svg>
         )}
         <svg
+          onClick={() => handleCart()}
           className="article-logo article-panier"
           width="30.59"
           height="31.79"

@@ -11,11 +11,14 @@ const FestivalsManager = require("./models/FestivalsManager");
 
 const FavManager = require("./models/FavManager");
 
+const PanierManager = require("./models/PanierManager");
+
 const managers = [
   ArticlesManager,
   UtilisateursManager,
   FestivalsManager,
   FavManager,
+  PanierManager,
 ];
 
 // Create an empty object to hold data managers for different tables

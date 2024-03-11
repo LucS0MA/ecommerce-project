@@ -57,7 +57,7 @@ const destroy = async (req, res) => {
     );
 
     if (affectedRows === 0) {
-      // res.sendStatus(404);
+      res.sendStatus(404);
     } else {
       res.sendStatus(204);
     }

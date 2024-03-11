@@ -11,6 +11,7 @@ const utilisateursControllers = require("./controllers/utilisateursControllers")
 const validateUser = require("./middlewares/validateUser");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
+const panier = require("./controllers/panierControllers");
 
 /* ************************************************************************* */
 
@@ -35,5 +36,11 @@ router.get("/isFav", isFav.read);
 router.get("/isFav/:id", isFav.browse);
 router.post("/isFav", isFav.add);
 router.delete("/isFav", isFav.destroy);
+
+router.get("/panier", panier.read);
+router.get("/panier/:id", panier.browse);
+router.post("/panier", panier.add);
+router.delete("/panier", panier.destroy);
+router.put("/panier", panier.edit);
 
 module.exports = router;

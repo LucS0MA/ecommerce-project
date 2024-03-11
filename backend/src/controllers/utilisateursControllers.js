@@ -1,3 +1,5 @@
+// Import access to database tables
+const bcrypt = require("bcrypt");
 const models = require("../modelsProviders");
 
 const browse = (req, res) => {
@@ -22,14 +24,22 @@ const read = async (req, res) => {
 };
 
 const add = async (req, res) => {
-  const utilisateur = req.body;
+  const { email, password } = req.body; // Récupère l'email et le mot de passe de la requête
 
   try {
-    const insertId = await models.utilisateurs.create(utilisateur);
+    const salt = await bcrypt.genSalt(10); // Génère un salage
+    const hashedPassword = await bcrypt.hash(password, salt); // Hache le mot de passe avec le salage
 
-    res.status(201).json({ insertId });
+    // Insère l'utilisateur avec le mot de passe haché dans la base de données
+    const utilisateur = await models.utilisateurs.create({
+      email,
+      password: hashedPassword, // Utilise le mot de passe haché
+    });
+
+    res.status(201).json(utilisateur); // Répond avec l'utilisateur créé
   } catch (err) {
     console.error(err);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
@@ -64,22 +74,33 @@ const destroy = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+function login(req, res) {
   const { email, password } = req.body;
 
   try {
-    const utilisateur = await models.utilisateurs.findByEmail(email);
-
-    if (utilisateur && utilisateur.password === password) {
-      res.status(200).json({ message: "Connexion réussie", utilisateur });
-    } else {
-      res.status(401).json({ message: "Identifiants incorrects" });
-    }
+    // on recherche l'utilisateur par l'email dans la base de données
+    models.utilisateurs.findByEmail(email).then((utilisateur) => {
+      if (!utilisateur) {
+        return res.status(401).json({ message: "Identifiants incorrects" });
+      }
+      // on compare le mot de passe fourni avec le mot de passe hashé dans la bdd
+      bcrypt.compare(password, utilisateur.password).then((passwordMatch) => {
+        // Si les mots de passe correspondent on crée un token qui va contenir l'id et l'email de l'utilisateur
+        if (passwordMatch) {
+          // là on envoie le token au client avec un message de connexion réussie
+          res.status(200).json({ message: "Connexion réussie" });
+        } else {
+          // Si y'a une couille dans le paté bah on renvoie un message d'erreur
+          res.status(401).json({ message: "Identifiants incorrects" });
+        }
+      });
+      return null;
+    });
   } catch (error) {
-    console.error("Server-side error");
+    console.error("Server-side error", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
-};
+}
 
 module.exports = {
   browse,

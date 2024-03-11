@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+// import bcrypt from "bcryptjs";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&?])[A-Za-z\d#$@!%&?]{8,15}$/;
 
@@ -67,15 +69,15 @@ function Connexion() {
     }
   };
 
-  const handleSubmitReg = (e) => {
+  const handleSubmitReg = async (e) => {
     e.preventDefault();
 
     if (passwordReg === passwordConfirmation) {
-      // Vérification du mot de passe avec la règle passwordRegex
       if (!passwordRegex.test(passwordReg)) {
         setPasswordFormat(true);
-        return; // Arrête le processus d'inscription si la règle n'est pas respectée
+        return;
       }
+
       axios
         .post("http://localhost:3310/api/utilisateurs", {
           email: emailReg,

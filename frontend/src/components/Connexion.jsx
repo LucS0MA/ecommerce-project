@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-// import bcrypt from "bcryptjs";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
@@ -25,25 +24,32 @@ function Connexion() {
   const [loginFail, setloginFail] = useState(false);
   const [passwordFormat, setPasswordFormat] = useState(false);
 
-  const handleSubmitCo = (e) => {
+  const handleSubmitCo = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:3310/api/auth/login", {
-        email: emailCo,
-        password: passwordCo,
-      })
-      .then((response) => {
-        setloginFail("");
-        setAuthentification(true);
-        localStorage.setItem("authentification", "true");
-        setLoginSuccess(true);
-        console.info("Authentification success:", response.data);
-      })
-      .catch((error) => {
-        console.error("Authentification failed:", error);
-        setloginFail(true);
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:3310/api/auth/login",
+        {
+          email: emailCo,
+          password: passwordCo,
+        }
+      );
+
+      // Extract the token from the response data using object destructuring
+      const { token } = response.data;
+
+      // Set user authentication and token in local storage
+      setAuthentification(true);
+      localStorage.setItem("authentification", "true");
+      localStorage.setItem("token", token);
+
+      setLoginSuccess(true);
+      console.info("Authentication success:", response.data);
+    } catch (error) {
+      console.error("Authentication failed:", error);
+      setloginFail(true);
+    }
   };
 
   const closeAccountCreated = () => {

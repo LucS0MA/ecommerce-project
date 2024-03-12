@@ -61,15 +61,16 @@ function FiltresArticles() {
   /// / Fonction permettant de filter les articles////
   const donneesFiltrees = articles.filter((item) => {
     const filtreParNom = !search || item.nom.includes(search);
-    const filtreParTheme = !thematiqueValue || item.type === thematiqueValue;
+    const filtreParThematique =
+      !thematiqueValue || item.type === thematiqueValue;
     const filtreParPrix = prixValue >= item.prix;
     const filtreParType =
       typeValue.length === 0 || typeValue.includes(item.thematique);
     const filtreParCouleur = !CouleurValue || item.couleur === CouleurValue;
 
     return (
-      filtreParTheme &&
       filtreParNom &&
+      filtreParThematique &&
       filtreParPrix &&
       filtreParType &&
       filtreParCouleur

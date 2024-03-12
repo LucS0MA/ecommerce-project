@@ -3,11 +3,6 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
-const ItemManager = require("./models/ItemManager");
-// ------
-const CharactersManager = require("./models/CharactersManager");
-// const housesManager = require("./models/housesManager");
-
 const ArticlesManager = require("./models/ArticlesManager");
 
 const UtilisateursManager = require("./models/UtilisateursManager");
@@ -16,15 +11,14 @@ const FestivalsManager = require("./models/FestivalsManager");
 
 const FavManager = require("./models/FavManager");
 
+const PanierManager = require("./models/PanierManager");
+
 const managers = [
-  ItemManager,
   ArticlesManager,
-  // Add other managers here
-  CharactersManager,
-  // housesManager,
   UtilisateursManager,
   FestivalsManager,
   FavManager,
+  PanierManager,
 ];
 
 // Create an empty object to hold data managers for different tables

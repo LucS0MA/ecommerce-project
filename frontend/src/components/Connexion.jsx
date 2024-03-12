@@ -1,19 +1,29 @@
 import { useState } from "react";
 import axios from "axios";
+// import bcrypt from "bcryptjs";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Connexion.scss";
 import flower from "../assets/Group 19.png";
 
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&?])[A-Za-z\d#$@!%&?]{8,15}$/;
+
 function Connexion() {
-  const { modal, modalTwo, closeModal, toggleModalTwo } = useConnexionContext();
+  const { modal, modalTwo, closeModal, toggleModalTwo, setAuthentification } =
+    useConnexionContext();
   const [emailReg, setEmailReg] = useState("");
   const [emailCo, setEmailCo] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
   const [passwordCo, setPasswordCo] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [accountCreated, setAccountCreated] = useState(false);
-  const [authentification, setAuthentification] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loginFail, setloginFail] = useState(false);
+  const [passwordFormat, setPasswordFormat] = useState(false);
 
   const handleSubmitCo = (e) => {
     e.preventDefault();
@@ -24,11 +34,15 @@ function Connexion() {
         password: passwordCo,
       })
       .then((response) => {
+        setloginFail("");
         setAuthentification(true);
-        console.info(response.data);
+        localStorage.setItem("authentification", "true");
+        setLoginSuccess(true);
+        console.info("Authentification success:", response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Authentification failed:", error);
+        setloginFail(true);
       });
   };
 
@@ -38,7 +52,14 @@ function Connexion() {
 
   const handleInputReg = (e) => {
     if (e.target.id === "email") {
-      setEmailReg(e.target.value);
+      const email = e.target.value;
+      setEmailReg(email);
+
+      if (!emailRegex.test(email)) {
+        setEmailError("Le format du mail n'est pas correct.");
+      } else {
+        setEmailError("");
+      }
     } else if (e.target.id === "passwordLog") {
       setPasswordReg(e.target.value);
     } else if (e.target.id === "passwordConfirmation") {
@@ -48,10 +69,15 @@ function Connexion() {
     }
   };
 
-  const handleSubmitReg = (e) => {
+  const handleSubmitReg = async (e) => {
     e.preventDefault();
 
     if (passwordReg === passwordConfirmation) {
+      if (!passwordRegex.test(passwordReg)) {
+        setPasswordFormat(true);
+        return;
+      }
+
       axios
         .post("http://localhost:3310/api/utilisateurs", {
           email: emailReg,
@@ -61,10 +87,16 @@ function Connexion() {
           setEmailCo("");
           setPasswordCo("");
           setAccountCreated(true);
+        })
+        .catch((error) => {
+          if (error.response.status === 422) {
+            console.warn(error.response.data);
+          } else {
+            console.error("Erreur lors de la création du compte :", error);
+          }
         });
-      // console.log("Email :", emailReg, "Password :", passwordReg);
     } else {
-      setPasswordError(true);
+      setPasswordFormat(true);
     }
   };
 
@@ -85,7 +117,9 @@ function Connexion() {
       {modal && (
         <div className="modalCo">
           <div
-            onClick={closeModal}
+            onClick={() => {
+              closeModal();
+            }}
             onKeyDown=""
             tabIndex={0}
             role="button"
@@ -93,17 +127,13 @@ function Connexion() {
             aria-label="Close Modal"
           />
           <div
-            className={`borderCo1 ${authentification ? "borderCo1Success" : "borderCo1"}`}
+            className={`borderCo1 ${loginSuccess ? "borderCo1Success" : "borderCo1"}`}
           />
           <div className="modal-contentCo">
             <div className="borderCo">
-              {authentification ? (
-                ""
-              ) : (
-                <h2 className="titleCo">SE CONNECTER</h2>
-              )}
+              {loginSuccess ? "" : <h2 className="titleCo">SE CONNECTER</h2>}
               <div className="modalContainerCo">
-                {authentification ? (
+                {loginSuccess ? (
                   <h3 className="AuthSuccess">Connexion réussie !</h3>
                 ) : (
                   <>
@@ -118,6 +148,9 @@ function Connexion() {
                           placeholder="Email"
                           type="email"
                           id="emailCo"
+                          onClick={() => {
+                            setloginFail(false);
+                          }}
                           value={emailCo}
                           onChange={(e) => setEmailCo(e.target.value)}
                           required
@@ -131,6 +164,9 @@ function Connexion() {
                           className="inputCo"
                           placeholder="Mot de passe"
                           type="password"
+                          onClick={() => {
+                            setloginFail(false);
+                          }}
                           id="passwordCo"
                           value={passwordCo}
                           onChange={(e) => setPasswordCo(e.target.value)}
@@ -138,6 +174,9 @@ function Connexion() {
                         />
                       </div>
                       <p className="forgotCo">Mot de passe oublié ?</p>
+                      {loginFail && (
+                        <p className="errorLogin">Identifiants incorrects</p>
+                      )}
                       <button className="buttonCo" type="submit">
                         Se connecter
                       </button>
@@ -195,6 +234,7 @@ function Connexion() {
                       onChange={handleInputReg}
                       required
                     />
+                    {emailError && <p className="errorMail">{emailError}</p>}
                   </div>
                   <div>
                     <label className="labelHidden" htmlFor="password">
@@ -203,7 +243,10 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Mot de passe"
-                      onClick={closeAccountCreated}
+                      onClick={() => {
+                        closeAccountCreated();
+                        setPasswordFormat(false);
+                      }}
                       type="password"
                       id="passwordLog"
                       onChange={handleInputReg}
@@ -217,18 +260,26 @@ function Connexion() {
                     <input
                       className="inputCoBis"
                       placeholder="Confirmation du mot de passe"
-                      onClick={closeAccountCreated}
+                      onClick={() => {
+                        closeAccountCreated();
+                        setPasswordFormat(false);
+                      }}
                       type="password"
                       id="passwordConfirmation"
                       onChange={(e) => handleInputReg(e)}
                       required
                     />
+                    {passwordFormat && (
+                      <p className="error">
+                        Le format du mot de passe n'est pas respecté.
+                      </p>
+                    )}
+                    {passwordError && (
+                      <p className="error">
+                        Les mots de passe ne correspondent pas.
+                      </p>
+                    )}
                   </div>
-                  {passwordError && (
-                    <p className="error">
-                      Les mots de passe ne correspondent pas.
-                    </p>
-                  )}
                   {accountCreated && (
                     <p className="success">
                       Merci, votre compte à bein été créé.

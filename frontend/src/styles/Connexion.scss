@@ -56,7 +56,7 @@ body.active-modalTwoCo {
 
 .flowerCoBis {
   position: absolute;
-  top: -1%;
+  top: -2%;
   right: -10%;
   pointer-events: none;
   width: 60%;
@@ -79,7 +79,7 @@ body.active-modalTwoCo {
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: var(--lightGreen);
-  padding: 14px 16px;
+  padding: 17px 20px;
 
   display: flex;
   flex-direction: column;
@@ -108,37 +108,59 @@ body.active-modalTwoCo {
 }
 
 .error {
-  top: 305px;
+  top: 312px;
   position: absolute;
-  color: var(--lightGreen);
+  font-family: Antic;
+  color: var(--yellow);
+  font-size: 14px;
+}
+
+.errorMail {
+  position: absolute;
+  font-family: Antic;
+  color: var(--yellow);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.errorLogin {
+  font-size: 15px;
+  margin-top: 155px;
+  position: absolute;
+  font-family: Antic;
+  color: var(--yellow);
 }
 
 .success {
-  top: 305px;
+  top: 318px;
   position: absolute;
-  color: var(--lightGreen);
+  color: var(--yellow);
 }
 
 .inputCo {
   font-family: Play;
+  font-size: 16px;
   border-radius: 3px;
   border-color: var(--lightGreen);
   color: var(--lightGreen);
   margin-top: 20px;
-  height: 35px;
-  width: 25em;
+  height: 40px;
+  width: 22em;
   background-color: var(--darkPink);
+  padding: 10px;
 }
 
 .inputCoBis {
   font-family: Play;
+  font-size: 16px;
   border-radius: 3px;
   border-color: var(--lightGreen);
   color: var(--lightGreen);
   margin-top: 20px;
-  height: 35px;
-  width: 20em;
+  height: 40px;
+  width: 25em;
   background-color: var(--darkPink);
+  padding: 10px;
 }
 
 .ligneCo {
@@ -189,7 +211,7 @@ body.active-modalTwoCo {
   background: var(--lightGreen);
   box-shadow: 0 0 15px rgb(189, 201, 172);
   width: auto;
-  margin-top: 40px;
+  margin-top: 55px;
   margin-bottom: 0px;
 
   &:hover {
@@ -223,16 +245,16 @@ body.active-modalTwoCo {
 
 .borderCo {
   z-index: 99;
-  padding: 14px 15px;
-  width: 450px;
+  padding: 45px 10px;
+  width: 535px;
   height: 50%;
   background-color: var(--darkPink);
 }
 
 .borderCoBis {
   z-index: 99;
-  padding: 30px 10px;
-  width: 400px;
+  padding: 23px 10px;
+  width: 540px;
   height: 50%;
   background-color: var(--darkPink);
 }
@@ -244,8 +266,8 @@ body.active-modalTwoCo {
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--lightGreen);
-  padding: 265px 50px;
-  width: 530px;
+  padding: 310px 50px;
+  width: 625px;
 }
 
 .borderCo1Success {
@@ -255,8 +277,8 @@ body.active-modalTwoCo {
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--lightGreen);
-  padding: 60px 50px;
-  width: 530px;
+  padding: 90px 50px;
+  width: 610px;
 }
 
 .borderCo1Bis {
@@ -266,8 +288,8 @@ body.active-modalTwoCo {
   left: 50%;
   transform: translate(-50%, -50%);
   background: var(--lightGreen);
-  padding: 260px 50px;
-  width: 475px;
+  padding: 270px 50px;
+  width: 625px;
 }
 
 .titleCo {
@@ -296,7 +318,7 @@ body.active-modalTwoCo {
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 300px;
-    padding: 10px;
+    padding: 10px 4px;
     font-size: 14px;
     position: fixed;
   }
@@ -322,7 +344,7 @@ body.active-modalTwoCo {
   }
 
   .borderCo1 {
-    padding: 260px 20px;
+    padding: 268px 20px;
     width: 90%;
     max-width: 330px;
   }
@@ -360,13 +382,26 @@ body.active-modalTwoCo {
   }
 
   .error {
-    text-align: center;
-    top: 330px;
-    font-size: 12px;
+    width: 245px;
+    top: 327px;
     position: absolute;
-    color: var(--lightGreen);
+    font-family: Antic;
+    color: var(--yellow);
+    font-size: 14px;
   }
   .flowerCo {
     top: -1%;
+  }
+  .success {
+    top: 330px;
+    position: absolute;
+    color: var(--yellow);
+  }
+  .flowerCoBis {
+    position: absolute;
+    top: -0.5%;
+    right: -10%;
+    pointer-events: none;
+    width: 60%;
   }
 }

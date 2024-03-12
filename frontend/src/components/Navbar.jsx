@@ -8,7 +8,7 @@ import panierIcon from "../assets/panier_icon.svg";
 import utilisateurIcon from "../assets/utilisateur_icon.svg";
 
 function Navbar() {
-  const { toggleModal } = useConnexionContext();
+  const { toggleModal, authentification } = useConnexionContext();
   const [showLinks, setShowlinks] = useState(false);
   const handleShowLinks = () => {
     setShowlinks(!showLinks);
@@ -39,14 +39,20 @@ function Navbar() {
         </ul>
         <div className="items_nav">
           <img src={panierIcon} alt="basket_icon" />
-          <div
-            className="modalToogle"
-            role="button"
-            tabIndex={0}
-            onClick={toggleModal}
-          >
-            <img src={utilisateurIcon} alt="user_icon" />
-          </div>
+          {authentification ? (
+            <Link to="/profil">
+              <img src={utilisateurIcon} alt="user_icon" />
+            </Link>
+          ) : (
+            <div
+              className="modalToogle"
+              role="button"
+              tabIndex={0}
+              onClick={toggleModal}
+            >
+              <img src={utilisateurIcon} alt="user_icon" />
+            </div>
+          )}
         </div>
       </div>
     </nav>

@@ -1,51 +1,45 @@
 // Import access to database tables
+const bcrypt = require("bcrypt");
 const models = require("../modelsProviders");
 
-// The B of BREAD - Browse (Read All) operation
 const browse = (req, res) => {
-  // Fetch all utilisateurs from the database
   models.utilisateurs
     .findAll()
     .then((utilisateurs) => res.json(utilisateurs))
     .catch((err) => console.error(err));
 };
 
-// The R of BREAD - Read operation
 const read = async (req, res) => {
   try {
-    // Fetch a specific utilisateur from the database based on the provided ID
     const utilisateur = await models.utilisateurs.read(req.params.id);
 
-    // If the utilisateur is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the utilisateur in JSON format
     if (utilisateur == null) {
       res.sendStatus(404);
     } else {
       res.json(utilisateur);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     console.error(err);
   }
 };
 
-// The E of BREAD - Edit (Update) operation
-// This operation is not yet implemented
-
-// The A of BREAD - Add (Create) operation
 const add = async (req, res) => {
-  // Extract the utilisateur data from the request body
-  const utilisateur = req.body;
+  const { email, password } = req.body; // Récupère l'email et le mot de passe de la requête
 
   try {
-    // Insert the utilisateur into the database
-    const insertId = await models.utilisateurs.create(utilisateur);
+    const salt = await bcrypt.genSalt(10); // Génère un salage
+    const hashedPassword = await bcrypt.hash(password, salt); // Hache le mot de passe avec le salage
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted utilisateur
-    res.status(201).json({ insertId });
+    // Insère l'utilisateur avec le mot de passe haché dans la base de données
+    const utilisateur = await models.utilisateurs.create({
+      email,
+      password: hashedPassword, // Utilise le mot de passe haché
+    });
+
+    res.status(201).json(utilisateur); // Répond avec l'utilisateur créé
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     console.error(err);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 };
 
@@ -80,27 +74,34 @@ const destroy = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+function login(req, res) {
   const { email, password } = req.body;
 
   try {
-    const utilisateur = await models.utilisateurs.findByEmail(email);
-
-    if (utilisateur && utilisateur.password === password) {
-      res.status(200).json({ message: "Connexion réussie", utilisateur });
-    } else {
-      res.status(401).json({ message: "Identifiants incorrects" });
-    }
+    // on recherche l'utilisateur par l'email dans la base de données
+    models.utilisateurs.findByEmail(email).then((utilisateur) => {
+      if (!utilisateur) {
+        return res.status(401).json({ message: "Identifiants incorrects" });
+      }
+      // on compare le mot de passe fourni avec le mot de passe hashé dans la bdd
+      bcrypt.compare(password, utilisateur.password).then((passwordMatch) => {
+        // Si les mots de passe correspondent on crée un token qui va contenir l'id et l'email de l'utilisateur
+        if (passwordMatch) {
+          // là on envoie le token au client avec un message de connexion réussie
+          res.status(200).json({ message: "Connexion réussie" });
+        } else {
+          // Si y'a une couille dans le paté bah on renvoie un message d'erreur
+          res.status(401).json({ message: "Identifiants incorrects" });
+        }
+      });
+      return null;
+    });
   } catch (error) {
-    console.error(error);
+    console.error("Server-side error", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
-};
+}
 
-// The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
-
-// Ready to export the controller functions
 module.exports = {
   browse,
   read,

@@ -12,6 +12,7 @@ const validateUser = require("./middlewares/validateUser");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
 const panier = require("./controllers/panierControllers");
+const userIdToken = require("./middlewares/userIdToken");
 
 /* ************************************************************************* */
 
@@ -22,8 +23,8 @@ router.put("/articles/:id", articlesControllers.edit);
 router.delete("/articles/:id", articlesControllers.destroy);
 
 router.get("/utilisateurs", utilisateursControllers.browse);
-router.get("/utilisateurs/:id", utilisateursControllers.read);
 router.post("/utilisateurs", validateUser, utilisateursControllers.add);
+router.get("/utilisateurs/:id", userIdToken, utilisateursControllers.read);
 router.put("/utilisateurs/:id", utilisateursControllers.edit);
 router.delete("/utilisateurs/:id", utilisateursControllers.destroy);
 router.post("/auth/login", utilisateursControllers.login);

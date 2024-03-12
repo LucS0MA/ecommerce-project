@@ -90,13 +90,15 @@ function login(req, res) {
         if (passwordMatch) {
           // Création du token avec une expiration d'une heure (vous pouvez ajuster cela selon vos besoins)
           const token = jwt.sign(
-            { id: utilisateur.id, email: utilisateur.email },
+            { sub: utilisateur.id, isAdmin: utilisateur.is_seelies },
             process.env.APP_SECRET, // replace with your own secret key
             { expiresIn: "1h" }
           );
 
           // là on envoie le token au client avec un message de connexion réussie
-          res.status(200).json({ message: "Connexion réussie", token });
+          res
+            .status(200)
+            .json({ message: "Connexion réussie", token, utilisateur });
         } else {
           // Si y'a une couille dans le paté bah on renvoie un message d'erreur
           res.status(401).json({ message: "Identifiants incorrects" });

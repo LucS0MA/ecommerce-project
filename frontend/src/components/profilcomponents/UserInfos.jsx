@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useProfile } from "./ProfileContext";
 import UserCreditCard from "./UserCreditCard";
 import "../../styles/UserInfos.scss";
@@ -23,7 +23,7 @@ function UserInfos() {
   // on utilise le Useeffect pour excuter le code au montage du composant
   // ici on fait une requête GET pour récupérer les données de l'utilisateur depuis la BDD
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     axios
       .get("http://localhost:3310/api/utilisateurs/0", {
         headers: {

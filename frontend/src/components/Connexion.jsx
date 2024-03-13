@@ -31,8 +31,8 @@ function Connexion() {
       const response = await axios.post(
         "http://localhost:3310/api/auth/login",
         {
-          email: emailCo,
-          password: passwordCo,
+          email: emailCo || "",
+          password: passwordCo || "",
         }
       );
 
@@ -46,6 +46,7 @@ function Connexion() {
 
       setLoginSuccess(true);
       console.info("Authentication success:", response.data);
+      window.location.reload();
     } catch (error) {
       console.error("Authentication failed:", error);
       setloginFail(true);
@@ -86,8 +87,8 @@ function Connexion() {
 
       axios
         .post("http://localhost:3310/api/utilisateurs", {
-          email: emailReg,
-          password: passwordReg,
+          email: emailReg || "",
+          password: passwordReg || "",
         })
         .then(() => {
           setEmailCo("");

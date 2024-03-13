@@ -24,6 +24,7 @@ function UserChangePassword() {
     }));
   };
 
+  // Définit une fonction pour évaluer la force du mot de passe basée sur plusieurs critères
   const getPasswordStrength = (password) => {
     let strength = 0;
     if (password.length > 0) strength += 1;
@@ -39,21 +40,25 @@ function UserChangePassword() {
     return strength;
   };
 
+  // ici on met a jour l'etant au changement des infos dans les inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPasswordFields((prevFields) => ({
+      // on regarde la force du mot de passe pour le champ newPassword
       ...prevFields,
       [name]: value,
     }));
     setPasswordError("");
     setUpdateSuccess(false);
+    // on regarde la force du mot de passe pour le champ newPassword
     if (name === "newPassword" || name === "confirmPassword") {
       setPasswordStrength(getPasswordStrength(value));
     }
   };
 
+  // la on gere la soumission du formulaire
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // la on va empecher le comportement par défaut du formulaire
     const { oldPassword, newPassword, confirmPassword } = passwordFields;
 
     if (newPassword !== confirmPassword) {
@@ -77,9 +82,11 @@ function UserChangePassword() {
       return;
     }
 
+    // logique pour récupérer token JWT stocké localement
     const token = localStorage.getItem("token");
-
     try {
+      // Envoie une requête PUT pour mettre à jour le mot de passe, incluant le token JWT pour l'authentification
+
       await axios.put(
         `http://localhost:3310/api/utilisateurs/change-password`,
         { oldPassword, newPassword },
@@ -90,7 +97,6 @@ function UserChangePassword() {
           },
         }
       );
-
       setUpdateSuccess(true);
     } catch (error) {
       console.error("Erreur lors de la mise à jour du mot de passe:", error);

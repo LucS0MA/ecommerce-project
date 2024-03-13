@@ -12,7 +12,7 @@ export function ModalProvider({ children }) {
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
   const [authentification, setAuthentification] = useState(
-    localStorage.getItem("authentification") === "true"
+    sessionStorage.getItem("authentification") === "true"
   );
 
   const toggleModal = () => {

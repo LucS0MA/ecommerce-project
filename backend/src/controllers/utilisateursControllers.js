@@ -12,7 +12,7 @@ const browse = (req, res) => {
 
 const read = async (req, res) => {
   try {
-    const utilisateur = await models.utilisateurs.read(req.params.id);
+    const utilisateur = await models.utilisateurs.read(req.auth.id);
 
     if (utilisateur == null) {
       res.sendStatus(404);
@@ -47,7 +47,7 @@ const add = async (req, res) => {
 const edit = async (req, res) => {
   try {
     const affectedRows = await models.utilisateurs.update(
-      req.params.id,
+      req.auth.id,
       req.body
     );
 
@@ -90,7 +90,7 @@ function login(req, res) {
         if (passwordMatch) {
           // Création du token avec une expiration d'une heure (vous pouvez ajuster cela selon vos besoins)
           const token = jwt.sign(
-            { sub: utilisateur.id, isAdmin: utilisateur.is_seelies },
+            { id: utilisateur.id, isAdmin: utilisateur.seelie },
             process.env.APP_SECRET, // replace with your own secret key
             { expiresIn: "1h" }
           );

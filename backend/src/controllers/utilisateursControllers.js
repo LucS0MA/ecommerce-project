@@ -112,7 +112,50 @@ function login(req, res) {
   }
 }
 
+const changePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const userId = req.auth.id; // j'ai recup ca de l'edit
+
+  try {
+    const user = await models.utilisateurs.findByPk(userId); // ca je ne connaissais pas le findByPK, en gros on va dire prends la clé primaire dans la bdd de cet element userid... Pour resumer recupere l'id de l'utilisateur
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+
+    // On vérifie que l'ancien mot de passe est correct
+    const isOldPasswordCorrect = await bcrypt.compare(
+      oldPassword,
+      user.password
+    );
+    if (!isOldPasswordCorrect) {
+      return res
+        .status(401)
+        .json({ message: "L'ancien mot de passe est incorrect." });
+    }
+
+    // là on va voir si le nouveau mot de passe est différent de l'ancien
+    if (newPassword === oldPassword) {
+      return res.status(400).json({
+        message: "Le nouveau mot de passe doit être différent de l'ancien.",
+      });
+    }
+
+    // et la on hache et on met à jour du nouveau mot de passe
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    await user.update({ password: hashedPassword });
+
+    return res.json({ message: "Mot de passe mis à jour avec succès." });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du mot de passe :", error);
+    return res.status(500).json({
+      message: "Erreur serveur lors de la mise à jour du mot de passe.",
+    });
+  }
+};
+
 module.exports = {
+  changePassword,
   browse,
   read,
   edit,

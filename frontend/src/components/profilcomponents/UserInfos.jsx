@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useConnexionContext } from "../../contexts/ConnexionContext";
 import { useProfile } from "./ProfileContext";
 import UserCreditCard from "./UserCreditCard";
 import "../../styles/UserInfos.scss";
 
 function UserInfos() {
   const { subSectionActive, switchSubSection } = useProfile();
+  const { auth } = useConnexionContext();
 
   // Initialisation de l'état formData
   const [formData, setFormData] = useState({
@@ -44,7 +46,8 @@ function UserInfos() {
           pays,
           telephone,
         } = response.data;
-        // on met a jout l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
+
+        // on met a jour l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
         setFormData({
           nom: nom || "",
           prénom: prénom || "",
@@ -63,7 +66,9 @@ function UserInfos() {
           error
         )
       );
-  }, []); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois
+  }, [auth.token]); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois
+
+  console.info(auth);
 
   // la on va gérer les changements avec le HandleInputChange
   // on met à jour 'formData' avec les nouvelles valeurs saisies par l'utilisateur

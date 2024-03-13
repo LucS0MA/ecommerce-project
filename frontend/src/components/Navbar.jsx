@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import { useConnexionContext } from "../contexts/ConnexionContext";
 import "../styles/Navbar.scss";
 import logo from "../assets/Logo_Le_comptoir_des_seelies.svg";
-import logoutIcon from "../assets/logout2.svg";
 import panierIcon from "../assets/panier_icon.svg";
 import utilisateurIcon from "../assets/utilisateur_icon.svg";
 
 function Navbar() {
-  const { toggleModal, authentification, logout } = useConnexionContext();
+  const { toggleModal, authentification } = useConnexionContext();
   const [showLinks, setShowlinks] = useState(false);
   const handleShowLinks = () => {
     setShowlinks(!showLinks);
@@ -39,14 +38,6 @@ function Navbar() {
           </li>
         </ul>
         <div className="items_nav">
-          <div
-            className="modalToogle"
-            role="button"
-            tabIndex={0}
-            onClick={logout}
-          >
-            <img src={logoutIcon} alt="basket_icon" className="logout" />
-          </div>
           <img src={panierIcon} alt="basket_icon" />
           {authentification ? (
             <Link to="/profil">

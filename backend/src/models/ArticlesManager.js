@@ -35,7 +35,7 @@ class ArticlesManager extends AbstractManager {
   }
 
   async readAll(filtres) {
-    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité FROM ${this.table}
+    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité, couleur, type, thematique FROM ${this.table}
     LEFT JOIN couleurs_has_articles ON couleurs_has_articles.articles_id = articles.id
     LEFT JOIN couleurs ON couleurs.id = couleurs_has_articles.couleurs_id
     LEFT JOIN thematiques_has_articles ON thematiques_has_articles.articles_id = articles.id

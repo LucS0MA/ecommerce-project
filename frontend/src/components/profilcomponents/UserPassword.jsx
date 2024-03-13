@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/UserPassword.scss";
 
@@ -10,14 +10,13 @@ function UserChangePassword() {
   });
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [passwordError, setPasswordError] = useState("");
-  const [oldPasswordError, setOldPasswordError] = useState("");
-  const [oldPasswordFromDB, setOldPasswordFromDB] = useState("");
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState({
     oldPassword: false,
     newPassword: false,
     confirmPassword: false,
   });
+
   const toggleShowPassword = (field) => {
     setShowPassword((prevState) => ({
       ...prevState,
@@ -25,26 +24,10 @@ function UserChangePassword() {
     }));
   };
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3310/api/utilisateurs/1`)
-      .then((response) => {
-        const { password } = response.data;
-        console.info("Mot de passe : ", password);
-        setOldPasswordFromDB(password);
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors du chargement des données de l'utilisateur:",
-          error
-        );
-      });
-  }, []);
-
   const getPasswordStrength = (password) => {
     let strength = 0;
     if (password.length > 0) strength += 1;
-    if (password.length >= 8) strength += 1;
+    if (password.length >= 8) strength += 2;
     if (
       /[A-Z]/.test(password) &&
       /[a-z]/.test(password) &&
@@ -63,20 +46,28 @@ function UserChangePassword() {
       [name]: value,
     }));
     setPasswordError("");
-    setOldPasswordError("");
     setUpdateSuccess(false);
     if (name === "newPassword" || name === "confirmPassword") {
       setPasswordStrength(getPasswordStrength(value));
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const { oldPassword, newPassword, confirmPassword } = passwordFields;
-    if (oldPassword !== oldPasswordFromDB) {
-      setOldPasswordError("L'ancien mot de passe est incorrect.");
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("Les mots de passe ne correspondent pas.");
       return;
     }
+
+    if (newPassword === oldPassword) {
+      setPasswordError(
+        "Le nouveau mot de passe doit être différent de l'ancien."
+      );
+      return;
+    }
+
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@!%&*?]{8,15}$/;
     if (!passwordRegex.test(newPassword)) {
@@ -85,27 +76,29 @@ function UserChangePassword() {
       );
       return;
     }
-    if (newPassword !== confirmPassword) {
-      setPasswordError("Les mots de passe ne correspondent pas.");
-      return;
-    }
-    if (newPassword === oldPassword) {
-      setPasswordError(
-        "Le nouveau mot de passe doit être différent de l'ancien."
-      );
-      return;
-    }
 
-    axios
-      .put(`http://localhost:3310/api/utilisateurs/1`, {
-        password: newPassword,
-      })
-      .then(() => {
-        setUpdateSuccess(true);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la mise à jour du mot de passe:", error);
-      });
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.put(
+        `http://localhost:3310/api/utilisateurs/change-password`,
+        { oldPassword, newPassword },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setUpdateSuccess(true);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du mot de passe:", error);
+      setPasswordError(
+        error.response?.data?.message ||
+          "Erreur lors de la mise à jour du mot de passe."
+      );
+    }
   };
 
   return (
@@ -129,7 +122,9 @@ function UserChangePassword() {
           Voir
         </button>
       </div>
-      {oldPasswordError && <div>{oldPasswordError}</div>}
+      <div>
+        {passwordError && <div className="error-message">{passwordError}</div>}
+      </div>
 
       <div className="password-input-container">
         <input

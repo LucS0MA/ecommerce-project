@@ -39,9 +39,8 @@ function Phares() {
               id={article.id}
               image={`http://localhost:3310${article.image}`}
               nom={article.nom}
-              // vendeuse={article.vendeuse}
+              vendeuse={article.vendeuse}
               prix={`${article.prix} €`}
-              // isFav={false}
             />
           ))}
         </div>

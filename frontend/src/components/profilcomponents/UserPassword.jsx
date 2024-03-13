@@ -108,14 +108,20 @@ function UserChangePassword() {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <h2>Mot de passe</h2>
-      <div className="line-user-info" />
+    <form className="form-psw-container" onSubmit={handleFormSubmit}>
+      <h2 className="title-psw">Mot de passe</h2>
+      <div className="line-user-psw" />{" "}
+      <div>
+        {passwordError && <div className="error-message">{passwordError}</div>}
+      </div>
       <div className="password-input-container">
+        <label className="labels-psw" htmlFor="nom">
+          Ancien mot de passe
+        </label>
         <input
+          className="input-psw"
           type={showPassword.oldPassword ? "text" : "password"}
           name="oldPassword"
-          placeholder="Ancien mot de passe"
           value={passwordFields.oldPassword}
           onChange={handleInputChange}
           autoComplete="current-password"
@@ -128,19 +134,32 @@ function UserChangePassword() {
           Voir
         </button>
       </div>
-      <div>
-        {passwordError && <div className="error-message">{passwordError}</div>}
-      </div>
-
       <div className="password-input-container">
-        <input
-          type={showPassword.newPassword ? "text" : "password"}
-          name="newPassword"
-          placeholder="Nouveau mot de passe"
-          value={passwordFields.newPassword}
-          onChange={handleInputChange}
-          autoComplete="new-password"
-        />
+        <label className="labels-psw" htmlFor="nom">
+          Nouveau mot de passe
+        </label>
+        <div className="npsw-strenght">
+          <input
+            className="input-psw"
+            type={showPassword.newPassword ? "text" : "password"}
+            name="newPassword"
+            value={passwordFields.newPassword}
+            onChange={handleInputChange}
+            autoComplete="new-password"
+          />{" "}
+          <div className="password-secure-indicator">
+            {[...Array(3)].map((_, index) => {
+              const isActive = index < passwordStrength;
+              const key = `strength-bar-${isActive ? "active" : "inactive"}-${index}`;
+              return (
+                <div
+                  key={key}
+                  className={`secure-bar ${isActive ? "active" : ""}`}
+                />
+              );
+            })}
+          </div>
+        </div>{" "}
         <button
           type="button"
           className="toggle-password"
@@ -149,24 +168,14 @@ function UserChangePassword() {
           Voir
         </button>
       </div>
-      <div className="password-secure-indicator">
-        {[...Array(3)].map((_, index) => {
-          const isActive = index < passwordStrength;
-          const key = `strength-bar-${isActive ? "active" : "inactive"}-${index}`;
-          return (
-            <div
-              key={key}
-              className={`secure-bar ${isActive ? "active" : ""}`}
-            />
-          );
-        })}
-      </div>
-
       <div className="password-input-container">
+        <label className="labels-psw" htmlFor="nom">
+          Confirmation nouveau mot de passe
+        </label>
         <input
+          className="input-psw"
           type={showPassword.confirmPassword ? "text" : "password"}
           name="confirmPassword"
-          placeholder="Confirmer nouveau mot de passe"
           value={passwordFields.confirmPassword}
           onChange={handleInputChange}
           autoComplete="new-password"
@@ -179,13 +188,16 @@ function UserChangePassword() {
           Voir
         </button>
       </div>
-      {passwordError && <div>{passwordError}</div>}
-
-      <button className="button-psw-send" type="submit">
-        Changer le mot de passe
-      </button>
-
-      {updateSuccess && <div>Mise à jour de votre mot de passe effectuée.</div>}
+      <div className="submit-btn-psw">
+        <button className="button-psw-send" type="submit">
+          Changer le mot de passe
+        </button>
+        {updateSuccess && (
+          <div className="psw-done">
+            Mise à jour de votre mot de passe effectuée.
+          </div>
+        )}
+      </div>
     </form>
   );
 }

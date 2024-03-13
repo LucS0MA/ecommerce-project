@@ -114,10 +114,10 @@ function login(req, res) {
 
 const changePassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
-  const userId = req.auth.id;
+  const userId = req.auth.id; // j'ai recup ca de l'edit
 
   try {
-    const user = await models.utilisateurs.findByPk(userId);
+    const user = await models.utilisateurs.findByPk(userId); // ca je ne connaissais pas le findByPK, en gros on va dire prends la clé primaire dans la bdd de cet element userid... Pour resumer recupere l'id de l'utilisateur
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }

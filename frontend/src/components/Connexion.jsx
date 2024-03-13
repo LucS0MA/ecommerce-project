@@ -10,14 +10,8 @@ const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&?])[A-Za-z\d#$@!%&?]{8,15}$/;
 
 function Connexion() {
-  const {
-    modal,
-    modalTwo,
-    closeModal,
-    toggleModalTwo,
-    setAuthentification,
-    // auth,
-  } = useConnexionContext();
+  const { modal, modalTwo, closeModal, toggleModalTwo, setAuthentification } =
+    useConnexionContext();
   const [emailReg, setEmailReg] = useState("");
   const [emailCo, setEmailCo] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
@@ -30,36 +24,31 @@ function Connexion() {
   const [loginFail, setloginFail] = useState(false);
   const [passwordFormat, setPasswordFormat] = useState(false);
 
-  const handleSubmitCo = async (event) => {
-    event.preventDefault();
+  const handleSubmitCo = async (e) => {
+    e.preventDefault();
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+      const response = await axios.post(
+        "http://localhost:3310/api/auth/login",
         {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${auth.token}`,
-          },
-          body: JSON.stringify({
-            email: emailCo, // Assurez-vous que emailCo est défini dans votre composant
-            password: passwordCo, // Assurez-vous que passwordCo est défini dans votre composant
-          }),
+          email: emailCo,
+          password: passwordCo,
         }
       );
-      if (response.status === 200) {
-        setAuthentification(true);
-        localStorage.setItem("authentification", "true");
-        setLoginSuccess(true);
-        console.info("Authentication success:");
-      } else {
-        setloginFail(true); // Log des détails de la réponse en cas d'échec
-        console.info(response);
-      }
+
+      // Extract the token from the response data using object destructuring
+      const { token } = response.data;
+
+      // Set user authentication and token in local storage
+      setAuthentification(true);
+      localStorage.setItem("authentification", "true");
+      localStorage.setItem("token", token);
+
+      setLoginSuccess(true);
+      console.info("Authentication success:", response.data);
     } catch (error) {
       console.error("Authentication failed:", error);
-      setloginFail(true); // Log des détails de la réponse en cas d'échec
+      setloginFail(true);
     }
   };
 

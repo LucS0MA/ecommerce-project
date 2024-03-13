@@ -12,7 +12,7 @@ const browse = (req, res) => {
 
 const read = async (req, res) => {
   try {
-    const utilisateur = await models.utilisateurs.read(req.params.id);
+    const utilisateur = await models.utilisateurs.read(req.auth.id);
 
     if (utilisateur == null) {
       res.sendStatus(404);
@@ -47,7 +47,7 @@ const add = async (req, res) => {
 const edit = async (req, res) => {
   try {
     const affectedRows = await models.utilisateurs.update(
-      req.params.id,
+      req.auth.id,
       req.body
     );
 
@@ -90,13 +90,15 @@ function login(req, res) {
         if (passwordMatch) {
           // Création du token avec une expiration d'une heure (vous pouvez ajuster cela selon vos besoins)
           const token = jwt.sign(
-            { id: utilisateur.id, email: utilisateur.email },
+            { id: utilisateur.id, isAdmin: utilisateur.seelie },
             process.env.APP_SECRET, // replace with your own secret key
             { expiresIn: "1h" }
           );
 
           // là on envoie le token au client avec un message de connexion réussie
-          res.status(200).json({ message: "Connexion réussie", token });
+          res
+            .status(200)
+            .json({ message: "Connexion réussie", token, utilisateur });
         } else {
           // Si y'a une couille dans le paté bah on renvoie un message d'erreur
           res.status(401).json({ message: "Identifiants incorrects" });

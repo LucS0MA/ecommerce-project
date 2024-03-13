@@ -5,19 +5,19 @@ class PanierManager extends AbstractManager {
     super({ table: "panier_article" });
   }
 
-  async create(cart) {
+  async create(utilisateurId, cart) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (quantité, articles_id, utilisateurs_id) VALUES (?, ?, ?)`,
-      [cart.quantité, cart.articleId, cart.utilisateurId]
+      [cart.quantité, cart.articleId, utilisateurId]
     );
 
     return result;
   }
 
-  async read(cart) {
+  async read(utilisateurId, articleId) {
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE utilisateurs_id = ? AND articles_id = ?`,
-      [cart.utilisateurId, cart.articleId]
+      [utilisateurId, articleId]
     );
     return rows[0];
   }
@@ -42,10 +42,10 @@ class PanierManager extends AbstractManager {
     return rows.affectedRows;
   }
 
-  async update(cart, quantity) {
+  async update(utilisateurId, articleId, quantity) {
     const [rows] = await this.database.query(
       `UPDATE ${this.table} SET quantité = ? WHERE utilisateurs_id = ? AND articles_id = ?`,
-      [quantity, cart.utilisateurId, cart.articleId]
+      [quantity, utilisateurId, articleId]
     );
 
     return rows;

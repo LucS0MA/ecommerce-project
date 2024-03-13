@@ -11,7 +11,7 @@ function Phares() {
 
   // On récupère les articles présent dans la bdd
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:3310/api/articles/?phares=1&limit=3", {
         headers: {
@@ -41,6 +41,7 @@ function Phares() {
               nom={article.nom}
               vendeuse={article.vendeuse}
               prix={`${article.prix} €`}
+              isFav={false}
             />
           ))}
         </div>

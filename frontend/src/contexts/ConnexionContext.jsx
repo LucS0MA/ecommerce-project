@@ -12,15 +12,15 @@ export function ModalProvider({ children }) {
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
   const [authentification, setAuthentification] = useState(
-    sessionStorage.getItem("token") !== null
+    localStorage.getItem("token") !== null
   );
   const [deco, setDeco] = useState();
 
   const logout = () => {
-    if (sessionStorage.getItem("token") !== null) {
-      setDeco(sessionStorage.removeItem("token"));
-      sessionStorage.setItem("authentification", "false");
+    if (localStorage.getItem("token") !== null) {
+      setDeco(localStorage.removeItem("token"));
       window.location.reload();
+      localStorage.setItem("authentification", "false");
     }
   };
 

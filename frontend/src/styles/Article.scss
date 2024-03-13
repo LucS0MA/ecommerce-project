@@ -161,3 +161,22 @@
     stroke: var(--color);
   }
 }
+
+.view_articles .article-container {
+  background-color: var(--bg-color);
+  color: var(--color);
+
+  .article-ligne {
+    background-color: var(--color);
+  }
+
+  .article-prix {
+    background-color: #442332;
+    border: 1px solid #bdc9ac;
+    color: #bdc9ac;
+  }
+
+  .article-logo path {
+    stroke: var(--color);
+  }
+}

@@ -37,7 +37,7 @@ function FiltresArticles() {
     { nom: "orange", couleur: "#DF824D" },
     { nom: "rouge", couleur: "#720F0F" },
     { nom: "bleu", couleur: "#3E7282" },
-    { nom: "move", couleur: "#8D214C" },
+    { nom: "rose", couleur: "#8D214C" },
     { nom: "violet", couleur: "#5A38A3" },
   ];
 
@@ -47,10 +47,7 @@ function FiltresArticles() {
       const response = await axios.get("http://localhost:3310/api/articles");
       setArticles(response.data);
     } catch (error) {
-      console.error(
-        "Erreur lors du chargement des données depuis l'API",
-        error
-      );
+      console.error("Erreur", error);
     }
   };
 
@@ -59,13 +56,13 @@ function FiltresArticles() {
   }, []);
 
   /// / Fonction permettant de filter les articles////
-  const donneesFiltrees = articles.filter((item) => {
+  const articlesFiltrees = articles.filter((item) => {
     const filtreParNom = !search || item.nom.includes(search);
     const filtreParThematique =
-      !thematiqueValue || item.type === thematiqueValue;
+      !thematiqueValue || item.thematique === thematiqueValue;
     const filtreParPrix = prixValue >= item.prix;
     const filtreParType =
-      typeValue.length === 0 || typeValue.includes(item.thematique);
+      typeValue.length === 0 || typeValue.includes(item.type);
     const filtreParCouleur = !CouleurValue || item.couleur === CouleurValue;
 
     return (
@@ -179,7 +176,7 @@ function FiltresArticles() {
         </div>
         <div>
           <div className="view_articles">
-            {donneesFiltrees.map((article) => (
+            {articlesFiltrees.map((article) => (
               <Article
                 key={article.id}
                 image={`http://localhost:3310${article.image}`}

@@ -83,7 +83,7 @@ function UserChangePassword() {
     }
 
     // logique pour récupérer token JWT stocké localement
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     try {
       // Envoie une requête PUT pour mettre à jour le mot de passe, incluant le token JWT pour l'authentification
 

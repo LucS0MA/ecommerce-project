@@ -41,8 +41,8 @@ function Connexion() {
 
       // Set user authentication and token in local storage
       setAuthentification(true);
-      localStorage.setItem("authentification", "true");
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("authentification", "true");
+      sessionStorage.setItem("token", token);
 
       setLoginSuccess(true);
       console.info("Authentication success:", response.data);

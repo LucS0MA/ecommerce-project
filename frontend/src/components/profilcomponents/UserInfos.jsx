@@ -24,16 +24,9 @@ function UserInfos() {
 
   // on utilise le Useeffect pour excuter le code au montage du composant
   // ici on fait une requête GET pour récupérer les données de l'utilisateur depuis la BDD
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/utilisateurs/0", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-        },
-      })
+      .get("http://localhost:3310/api/utilisateurs/1")
       .then((response) => {
         const {
           nom,
@@ -82,15 +75,9 @@ function UserInfos() {
 
   // on va gérer la soumission du formulaire
   const handleSubmit = async (event) => {
-    const token = localStorage.getItem("token");
     event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
-      await axios.put("http://localhost:3310/api/utilisateurs/0", formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-        },
-      }); // on fait une requete PUT pour mettre à jour les données de l'utilisateur dans la bdd
+      await axios.put("http://localhost:3310/api/utilisateurs/1", formData); // on fait une requete PUT pour mettre à jour les données de l'utilisateur dans la bdd
       console.info(formData);
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'utilisateur", error);

@@ -41,7 +41,7 @@ function Phares() {
               nom={article.nom}
               // vendeuse={article.vendeuse}
               prix={`${article.prix} €`}
-              // isFav={false}
+              isFav={false}
             />
           ))}
         </div>

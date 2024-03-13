@@ -12,8 +12,17 @@ export function ModalProvider({ children }) {
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
   const [authentification, setAuthentification] = useState(
-    localStorage.getItem("authentification") === "true"
+    sessionStorage.getItem("token") !== null
   );
+  const [deco, setDeco] = useState();
+
+  const logout = () => {
+    if (sessionStorage.getItem("token") !== null) {
+      setDeco(sessionStorage.removeItem("token"));
+      window.location.reload();
+      sessionStorage.setItem("authentification", "false");
+    }
+  };
 
   const toggleModal = () => {
     setModal(!modal);
@@ -38,6 +47,9 @@ export function ModalProvider({ children }) {
       setAuthentification,
       auth,
       setAuth,
+      logout,
+      deco,
+      setDeco,
     }),
     [modal, modalTwo, authentification]
   );

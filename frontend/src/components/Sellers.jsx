@@ -25,6 +25,7 @@ function Sellers() {
           start: "top center",
           end: "bottom bottom",
           scrub: 20,
+          once: true,
         },
       });
 

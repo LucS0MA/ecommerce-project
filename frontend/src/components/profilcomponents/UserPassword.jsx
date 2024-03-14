@@ -25,19 +25,26 @@ function UserChangePassword() {
   };
 
   // Définit une fonction pour évaluer la force du mot de passe basée sur plusieurs critères
+  // Définit une fonction pour évaluer la force du mot de passe basée sur plusieurs critères
   const getPasswordStrength = (password) => {
     let strength = 0;
-    if (password.length > 0) strength += 1;
-    if (password.length >= 8) strength += 2;
-    if (
-      /[A-Z]/.test(password) &&
-      /[a-z]/.test(password) &&
-      /\d/.test(password) &&
-      /[#$@!%*?&]/.test(password)
-    ) {
-      strength += 1;
+    if (password.length >= 8) strength += 1;
+    if (/[A-Z]/.test(password)) strength += 1;
+    if (/\d/.test(password) && /[#$@!%*?&]/.test(password)) strength += 1;
+    return Math.min(strength, 3); // Assure que la force ne dépasse pas 3
+  };
+
+  const getPasswordStrengthClass = (strength) => {
+    switch (strength) {
+      case 1:
+        return "weak"; // Rouge
+      case 2:
+        return "medium"; // Orange
+      case 3:
+        return "strong"; // Vert
+      default:
+        return "inactive";
     }
-    return strength;
   };
 
   // ici on met a jour l'etant au changement des infos dans les inputs
@@ -149,11 +156,12 @@ function UserChangePassword() {
           <div className="password-secure-indicator">
             {[...Array(3)].map((_, index) => {
               const isActive = index < passwordStrength;
-              const key = `strength-bar-${isActive ? "active" : "inactive"}-${index}`;
+              const strengthClass = getPasswordStrengthClass(passwordStrength);
+              const key = `strength-bar-${isActive ? strengthClass : "inactive"}-${index}`;
               return (
                 <div
                   key={key}
-                  className={`secure-bar ${isActive ? "active" : ""}`}
+                  className={`secure-bar ${isActive ? strengthClass : ""}`}
                 />
               );
             })}

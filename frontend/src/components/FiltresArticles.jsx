@@ -108,6 +108,7 @@ function FiltresArticles() {
               // max="200"
               defaultValue="200"
               value={prixValue}
+              step="5"
               onChange={(e) => setPrixValue(e.target.value)}
             />
             <p>{prixValue} €</p>
@@ -121,7 +122,7 @@ function FiltresArticles() {
             <div className="thematique_buttons">
               {thematiques.map((thematique) => (
                 <button
-                  key={thematique.id}
+                  key={thematique}
                   className="thematique_button"
                   type="button"
                   value={thematique}
@@ -140,7 +141,7 @@ function FiltresArticles() {
             </div>
             <div className="types_buttons">
               {types.map((type) => (
-                <div key={type.id}>
+                <div key={type}>
                   <input
                     className="type_button"
                     type="checkbox"
@@ -162,8 +163,9 @@ function FiltresArticles() {
             <div className="colors_buttons">
               {couleurs.map((couleur) => (
                 <button
-                  key={couleur.id}
+                  key={couleur}
                   className="color_button"
+                  alt={couleur.name}
                   aria-label="bbb"
                   type="button"
                   value={couleur.nom}
@@ -176,16 +178,18 @@ function FiltresArticles() {
         </div>
         <div>
           <div className="view_articles">
-            {articlesFiltrees.map((article) => (
-              <Article
-                key={article.id}
-                image={`http://localhost:3310${article.image}`}
-                nom={article.nom}
-                vendeuse={article.vendeuse}
-                prix={`${article.prix} €`}
-                isFav={false}
-              />
-            ))}
+            {articlesFiltrees
+              .sort((a, b) => a.nom.localeCompare(b.nom))
+              .map((article) => (
+                <Article
+                  key={article.id}
+                  image={`http://localhost:3310${article.image}`}
+                  nom={article.nom}
+                  vendeuse={article.vendeuse}
+                  prix={`${article.prix} €`}
+                  isFav={false}
+                />
+              ))}
             ;
           </div>
         </div>

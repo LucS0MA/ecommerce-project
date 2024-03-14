@@ -10,9 +10,8 @@
 .filtres_container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  border-right: 2px solid #bdc9ac;
-  color: #bdc9ac;
+  border-right: 2px solid var(--lightGreen);
+  color: var(--lightGreen);
   width: 20%;
   min-height: 100%;
   padding: 5% 2% 5% 2%;
@@ -37,7 +36,7 @@
       height: 100%;
       width: 100%;
       border: solid 2px;
-      color: #bdc9ac;
+      color: var(--lightGreen);
       padding-left: 40px; /* ajustez la valeur en fonction de la largeur de votre image + espace */
       background: url("../assets/loupe.svg") no-repeat left center;
       background-size: 24px 24px;
@@ -45,7 +44,7 @@
     }
 
     .input_search::placeholder {
-      color: #bdc9ac;
+      color: var(--lightGreen);
     }
   }
   ///////////Conteneur des inputs et titre des Prix, Thematique, Types et couleurs/////////////////////////////////////////////////////
@@ -71,7 +70,7 @@
 
   .input_range {
     width: 100%;
-    accent-color: #b86a46;
+    accent-color: var(--orange);
   }
 
   // Input Thématique/////////
@@ -83,15 +82,15 @@
     gap: 15px;
 
     .thematique_button {
-      background-color: #442332;
-      color: #bdc9ac;
-      border: 2px solid #bdc9ac;
+      background-color: var(--darkPink);
+      color: var(--lightGreen);
+      border: 2px solid var(--lightGreen);
       height: 50px;
       font-size: 0.7rem;
 
-      &:hover {
-        background-color: #bdc9ac;
-        color: #442332;
+      &:focus {
+        background-color: var(--lightGreen);
+        color: var(--darkPink);
       }
     }
   }
@@ -104,7 +103,10 @@
     .type_button {
       margin-right: 10px;
       font-size: 0.7rem;
-      accent-color: #bdc9ac;
+      accent-color: var(--lightGreen);
+    }
+    label {
+      font-size: 0.8rem;
     }
   }
 
@@ -119,6 +121,10 @@
     .color_button {
       width: 30px;
       height: 30px;
+
+      &:focus {
+        border: 2px solid var(--lightGreen);
+      }
     }
   }
 }

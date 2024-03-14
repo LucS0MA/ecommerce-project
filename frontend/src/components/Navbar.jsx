@@ -39,14 +39,16 @@ function Navbar() {
           </li>
         </ul>
         <div className="items_nav">
-          <div
-            className="modalToogle"
-            role="button"
-            tabIndex={0}
-            onClick={logout}
-          >
-            <img src={logout2} alt="basket_icon" />
-          </div>
+          {authentification ? (
+            <div
+              className="modalToogle"
+              role="button"
+              tabIndex={0}
+              onClick={logout}
+            >
+              <img src={logout2} alt="basket_icon" />
+            </div>
+          ) : null}
           <img src={panierIcon} alt="basket_icon" />
           {authentification ? (
             <Link to="/profil">

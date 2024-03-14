@@ -86,7 +86,6 @@ function UserChangePassword() {
     const token = sessionStorage.getItem("token");
     try {
       // Envoie une requête PUT pour mettre à jour le mot de passe, incluant le token JWT pour l'authentification
-
       await axios.put(
         `http://localhost:3310/api/utilisateurs/change-password`,
         { oldPassword, newPassword },

@@ -117,10 +117,10 @@ const changePassword = async (req, res) => {
   const userId = req.auth.id; // j'ai recup ca de l'edit
 
   try {
-    const user = await models.utilisateurs.findByPk(userId); // ca je ne connaissais pas le findByPK, en gros on va dire prends la clé primaire dans la bdd de cet element userid... Pour resumer recupere l'id de l'utilisateur
-    if (!user) {
+    if (!userId) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
+    const user = await models.utilisateurs.read(userId);
 
     // On vérifie que l'ancien mot de passe est correct
     const isOldPasswordCorrect = await bcrypt.compare(
@@ -143,7 +143,7 @@ const changePassword = async (req, res) => {
     // et la on hache et on met à jour du nouveau mot de passe
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
-    await user.update({ password: hashedPassword });
+    await models.utilisateurs.update(userId, { password: hashedPassword });
 
     return res.json({ message: "Mot de passe mis à jour avec succès." });
   } catch (error) {

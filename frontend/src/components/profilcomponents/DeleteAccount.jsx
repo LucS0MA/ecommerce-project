@@ -51,7 +51,7 @@ function DeleteAccount() {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="button" className="ButtDelAcc">
+        <button type="submit" className="ButtDelAcc">
           Supprimer le compte
         </button>
         {passwordError && <div className="error-message">{passwordError}</div>}

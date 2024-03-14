@@ -5,7 +5,7 @@ import "../../styles/Cadre.scss";
 function Cadre({ children }) {
   return (
     <div className="cadre-container">
-      <div className="content">{children}</div>
+      <div className="cadre-content">{children}</div>
     </div>
   );
 }

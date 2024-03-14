@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useConnexionContext } from "../../contexts/ConnexionContext";
 
 function DeleteAccount() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [accountDeleted, setAccountDeleted] = useState(false);
+  const { logout } = useConnexionContext();
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ function DeleteAccount() {
       setPassword("");
       setPasswordError("");
       setAccountDeleted(true);
+      logout();
     } catch (error) {
       console.info("Error");
       setPasswordError("Erreur dans la suppression du compte");

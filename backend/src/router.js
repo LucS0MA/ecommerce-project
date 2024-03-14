@@ -35,7 +35,7 @@ router.use(userIdToken);
 // routes utilisateurs
 router.get("/utilisateurs/:id", utilisateursControllers.read);
 router.put("/utilisateurs/:id", utilisateursControllers.edit);
-router.delete("/utilisateurs/:id", utilisateursControllers.destroy);
+router.post("/utilisateurs/delete", utilisateursControllers.destroy);
 router.put("/change-password", utilisateursControllers.changePassword);
 
 // routes fav

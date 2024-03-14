@@ -21,118 +21,71 @@ function Article({ id, image, nom, vendeuse, prix }) {
   // <path d="M27.9133 17.3716V17.3716C25.2325 16.5153 23.0252 14.5832 21.8508 12.0525L21.2749 10.8116M21.2749 10.8116L21.8452 12.0405C23.0232 14.5789 25.2244 16.5127 27.9133 17.3716" stroke="#442332" stroke-linecap="round"/>
   // </svg>`;
 
+  const [utilisateurId] = useState(1);
   const [articleId] = useState(id);
   const [fav, setFav] = useState(false);
   const [nbCart, setNbCart] = useState(0);
-  const [guest, setGuest] = useState(false);
 
   // On demande à la bdd si elle contient l'article dans ses favoris
   // Si elle le contient alors on actualise l'état de 'fav' sinon on laisse l'état par défaut (false)
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      axios
-        .get(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        })
-        .then((response) => response.data && setFav(true))
-        .catch((err) => console.error(err));
+    axios
+      .get(
+        `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
+      )
+      .then((response) => response.data && setFav(true))
+      .catch((err) => console.error(err));
 
-      axios
-        .get(`http://localhost:3310/api/panier/?articleId=${articleId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        })
-        .then((response) => response.data && setNbCart(response.data.quantité))
-        .catch((err) => console.error(err));
-    } else {
-      setGuest(true);
-    }
+    axios
+      .get(
+        `http://localhost:3310/api/panier/?utilisateurId=${utilisateurId}&articleId=${articleId}`
+      )
+      .then((response) => response.data && setNbCart(response.data.quantité))
+      .catch((err) => console.error(err));
   }, []);
 
   // On ajoute l'article au tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosPost = () => {
-    const token = sessionStorage.getItem("token");
     axios
-      .post(
-        "http://localhost:3310/api/isFav/",
-        {
-          articleId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        }
-      )
+      .post("http://localhost:3310/api/isFav/", {
+        utilisateurId,
+        articleId,
+      })
       .catch((err) => console.error(err));
     console.info(articleId, "post");
     // On actualise l'état
     setFav(true);
   };
+
   // On supprime l'article du tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosDelete = () => {
-    const token = sessionStorage.getItem("token");
     axios
-      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-        },
-      })
+      .delete(
+        `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${articleId}`
+      )
       .catch((err) => console.error(err));
     console.info(articleId, "delete");
     // On actualise l'état
     setFav(false);
   };
 
-  const handleFav = () => {
-    if (fav) {
-      axiosPost();
-    } else {
-      axiosDelete();
-    }
-  };
-
   const axiosPostPanier = () => {
-    const token = sessionStorage.getItem("token");
     axios
-      .post(
-        "http://localhost:3310/api/panier/",
-        {
-          articleId,
-          quantité: 1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        }
-      )
+      .post("http://localhost:3310/api/panier/", {
+        utilisateurId,
+        articleId,
+        quantité: 1,
+      })
       .catch((err) => console.error(err));
     console.info(articleId, "add to cart");
   };
 
   const axiosPutPanier = (nb) => {
-    const token = sessionStorage.getItem("token");
     axios
       .put(
-        `http://localhost:3310/api/panier/?articleId=${articleId}`,
+        `http://localhost:3310/api/panier/?utilisateurId=${utilisateurId}&articleId=${articleId}`,
         {
           quantité: nb + 1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
         }
       )
       .catch((err) => console.error(err));
@@ -166,7 +119,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
       <div className="article-logos">
         {fav ? (
           <svg
-            onClick={!guest ? () => handleFav() : () => setFav(!fav)}
+            onClick={() => (!fav ? axiosPost() : axiosDelete())}
             className="article-logo article-fav"
             width="28.48"
             height="23.98"
@@ -183,7 +136,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
           </svg>
         ) : (
           <svg
-            onClick={!guest ? () => handleFav() : () => setFav(!fav)}
+            onClick={() => (!fav ? axiosPost() : axiosDelete())}
             className="article-logo article-fav"
             width="28.48"
             height="23.98"
@@ -199,7 +152,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
           </svg>
         )}
         <svg
-          onClick={!guest && handleCart}
+          onClick={() => handleCart()}
           className="article-logo article-panier"
           width="30.59"
           height="31.79"

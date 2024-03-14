@@ -2,97 +2,28 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-function Favori({ articleId, nom, prix }) {
+function Favori({ id, nom, prix, utilisateurId }) {
   const [fav, setFav] = useState(true);
-  const [nbCart, setNbCart] = useState(0);
 
   // On ajoute l'article au tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosPost = () => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .post(
-        "http://localhost:3310/api/isFav/",
-        {
-          articleId,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        }
-      )
-      .catch((err) => console.error(err));
-    console.info(articleId, "post");
+    axios.post("http://localhost:3310/api/isFav/", {
+      utilisateurId,
+      articleId: id,
+    });
+    console.info(id, "post");
     // On actualise l'état
     setFav(true);
   };
 
   // On supprime l'article du tableau fav de la bdd pour l'utilisateur et l'article ciblés
   const axiosDelete = () => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-        },
-      })
-      .catch((err) => console.error(err));
-    console.info(articleId, "delete");
+    axios.delete(
+      `http://localhost:3310/api/isFav/?utilisateurId=${utilisateurId}&articleId=${id}`
+    );
+    console.info(id, "delete");
     // On actualise l'état
     setFav(false);
-  };
-
-  const axiosPostPanier = () => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .post(
-        "http://localhost:3310/api/panier/",
-        {
-          articleId,
-          quantité: 1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        }
-      )
-      .catch((err) => console.error(err));
-    console.info(articleId, "add to cart");
-  };
-
-  const axiosPutPanier = (nb) => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .put(
-        `http://localhost:3310/api/panier/?articleId=${articleId}`,
-        {
-          quantité: nb + 1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-          },
-        }
-      )
-      .catch((err) => console.error(err));
-    console.info(articleId, "add another to cart");
-  };
-
-  const handleCart = () => {
-    if (nbCart === 0) {
-      axiosPostPanier();
-      setNbCart(nbCart + 1);
-    }
-
-    if (nbCart > 0) {
-      axiosPutPanier(nbCart);
-      setNbCart(nbCart + 1);
-    }
   };
 
   return (
@@ -141,7 +72,6 @@ function Favori({ articleId, nom, prix }) {
               </svg>
             )}
             <svg
-              onClick={() => handleCart()}
               className="article-logo article-panier"
               width="30.59"
               height="31.79"
@@ -199,9 +129,10 @@ function Favori({ articleId, nom, prix }) {
 }
 
 Favori.propTypes = {
-  articleId: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   nom: PropTypes.string.isRequired,
   prix: PropTypes.number.isRequired,
+  utilisateurId: PropTypes.number.isRequired,
 };
 
 export default Favori;

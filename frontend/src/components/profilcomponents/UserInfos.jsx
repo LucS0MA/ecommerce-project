@@ -1,11 +1,13 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useConnexionContext } from "../../contexts/ConnexionContext";
 import { useProfile } from "./ProfileContext";
 import UserCreditCard from "./UserCreditCard";
 import "../../styles/UserInfos.scss";
 
 function UserInfos() {
   const { subSectionActive, switchSubSection } = useProfile();
+  const { logout } = useConnexionContext();
 
   // Initialisation de l'état formData
   const [formData, setFormData] = useState({
@@ -57,12 +59,17 @@ function UserInfos() {
           telephone: telephone || "",
         });
       })
-      .catch((error) =>
+      .catch((error) => {
         console.error(
           "Erreur lors du chargement des données de l'utilisateur:",
           error
-        )
-      );
+        );
+        if (error.response && error.response.status === 401) {
+          // Rediriger l'utilisateur vers la page d'accueil
+          window.location.href = "/";
+          logout(); // Déconnecte l'utilisateur
+        }
+      });
   }, []); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois
 
   // la on va gérer les changements avec le HandleInputChange
@@ -77,7 +84,7 @@ function UserInfos() {
 
   // on va gérer la soumission du formulaire
   const handleSubmit = async (event) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
       await axios.put("http://localhost:3310/api/utilisateurs/0", formData, {

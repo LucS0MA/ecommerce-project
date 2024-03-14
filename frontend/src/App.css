@@ -42,4 +42,6 @@ html {
   background: var(--darkPink);
   scroll-behavior: smooth;
   overflow-x: hidden;
+  position: relative;
+  /* Le position relative est important ici , le overflow ne fonctionne pas sur mobile sans ça */
 }

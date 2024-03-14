@@ -12,8 +12,9 @@
   justify-content: space-between;
 }
 .carte-paiement-container {
-  width: 300px;
-  height: 200px;
+  width: 50%;
+  min-width: 300px;
+  aspect-ratio: 4280/2699; /* taille reel cb = 8560 x 5398 */
   border: 1px solid var(--lightGreen);
   background: linear-gradient(180deg, #8d214c 0%, #df824d 100%);
   padding: 2rem;

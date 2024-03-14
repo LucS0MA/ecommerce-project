@@ -1,8 +1,10 @@
 const models = require("../modelsProviders");
 
 const add = async (req, res) => {
+  const cart = req.body;
+
   try {
-    const result = await models.panier_article.create(req.auth.id, req.body);
+    const result = await models.panier_article.create(cart);
 
     res.status(201).json({ result });
   } catch (err) {
@@ -12,13 +14,10 @@ const add = async (req, res) => {
 
 const read = async (req, res) => {
   try {
-    const cart = await models.panier_article.read(
-      req.auth.id,
-      req.query.articleId
-    );
+    const cart = await models.panier_article.read(req.query);
 
     if (cart == null) {
-      if (req.auth.id && req.query.articleId) {
+      if (req.query.utilisateurId && req.query.articleId) {
         res.json(0);
       } else {
         res.sendStatus(404);
@@ -33,7 +32,7 @@ const read = async (req, res) => {
 
 const browse = async (req, res) => {
   try {
-    const cart = await models.panier_article.readAll(req.auth.id);
+    const cart = await models.panier_article.readAll(req.params.id);
 
     if (cart == null) {
       res.sendStatus(404);
@@ -48,7 +47,7 @@ const browse = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const affectedRows = await models.panier_article.delete(
-      req.auth.id,
+      req.query.utilisateurId,
       req.query.articleId
     );
 
@@ -65,10 +64,10 @@ const destroy = async (req, res) => {
 const edit = async (req, res) => {
   try {
     const cart = await models.panier_article.update(
-      req.auth.id,
-      req.query.articleId,
+      req.query,
       req.body.quantité
     );
+
     if (cart.affectedRows === 0) {
       res.sendStatus(404);
     } else {

@@ -43,7 +43,7 @@ function Connexion() {
       setAuthentification(true);
       sessionStorage.setItem("authentification", "true");
       sessionStorage.setItem("token", token);
-
+      window.location.reload();
       setLoginSuccess(true);
       console.info("Authentication success:", response.data);
     } catch (error) {

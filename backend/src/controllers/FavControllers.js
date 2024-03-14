@@ -2,11 +2,12 @@ const models = require("../modelsProviders");
 
 const read = async (req, res) => {
   try {
-    const fav = await models.isFav.read(req.auth.id, req.query.articleId);
+    const fav = await models.isFav.read(req.query);
+
     // Si le favori n'existe pas
     if (fav == null) {
       // et si le FRONT a bien envoyé l'id de l'uitlisateur ainsi que l'id de l'article au BACK
-      if (req.auth.id && req.query.articleId) {
+      if (req.query.utilisateurId && req.query.articleId) {
         // Alors envoyer 0 au FRONT, afin qu'il ait l'information de l'abscence de l'article en question dans la table des favoris
         res.json(0);
       } else {
@@ -24,7 +25,7 @@ const read = async (req, res) => {
 
 const browse = async (req, res) => {
   try {
-    const fav = await models.isFav.readAll(req.auth.id);
+    const fav = await models.isFav.readAll(req.params.id);
 
     if (fav == null) {
       res.sendStatus(404);
@@ -37,8 +38,10 @@ const browse = async (req, res) => {
 };
 
 const add = async (req, res) => {
+  const fav = req.body;
+
   try {
-    const result = await models.isFav.create(req.auth.id, req.body.articleId);
+    const result = await models.isFav.create(fav);
 
     res.status(201).json({ result });
   } catch (err) {
@@ -49,7 +52,7 @@ const add = async (req, res) => {
 const destroy = async (req, res) => {
   try {
     const affectedRows = await models.isFav.delete(
-      req.auth.id,
+      req.query.utilisateurId,
       req.query.articleId
     );
 

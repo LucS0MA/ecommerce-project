@@ -5,19 +5,19 @@ class FavManager extends AbstractManager {
     super({ table: "isFav" });
   }
 
-  async create(utilisateurId, articleId) {
+  async create(item) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (utilisateurs_id, articles_id) VALUES (?, ?)`,
-      [utilisateurId, articleId]
+      [item.utilisateurId, item.articleId]
     );
 
     return result;
   }
 
-  async read(utilisateurId, articleId) {
+  async read(fav) {
     const [rows] = await this.database.query(
       `SELECT * FROM ${this.table} WHERE utilisateurs_id = ? AND articles_id = ?`,
-      [utilisateurId, articleId]
+      [fav.utilisateurId, fav.articleId]
     );
 
     return rows[0];

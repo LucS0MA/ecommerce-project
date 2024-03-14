@@ -24,7 +24,7 @@
     color: transparent;
   }
 
-  #trompignonContainer {
+  #shroomGuyContainer {
     position: relative;
     display: flex;
     justify-content: center;
@@ -45,7 +45,7 @@
       min-width: 300px;
     }
 
-    #trompignon {
+    #shroomGuy {
       position: absolute;
       aspect-ratio: auto;
       width: 22vw;
@@ -93,7 +93,7 @@
 
 @media screen and (min-width: 2048px) {
   #bigTitle {
-    #trompignonContainer {
+    #shroomGuyContainer {
       #exploreButton {
         font-size: 2rem;
       }
@@ -103,7 +103,7 @@
 
 @media screen and (min-height: 2048px) {
   #bigTitle {
-    #trompignonContainer {
+    #shroomGuyContainer {
       #exploreButton {
         font-size: 4rem;
       }

@@ -93,7 +93,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
   };
 
   const handleFav = () => {
-    if (fav) {
+    if (!fav) {
       axiosPost();
     } else {
       axiosDelete();

@@ -77,7 +77,7 @@ function UserInfos() {
 
   // on va gérer la soumission du formulaire
   const handleSubmit = async (event) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
       await axios.put("http://localhost:3310/api/utilisateurs/0", formData, {

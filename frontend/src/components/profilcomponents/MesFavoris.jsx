@@ -11,9 +11,9 @@ function MesFavoris() {
 
   // On récupère les articles favoris de l'utilisateur
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     axios
-      .get(`http://localhost:3310/api/isFav/${utilisateurId}`, {
+      .get(`http://localhost:3310/api/isFav/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -31,7 +31,7 @@ function MesFavoris() {
         {articles.map((article) => (
           <Favori
             key={article.articles_id}
-            id={article.articles_id}
+            articleId={article.articles_id}
             nom={article.nom}
             prix={article.prix}
             utilisateurId={utilisateurId}

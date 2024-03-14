@@ -1,8 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+
 import { useConnexionContext } from "../contexts/ConnexionContext";
-import "../styles/Connexion.scss";
+
 import flower from "../assets/Group 19.png";
+
+import "../styles/Connexion.scss";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 

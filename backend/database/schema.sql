@@ -342,12 +342,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`isFav` (
   CONSTRAINT `fk_isFav_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_isFav_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

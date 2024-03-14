@@ -62,16 +62,38 @@ const edit = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
+  const { actualPassword } = req.body;
+  const userId = req.auth.id;
+
   try {
-    const affectedRows = await models.utilisateurs.delete(req.params.id);
+    if (!userId) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+
+    const user = await models.utilisateurs.read(userId);
+    const isActualPasswordCorrect = await bcrypt.compare(
+      actualPassword,
+      user.password
+    );
+
+    if (!isActualPasswordCorrect) {
+      return res
+        .status(401)
+        .json({ message: "Le mot de passe actuel est incorrect." });
+    }
+
+    const affectedRows = await models.utilisateurs.delete(userId);
 
     if (affectedRows === 0) {
-      res.sendStatus(404);
-    } else {
-      res.sendStatus(204);
+      return res.sendStatus(404);
     }
+
+    return res.sendStatus(204);
   } catch (err) {
     console.error(err);
+    return res
+      .status(500)
+      .json({ message: "Erreur serveur lors de la suppression du compte." });
   }
 };
 

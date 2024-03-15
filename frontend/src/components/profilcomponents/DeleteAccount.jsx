@@ -27,6 +27,7 @@ function DeleteAccount() {
       setPasswordError("");
       setAccountDeleted(true);
       logout();
+      window.location.href = "/";
     } catch (error) {
       console.info("Error");
       setPasswordError("Erreur dans la suppression du compte");
@@ -51,7 +52,7 @@ function DeleteAccount() {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="button" className="ButtDelAcc">
+        <button type="submit" className="ButtDelAcc">
           Supprimer le compte
         </button>
         {passwordError && <div className="error-message">{passwordError}</div>}

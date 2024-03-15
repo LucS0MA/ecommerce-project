@@ -19,7 +19,6 @@ export function ModalProvider({ children }) {
   const logout = () => {
     if (sessionStorage.getItem("token") !== null) {
       setDeco(sessionStorage.removeItem("token"));
-      window.location.reload();
       sessionStorage.setItem("authentification", "false");
     }
   };

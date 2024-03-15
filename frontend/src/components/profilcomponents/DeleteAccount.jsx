@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../../styles/DeleteAccount.scss";
 import { useConnexionContext } from "../../contexts/ConnexionContext";
 
 function DeleteAccount() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [accountDeleted, setAccountDeleted] = useState(false);
+  const [showPassword, setShowPasswordDelAcc] = useState({
+    password: false,
+  });
   const { logout } = useConnexionContext();
+
+  const delAccToggleShowPassword = (field) => {
+    setShowPasswordDelAcc((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
+  };
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
@@ -29,8 +40,9 @@ function DeleteAccount() {
       logout();
       window.location.href = "/";
     } catch (error) {
+      setPassword("");
       console.info("Error");
-      setPasswordError("Erreur dans la suppression du compte");
+      setPasswordError("Mot de passe incorrect");
     }
   };
 
@@ -39,23 +51,38 @@ function DeleteAccount() {
   };
 
   return (
-    <main>
-      <h3 className="TitleDel">Supprimer le compte</h3>
+    <main className="formDelAccount">
+      <h2 className="titleDel">Supprimer le compte</h2>
+      <div className="lineDelAccount" />{" "}
       <form className="deleteForm" onSubmit={handleDeleteAccount}>
         <label className="labelPassDel" htmlFor="password">
           Mot de passe :
         </label>
         <input
+          onClick={() => {
+            setPasswordError("");
+          }}
           className="passwordValidDelete"
-          type="password"
-          placeholder="Entrez votre mot de passe"
+          type={showPassword.password ? "text" : "password"}
+          placeholder="Entrez votre mot de passe actuel"
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="submit" className="ButtDelAcc">
-          Supprimer le compte
+        <button
+          type="button"
+          className="toggle-passwordDelAcc"
+          onClick={() => delAccToggleShowPassword("password")}
+        >
+          Voir
         </button>
-        {passwordError && <div className="error-message">{passwordError}</div>}
+        <div className="ButtDelContainer">
+          <button type="submit" className="ButtDelAcc">
+            Supprimer le compte
+          </button>
+        </div>
+        {passwordError && (
+          <div className="error-messageDelAcc">{passwordError}</div>
+        )}
         {accountDeleted && (
           <div className="success-message">Compte supprimé avec succès.</div>
         )}

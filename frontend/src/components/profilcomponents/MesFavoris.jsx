@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useConnexionContext } from "../../contexts/ConnexionContext";
 
 import Favori from "./Favori";
 
@@ -8,6 +9,7 @@ import "../../styles/MesFavoris.scss";
 function MesFavoris() {
   const [utilisateurId] = useState(1);
   const [articles, setArticles] = useState([]);
+  const { logout } = useConnexionContext();
 
   // On récupère les articles favoris de l'utilisateur
   useEffect(() => {
@@ -19,7 +21,17 @@ function MesFavoris() {
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
         },
       })
-      .then((data) => setArticles(data.data));
+      .then((data) => setArticles(data.data)) // Retirer le point-virgule ici
+      .catch((error) => {
+        console.error(
+          "Erreur lors du chargement des données de l'utilisateur:",
+          error
+        );
+        if (error.response && error.response.status === 401) {
+          window.location.href = "/";
+          logout();
+        }
+      });
   }, []);
 
   return (

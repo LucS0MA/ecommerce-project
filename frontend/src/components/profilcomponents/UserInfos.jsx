@@ -65,9 +65,8 @@ function UserInfos() {
           error
         );
         if (error.response && error.response.status === 401) {
-          // Rediriger l'utilisateur vers la page d'accueil
           window.location.href = "/";
-          logout(); // Déconnecte l'utilisateur
+          logout();
         }
       });
   }, []); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois

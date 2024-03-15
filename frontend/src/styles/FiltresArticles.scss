@@ -1,8 +1,36 @@
-#main_container {
+#cards_seelies {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: play, sans-serif;
+  margin-left: 5%;
+  margin-right: 3%;
+
+  p {
+    font-size: 1.5em;
+    text-align: center;
+    font-style: italic;
+    color: var(--lightGreen);
+    width: 19%;
+  }
+
+  span {
+    color: #e2b95b;
+  }
+
+  .seelies_cards {
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 10px;
+  }
+}
+
+#main_container_filtres {
   display: flex;
   border: 2px solid #bdc9ac;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-bottom: 50px;
 }
 
@@ -12,16 +40,16 @@
   flex-direction: column;
   border-right: 2px solid var(--lightGreen);
   color: var(--lightGreen);
-  width: 20%;
   min-height: 100%;
   padding: 5% 2% 5% 2%;
-  font-size: 0.7rem;
   gap: 30px;
+  font-family: play, sans-serif;
 
   // Titre du conteneur contanant tous les inputs/////////////////////
   .filters_title {
     text-align: center;
-    font-size: 1.7rem;
+    font-size: 2.5rem;
+    font-family: AbhaBold, sans-serif;
   }
 
   // Conteneur barre de recherche////////////////
@@ -30,7 +58,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
+    height: 45px;
 
     .input_search {
       height: 100%;
@@ -45,19 +73,21 @@
 
     .input_search::placeholder {
       color: var(--lightGreen);
+      font-size: 1rem;
     }
   }
   ///////////Conteneur des inputs et titre des Prix, Thematique, Types et couleurs/////////////////////////////////////////////////////
   .filtre_container {
-    margin: 10px 0px 10px 0px;
+    margin-top: 30px;
   }
 
   .filtre_title {
     display: flex;
     flex-direction: column;
-    font-size: 0.8rem;
     padding-bottom: 20px;
-    gap: 2px;
+    font-family: AbhaBold, sans-serif;
+    gap: 3px;
+    font-size: 1.1rem;
   }
 
   // Input Prix/////////
@@ -86,7 +116,8 @@
       color: var(--lightGreen);
       border: 2px solid var(--lightGreen);
       height: 50px;
-      font-size: 0.7rem;
+      font-family: play, sans-serif;
+      font-size: 1rem;
 
       &:focus {
         background-color: var(--lightGreen);
@@ -102,11 +133,7 @@
 
     .type_button {
       margin-right: 10px;
-      font-size: 0.7rem;
       accent-color: var(--lightGreen);
-    }
-    label {
-      font-size: 0.8rem;
     }
   }
 
@@ -130,10 +157,28 @@
 }
 
 .view_articles {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin: 50px 20px 20px 20px;
+  gap: 50px;
+  margin: 2% auto 2% auto;
+}
+
+.view_articles .article-container {
+  background-color: var(--bg-color);
+  color: var(--color);
+
+  .article-ligne {
+    background-color: var(--color);
+  }
+
+  .article-prix {
+    background-color: #442332;
+    border: 1px solid #bdc9ac;
+    color: #bdc9ac;
+  }
+
+  .article-logo path {
+    stroke: var(--color);
+  }
 }

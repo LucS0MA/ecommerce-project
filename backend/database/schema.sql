@@ -58,6 +58,19 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+-- -----------------------------------------------------
+-- Table `le_comptoir_des_seelies`.`paiement`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`paiements` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titulaire` VARCHAR(100),
+  `numero` VARCHAR(16),
+  `expiration` DATETIME,
+  `cvv` INT,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
 -- Table `le_comptoir_des_seelies`.`avis`

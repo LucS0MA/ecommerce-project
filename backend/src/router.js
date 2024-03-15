@@ -13,6 +13,7 @@ const articlesControllers = require("./controllers/articlesControllers");
 const utilisateursControllers = require("./controllers/utilisateursControllers");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
+const paiementControllers = require("./controllers/paiementControllers");
 // const moviesControllers = require("./controllers/moviesControllers");
 
 // Route to get a list of items
@@ -46,5 +47,8 @@ router.post("/festivals", fesitvalsControllers.add);
 router.get("/isFav", isFav.read);
 router.post("/isFav", isFav.add);
 router.delete("/isFav", isFav.destroy);
+
+router.get("/paiements", paiementControllers.browse);
+router.get("/paiements/:id", paiementControllers.read);
 
 module.exports = router;

@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../styles/UserCreditCard.scss";
 
 function UserCreditCard() {
   const [cardInfo, setCardInfo] = useState({
-    nom: "NOM DU TITULAIRE",
+    titulaire: "NOM DU TITULAIRE",
     numero: "................",
     expiration: "MM/AA",
     cvv: "•••",
   });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3310/api/paiements")
+      .then((response) => {
+        const { titulaire, numero, expiration, cvv } = response.data;
+        setCardInfo({
+          titulaire,
+          numero,
+          expiration,
+          cvv,
+        });
+      })
+      .catch((error) =>
+        console.error("Erreur chargement des données utilisateur:", error)
+      );
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +90,7 @@ function UserCreditCard() {
 
       if (response.ok) {
         console.info("Carte supprimée avec succès");
-        setCardInfo({ nom: "", numero: "", expiration: "", cvv: "" });
+        setCardInfo({ titulaire: "", numero: "", expiration: "", cvv: "" });
       } else {
         console.error("Erreur lors de la suppression de la carte");
       }
@@ -87,7 +105,7 @@ function UserCreditCard() {
         <div className="carte-paiement-container">
           <h1 id="card-title">Carte de crédit</h1>
 
-          <div className="carte-nom">{cardInfo.nom}</div>
+          <div className="carte-titulaire">{cardInfo.titulaire}</div>
           <div className="carte-numero">
             {cardInfo.numero
               .replace(/.(?=.{4})/g, ".")
@@ -113,15 +131,15 @@ function UserCreditCard() {
       </div>
 
       <div className="input-group">
-        <label className="labels-cb" htmlFor="nom">
+        <label className="labels-cb" htmlFor="titulaire">
           Nom
         </label>
         <input
           type="text"
-          id="nom"
-          name="nom"
+          id="titulaire"
+          name="titulaire"
           className="inputs-cb input-name-cb"
-          value={cardInfo.nom}
+          value={cardInfo.titulaire}
           onChange={handleInputChange}
         />
       </div>

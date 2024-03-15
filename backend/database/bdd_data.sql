@@ -10,6 +10,16 @@ INSERT INTO utilisateurs (
   "Hippopotame", "Girafe", "2000-06-19", 0607593244, "abdou@gmail.com", "4321", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
 );
 
+INSERT INTO paiements (
+  titulaire, numero, expiration, cvv
+) VALUES (
+  'Fée Clochette', '1111222233334444', '2026-07-01 00:00:00', '235'
+),(
+  'Peter pan', '5555666677778888', '2027-03-01 00:00:00', '457'
+), (
+  'Capitaine Crochet', '9999111122223333', '2028-05-01 00:00:00', '679'
+);
+
 INSERT INTO articles (
   nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité
 ) VALUES (

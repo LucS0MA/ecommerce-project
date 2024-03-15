@@ -1,11 +1,11 @@
-@font-face {
-  font-family: Abha;
-  src: url("../assets/AbhayaLibre-ExtraBold.ttf");
-}
-@font-face {
-  font-family: Play;
-  src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
-}
+// @font-face {
+//   font-family: Abha;
+//   src: url("../assets/AbhayaLibre-ExtraBold.ttf");
+// }
+// @font-face {
+//   font-family: Play;
+//   src: url("../assets/PlayfairDisplay-VariableFont_wght.ttf");
+// }
 
 .body404 {
   background-color: #442332;
@@ -124,10 +124,74 @@
     justify-content: center;
     gap: 80px;
   }
+
+  .four1404 {
+    color: #df824d;
+    font-size: 12rem;
+    margin: 0;
+    font-family: Abha;
+    position: absolute;
+    top: -10px;
+    left: -50px;
+  }
+
+  .mush404 {
+    width: 80%;
+  }
+
+  .four2404 {
+    color: #df824d;
+    font-size: 12rem;
+    margin: 0;
+    font-family: Abha;
+    position: absolute;
+    bottom: -30px;
+    right: 60px;
+  }
 }
 
 /* Ecran moyen (Tablettes) */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  .body404 {
+    background-color: #442332;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin-top: 50px;
+    padding-bottom: 10%;
+  }
+
+  .Info404 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 80px;
+  }
+
+  .four1404 {
+    color: #df824d;
+    font-size: 15rem;
+    margin: 0;
+    font-family: Abha;
+    position: absolute;
+    top: -50px;
+    left: -80px;
+  }
+
+  .mush404 {
+    width: 80%;
+  }
+
+  .four2404 {
+    color: #df824d;
+    font-size: 15rem;
+    margin: 0;
+    font-family: Abha;
+    position: absolute;
+    bottom: -50px;
+    right: 30px;
+  }
 }
 
 /* Grand écran (Ordi) */

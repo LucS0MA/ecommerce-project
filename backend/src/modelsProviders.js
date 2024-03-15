@@ -16,6 +16,8 @@ const FestivalsManager = require("./models/FestivalsManager");
 
 const FavManager = require("./models/FavManager");
 
+const PaiementsManager = require("./models/PaiementsManager");
+
 const managers = [
   ItemManager,
   ArticlesManager,
@@ -25,6 +27,7 @@ const managers = [
   UtilisateursManager,
   FestivalsManager,
   FavManager,
+  PaiementsManager,
 ];
 
 // Create an empty object to hold data managers for different tables

@@ -58,7 +58,7 @@ function UserChangePassword() {
     setPasswordError("");
     setUpdateSuccess(false);
     // on regarde la force du mot de passe pour le champ newPassword
-    if (name === "newPassword" || name === "confirmPassword") {
+    if (name === "newPassword") {
       setPasswordStrength(getPasswordStrength(value));
     }
   };

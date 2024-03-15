@@ -22,7 +22,7 @@
         width: 90%;
 
         .footer-ImgCopy {
-          font-family: Play;
+          font-family: "Play", sans-serif;
           font-size: 12px;
           display: flex;
           flex-direction: column;
@@ -48,7 +48,7 @@
           }
         }
         .footer-nav {
-          font-family: Antic;
+          font-family: "Antic", sans-serif;
           font-size: 20px;
           display: flex;
           flex-direction: column;
@@ -65,7 +65,7 @@
         width: 40%;
 
         .footer-socials {
-          font-family: AbhaBold;
+          font-family: "AbhaBold", sans-serif;
           font-size: 16px;
           color: var(--darkPink);
           display: flex;
@@ -86,7 +86,7 @@
         }
       }
       .footer-others {
-        font-family: Play;
+        font-family: "Play", sans-serif;
         color: var(--darkPink);
         display: flex;
         flex-direction: column;

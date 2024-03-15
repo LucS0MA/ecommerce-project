@@ -2,12 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import Article from "./Article";
+import SellerCard from "./SellerCard";
+import sellersData from "../../sellerData.json";
 
 import line from "../assets/line.svg";
 
 import "../styles/FiltresArticles.scss";
 
 function FiltresArticles() {
+  const [seelies, setSeelies] = useState(null);
   const [search, setSearch] = useState(""); /// / Valeur de la barre de recherche ////
   const [prixValue, setPrixValue] = useState(200); /// / Valeur de la range prix ////
   const [thematiqueValue, setThematiqueValue] = useState(null); /// / Valeur inputs thématique ////
@@ -60,7 +63,10 @@ function FiltresArticles() {
 
   /// / Fonction permettant de filter les articles////
   const articlesFiltrees = articles.filter((item) => {
-    const filtreParNom = !search || item.nom.includes(search);
+    const filtreParSeelies = !seelies || item.vendeuse === seelies;
+    const searchLower = search ? search.toLowerCase() : "";
+    const itemNomLower = item.nom.toLowerCase();
+    const filtreParNom = !searchLower || itemNomLower.includes(searchLower);
     const filtreParThematique =
       !thematiqueValue || item.thematique === thematiqueValue;
     const filtreParPrix = prixValue >= item.prix;
@@ -69,6 +75,7 @@ function FiltresArticles() {
     const filtreParCouleur = !CouleurValue || item.couleur === CouleurValue;
 
     return (
+      filtreParSeelies &&
       filtreParNom &&
       filtreParThematique &&
       filtreParPrix &&
@@ -79,7 +86,25 @@ function FiltresArticles() {
 
   return (
     <main>
-      <section id="main_container">
+      <section id="cards_seelies">
+        <p>
+          Découvrez nos créations enchantées
+          <span> en filtrant par Seelies</span>. Trouvez les trésors uniques de
+          <span> chaque artisane</span>, guidés par leur propre essence magique.
+        </p>
+        <div className="seelies_cards">
+          {sellersData.map((seller) => (
+            <SellerCard
+              key={seller.name}
+              seller={seller}
+              value={seller.name}
+              onSelect={() => setSeelies(seller.name)}
+              alternate
+            />
+          ))}
+        </div>
+      </section>
+      <section id="main_container_filtres">
         <div className="filtres_container">
           <h1 className="filters_title">FILTRES</h1>
           <img src={line} alt="" />
@@ -111,6 +136,7 @@ function FiltresArticles() {
               max="200"
               // defaultValue="200"
               value={prixValue}
+              step="5"
               onChange={(e) => setPrixValue(e.target.value)}
             />
             <p>{prixValue} €</p>
@@ -167,6 +193,7 @@ function FiltresArticles() {
                 <button
                   key={couleur.nom}
                   className="color_button"
+                  alt={couleur.name}
                   aria-label="bbb"
                   type="button"
                   value={couleur.nom}
@@ -177,9 +204,10 @@ function FiltresArticles() {
             </div>
           </div>
         </div>
-        <div>
-          <div className="view_articles">
-            {articlesFiltrees.map((article) => (
+        <div className="view_articles">
+          {articlesFiltrees
+            .sort((a, b) => a.nom.localeCompare(b.nom))
+            .map((article) => (
               <Article
                 key={article.id}
                 id={article.id}
@@ -190,8 +218,7 @@ function FiltresArticles() {
                 isFav={false}
               />
             ))}
-            ;
-          </div>
+          ;
         </div>
       </section>
     </main>

@@ -1,8 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+
 import { useConnexionContext } from "../contexts/ConnexionContext";
-import "../styles/Connexion.scss";
+
 import flower from "../assets/Group 19.png";
+
+import "../styles/Connexion.scss";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -41,9 +44,9 @@ function Connexion() {
 
       // Set user authentication and token in local storage
       setAuthentification(true);
-      localStorage.setItem("authentification", "true");
-      localStorage.setItem("token", token);
-
+      sessionStorage.setItem("authentification", "true");
+      sessionStorage.setItem("token", token);
+      window.location.reload();
       setLoginSuccess(true);
       console.info("Authentication success:", response.data);
     } catch (error) {

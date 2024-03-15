@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useConnexionContext } from "../../contexts/ConnexionContext";
 import { useProfile } from "./ProfileContext";
 import UserCreditCard from "./UserCreditCard";
 import "../../styles/UserInfos.scss";
 
 function UserInfos() {
   const { subSectionActive, switchSubSection } = useProfile();
+  const { logout } = useConnexionContext();
+  const [updateMessage, setUpdateMessage] = useState("");
+  const [updateError, setUpdateError] = useState(false);
 
   // Initialisation de l'état formData
   const [formData, setFormData] = useState({
@@ -23,8 +27,14 @@ function UserInfos() {
   // on utilise le Useeffect pour excuter le code au montage du composant
   // ici on fait une requête GET pour récupérer les données de l'utilisateur depuis la BDD
   useEffect(() => {
+    const token = sessionStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/utilisateurs/1")
+      .get("http://localhost:3310/api/utilisateurs/0", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+        },
+      })
       .then((response) => {
         const {
           nom,
@@ -37,7 +47,8 @@ function UserInfos() {
           pays,
           telephone,
         } = response.data;
-        // on met a jout l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
+
+        // on met a jour l'etat de 'formData' avec les données fournies par l'utilisateur au préalable
         setFormData({
           nom: nom || "",
           prénom: prénom || "",
@@ -50,12 +61,16 @@ function UserInfos() {
           telephone: telephone || "",
         });
       })
-      .catch((error) =>
+      .catch((error) => {
         console.error(
           "Erreur lors du chargement des données de l'utilisateur:",
           error
-        )
-      );
+        );
+        if (error.response && error.response.status === 401) {
+          window.location.href = "/";
+          logout();
+        }
+      });
   }, []); // le tableau de dépendances vide signifie que cet effet va se faire une seule fois
 
   // la on va gérer les changements avec le HandleInputChange
@@ -70,12 +85,24 @@ function UserInfos() {
 
   // on va gérer la soumission du formulaire
   const handleSubmit = async (event) => {
+    const token = sessionStorage.getItem("token");
     event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
-      await axios.put("http://localhost:3310/api/utilisateurs/1", formData); // on fait une requete PUT pour mettre à jour les données de l'utilisateur dans la bdd
-      console.info(formData);
+      await axios.put("http://localhost:3310/api/utilisateurs/0", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ici c'estle  jeton JWT
+        },
+      }); // on fait une requete PUT pour mettre à jour les données de l'utilisateur dans la bdd
+      setUpdateMessage("Vos informations ont été mises à jour avec succès.");
+      setUpdateError(false);
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'utilisateur", error);
+      // Message en cas d'erreur
+      setUpdateMessage(
+        "Vos informations n'ont pas pu être mises à jour. Veuillez réessayer plus tard."
+      );
+      setUpdateError(true);
     }
   };
 
@@ -114,7 +141,7 @@ function UserInfos() {
                 onChange={handleInputChange}
                 required
               />
-              <label className="labels-info" htmlFor="prenom">
+              <label className="labels-info" htmlFor="prénom">
                 Prénom
               </label>
               <input
@@ -122,7 +149,7 @@ function UserInfos() {
                 name="prénom"
                 id="prénom"
                 className="inputs-info input-firstname-info"
-                value={formData.prenom}
+                value={formData.prénom}
                 onChange={handleInputChange}
                 required
               />
@@ -161,7 +188,6 @@ function UserInfos() {
               className="inputs-info input-add2-info"
               value={formData.adresse2}
               onChange={handleInputChange}
-              required
             />
             <div className="city-cp-input">
               <label className="labels-info" htmlFor="codePostal">
@@ -169,11 +195,12 @@ function UserInfos() {
               </label>
               <input
                 type="number"
-                name="CP"
+                name="codePostal"
                 id="codePostal"
                 className="inputs-info input-cp-info"
                 value={formData.codePostal}
                 onChange={handleInputChange}
+                required
               />
               <label className="labels-info" htmlFor="ville">
                 Ville
@@ -213,6 +240,13 @@ function UserInfos() {
               required
             />
             <div className="submit-container">
+              {updateMessage && (
+                <div
+                  className={`message ${updateError ? "error" : "success-info"}`}
+                >
+                  {updateMessage}
+                </div>
+              )}
               <button className="button-info-send" type="submit">
                 Enregistrer
               </button>
@@ -220,7 +254,7 @@ function UserInfos() {
           </form>
         )}
       </div>
-      {subSectionActive === "paiement" && <UserCreditCard />}{" "}
+      {subSectionActive === "paiement" && <UserCreditCard />}
     </div>
   );
 }

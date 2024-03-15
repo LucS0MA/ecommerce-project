@@ -12,7 +12,7 @@ const browse = (req, res) => {
 
 const read = async (req, res) => {
   try {
-    const utilisateur = await models.utilisateurs.read(req.params.id);
+    const utilisateur = await models.utilisateurs.read(req.auth.id);
 
     if (utilisateur == null) {
       res.sendStatus(404);
@@ -47,7 +47,7 @@ const add = async (req, res) => {
 const edit = async (req, res) => {
   try {
     const affectedRows = await models.utilisateurs.update(
-      req.params.id,
+      req.auth.id,
       req.body
     );
 
@@ -62,16 +62,38 @@ const edit = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
+  const { actualPassword } = req.body;
+  const userId = req.auth.id;
+
   try {
-    const affectedRows = await models.utilisateurs.delete(req.params.id);
+    if (!userId) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+
+    const user = await models.utilisateurs.read(userId);
+    const isActualPasswordCorrect = await bcrypt.compare(
+      actualPassword,
+      user.password
+    );
+
+    if (!isActualPasswordCorrect) {
+      return res
+        .status(401)
+        .json({ message: "Le mot de passe actuel est incorrect." });
+    }
+
+    const affectedRows = await models.utilisateurs.delete(userId);
 
     if (affectedRows === 0) {
-      res.sendStatus(404);
-    } else {
-      res.sendStatus(204);
+      return res.sendStatus(404);
     }
+
+    return res.sendStatus(204);
   } catch (err) {
     console.error(err);
+    return res
+      .status(500)
+      .json({ message: "Erreur serveur lors de la suppression du compte." });
   }
 };
 
@@ -90,13 +112,15 @@ function login(req, res) {
         if (passwordMatch) {
           // Création du token avec une expiration d'une heure (vous pouvez ajuster cela selon vos besoins)
           const token = jwt.sign(
-            { id: utilisateur.id, email: utilisateur.email },
+            { id: utilisateur.id, isAdmin: utilisateur.seelie },
             process.env.APP_SECRET, // replace with your own secret key
             { expiresIn: "1h" }
           );
 
           // là on envoie le token au client avec un message de connexion réussie
-          res.status(200).json({ message: "Connexion réussie", token });
+          res
+            .status(200)
+            .json({ message: "Connexion réussie", token, utilisateur });
         } else {
           // Si y'a une couille dans le paté bah on renvoie un message d'erreur
           res.status(401).json({ message: "Identifiants incorrects" });
@@ -110,7 +134,50 @@ function login(req, res) {
   }
 }
 
+const changePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const userId = req.auth.id; // j'ai recup ca de l'edit
+
+  try {
+    if (!userId) {
+      return res.status(404).json({ message: "Utilisateur non trouvé." });
+    }
+    const user = await models.utilisateurs.read(userId);
+
+    // On vérifie que l'ancien mot de passe est correct
+    const isOldPasswordCorrect = await bcrypt.compare(
+      oldPassword,
+      user.password
+    );
+    if (!isOldPasswordCorrect) {
+      return res
+        .status(401)
+        .json({ message: "L'ancien mot de passe est incorrect." });
+    }
+
+    // là on va voir si le nouveau mot de passe est différent de l'ancien
+    if (newPassword === oldPassword) {
+      return res.status(400).json({
+        message: "Le nouveau mot de passe doit être différent de l'ancien.",
+      });
+    }
+
+    // et la on hache et on met à jour du nouveau mot de passe
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    await models.utilisateurs.update(userId, { password: hashedPassword });
+
+    return res.json({ message: "Mot de passe mis à jour avec succès." });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du mot de passe :", error);
+    return res.status(500).json({
+      message: "Erreur serveur lors de la mise à jour du mot de passe.",
+    });
+  }
+};
+
 module.exports = {
+  changePassword,
   browse,
   read,
   edit,

@@ -14,8 +14,14 @@ function Nouveautés() {
 
   // On récupère les articles présent dans la bdd
   useEffect(() => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/articles/?nouveautes=1&limit=3")
+      .get("http://localhost:3310/api/articles/?nouveautes=1&limit=3", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+        },
+      })
       .then((response) => setArticles(response.data))
       .catch((err) => console.error(err));
   }, []);

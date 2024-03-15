@@ -2,7 +2,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
-function Trompignon() {
+function ShroomGuy() {
   const shroomRef = useRef(null);
 
   useGSAP(() => {
@@ -23,7 +23,7 @@ function Trompignon() {
       viewBox="0 0 502 650"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      id="trompignon"
+      id="shroomGuy"
     >
       <g id="GroupShroom" filter="url(#filter0_d_157_4416)" ref={shroomRef}>
         <path
@@ -1188,4 +1188,4 @@ function Trompignon() {
   );
 }
 
-export default Trompignon;
+export default ShroomGuy;

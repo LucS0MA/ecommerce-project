@@ -1,9 +1,9 @@
-.form-psw-container {
+.formDelAccount {
   max-width: 600px;
   max-height: 600px;
   padding: 5px 30px;
 
-  .title-psw {
+  .titleDel {
     background-color: var(--lightGreen);
     color: var(--darkPink);
     text-align: center;
@@ -12,26 +12,26 @@
     text-transform: uppercase;
     font-family: "Antic", serif;
   }
-  .line-user-psw {
+
+  .lineDelAccount {
     margin: 30px 0px;
     height: 1px;
     background-color: var(--lightGreen);
     width: 100%;
   }
-
-  .password-input-container {
+  .deleteForm {
     display: flex;
     flex-direction: column;
 
-    .labels-psw {
+    .labelPassDel {
       margin: 1.5vh;
       font-family: "Antic", sans-serif;
-      text-transform: uppercase;
       color: var(--lightGreen);
       font-weight: lighter;
+      text-transform: uppercase;
       margin-bottom: 2px;
     }
-    .input-psw {
+    .passwordValidDelete {
       font-family: "Antic", sans-serif;
       color: var(--lightGreen);
       font-weight: lighter;
@@ -44,15 +44,8 @@
       border: 1px solid var(--lightGreen);
     }
   }
-
-  .npsw-strenght {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .toggle-password {
-    width: 30%;
+  .toggle-passwordDelAcc {
+    width: 20%;
     padding: 3px;
     border-radius: 15px;
     border: 1px solid;
@@ -70,59 +63,12 @@
       border: 1px solid var(--lightGreen);
     }
   }
-
-  .error-message {
-    margin: 1.5vh;
-    font-size: 16px;
-    font-family: "Antic", sans-serif;
-    color: var(--lightGreen);
-    font-weight: lighter;
-    text-transform: uppercase;
-  }
-
-  .password-secure-indicator {
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    gap: 8px;
-
-    .secure-bar {
-      width: 40px;
-      height: 10px;
-      border-radius: 5px;
-      background-color: var(--darkPink);
-      border: 1px solid;
-      border-color: var(--lightGreen);
-    }
-
-    .secure-bar.weak {
-      width: 40px;
-      height: 10px;
-      border-radius: 5px;
-      background-color: red;
-    }
-
-    .secure-bar.medium {
-      width: 40px;
-      height: 10px;
-      border-radius: 5px;
-      background-color: orange;
-    }
-
-    .secure-bar.strong {
-      width: 40px;
-      height: 10px;
-      border-radius: 5px;
-      background-color: green;
-    }
-  }
-
-  .submit-btn-psw {
+  .ButtDelContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    .button-psw-send {
+    .ButtDelAcc {
       width: 90%;
       margin: 20px 0px;
       background: var(--pink);
@@ -140,8 +86,7 @@
         background: var(--lightGreen);
       }
     }
-
-    .psw-done {
+    .success-message {
       margin: 1vh;
       font-size: 16px;
       font-family: "Antic", sans-serif;
@@ -149,5 +94,13 @@
       font-weight: lighter;
       text-transform: uppercase;
     }
+  }
+  .error-messageDelAcc {
+    margin: 1.5vh;
+    font-size: 15px;
+    font-family: "Antic", sans-serif;
+    color: var(--lightGreen);
+    font-weight: lighter;
+    text-transform: uppercase;
   }
 }

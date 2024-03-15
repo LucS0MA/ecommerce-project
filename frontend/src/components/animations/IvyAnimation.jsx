@@ -15,6 +15,7 @@ function IvyAnimation({ children, ivyId, ivyRef, start, end }) {
         start: `${start}`,
         end: `${end}`,
         scrub: 10,
+        once: true,
       },
     });
 

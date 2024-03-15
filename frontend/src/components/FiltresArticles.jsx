@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 import Article from "./Article";
 import SellerCard from "./SellerCard";
 import sellersData from "../../sellerData.json";
+
 import line from "../assets/line.svg";
+
 import "../styles/FiltresArticles.scss";
 
 function FiltresArticles() {
@@ -130,8 +133,8 @@ function FiltresArticles() {
               className="input_range"
               type="range"
               min="0"
-              // max="200"
-              defaultValue="200"
+              max="200"
+              // defaultValue="200"
               value={prixValue}
               step="5"
               onChange={(e) => setPrixValue(e.target.value)}
@@ -188,7 +191,7 @@ function FiltresArticles() {
             <div className="colors_buttons">
               {couleurs.map((couleur) => (
                 <button
-                  key={couleur}
+                  key={couleur.nom}
                   className="color_button"
                   alt={couleur.name}
                   aria-label="bbb"
@@ -207,6 +210,7 @@ function FiltresArticles() {
             .map((article) => (
               <Article
                 key={article.id}
+                id={article.id}
                 image={`http://localhost:3310${article.image}`}
                 nom={article.nom}
                 vendeuse={article.vendeuse}

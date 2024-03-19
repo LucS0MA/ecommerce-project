@@ -28,7 +28,6 @@ function MesFavoris() {
           error
         );
         if (error.response && error.response.status === 401) {
-          window.location.href = "/";
           logout();
         }
       });

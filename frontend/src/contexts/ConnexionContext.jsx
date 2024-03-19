@@ -19,7 +19,7 @@ export function ModalProvider({ children }) {
   const logout = () => {
     if (sessionStorage.getItem("token") !== null) {
       setDeco(sessionStorage.removeItem("token"));
-      window.location.reload();
+      window.location.href = "/";
       sessionStorage.setItem("authentification", "false");
     }
   };

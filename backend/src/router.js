@@ -13,6 +13,7 @@ const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
 const panier = require("./controllers/panierControllers");
 const userIdToken = require("./middlewares/userIdToken");
+const paiementControllers = require("./controllers/paiementControllers");
 
 /* ************************************************************************* */
 
@@ -51,6 +52,11 @@ router.post("/panier", panier.add);
 router.delete("/panier", panier.destroy);
 router.put("/panier", panier.edit);
 
+// routes paiements
+router.get("/paiements/:id", paiementControllers.read);
+router.post("/paiements", paiementControllers.add);
+router.delete("/paiements/:id", paiementControllers.destroy);
+
 // ----- ADMIN -----
 // router.use(isAdmin);
 
@@ -64,5 +70,8 @@ router.delete("/articles/:id", articlesControllers.destroy);
 
 // route festivals
 router.post("/festivals", fesitvalsControllers.add);
+
+// route paiements
+router.get("/paiements", paiementControllers.browse);
 
 module.exports = router;

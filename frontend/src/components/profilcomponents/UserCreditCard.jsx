@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../styles/UserCreditCard.scss";
 
 function UserCreditCard() {
   const [cardInfo, setCardInfo] = useState({
-    nom: "NOM DU TITULAIRE",
+    titulaire: "NOM DU TITULAIRE",
     numero: "................",
     expiration: "MM/AA",
     cvv: "•••",
   });
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    axios
+      .get("http://localhost:3310/api/paiements/0", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+        },
+      })
+      .then((response) => {
+        const { titulaire, numero, expiration, cvv } = response.data;
+        setCardInfo({
+          titulaire,
+          numero,
+          expiration,
+          cvv,
+        });
+      })
+      .catch((error) =>
+        console.error("Erreur chargement des données utilisateur:", error)
+      );
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,25 +41,26 @@ function UserCreditCard() {
     }));
   };
 
-  const handleSaveCard = async () => {
+  const handleSaveCard = (event) => {
+    const token = sessionStorage.getItem("token");
+    event.preventDefault();
     try {
-      const response = await fetch(
-        "Url de la requette a voir avec lucien ou metteo",
+      axios.post(
+        "http://localhost:3310/api/paiements/",
         {
-          method: "POST",
+          titulaire: cardInfo.titulaire,
+          numero: cardInfo.numero,
+          expiration: cardInfo.expiration,
+          cvv: cardInfo.cvv,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(cardInfo),
         }
       );
-
-      if (response.ok) {
-        const result = await response.json();
-        console.info(result);
-      } else {
-        console.error("Une erreur est survenue lors de l'envoi des données");
-      }
+      console.info("Carte ajoutée avec succès");
     } catch (error) {
       console.error("Une erreur de réseau est survenue", error);
     }
@@ -61,21 +86,18 @@ function UserCreditCard() {
     }));
   };
 
-  const handleDeleteCard = async () => {
+  const handleDeleteCard = () => {
+    const token = sessionStorage.getItem("token");
     try {
-      const response = await fetch(
-        "Url de la requette a voir avec lucien ou metteo",
-        {
-          method: "DELETE",
-        }
-      );
+      axios.delete("http://localhost:3310/api/paiements/0", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      if (response.ok) {
-        console.info("Carte supprimée avec succès");
-        setCardInfo({ nom: "", numero: "", expiration: "", cvv: "" });
-      } else {
-        console.error("Erreur lors de la suppression de la carte");
-      }
+      console.info("Carte supprimée avec succès");
+      setCardInfo({ titulaire: "", numero: "", expiration: "", cvv: "" });
     } catch (error) {
       console.error("Erreur réseau lors de la suppression de la carte", error);
     }
@@ -87,7 +109,7 @@ function UserCreditCard() {
         <div className="carte-paiement-container">
           <h1 id="card-title">Carte de crédit</h1>
 
-          <div className="carte-nom">{cardInfo.nom}</div>
+          <div className="carte-titulaire">{cardInfo.titulaire}</div>
           <div className="carte-numero">
             {cardInfo.numero
               .replace(/.(?=.{4})/g, ".")
@@ -111,66 +133,67 @@ function UserCreditCard() {
           </button>
         </div>
       </div>
-
-      <div className="input-group">
-        <label className="labels-cb" htmlFor="nom">
-          Nom
-        </label>
-        <input
-          type="text"
-          id="nom"
-          name="nom"
-          className="inputs-cb input-name-cb"
-          value={cardInfo.nom}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="input-group">
-        <label className="labels-cb" htmlFor="numero">
-          Numéro de la carte
-        </label>
-        <input
-          type="text"
-          id="numero"
-          name="numero"
-          className="inputs-cb input-number-cb"
-          value={cardInfo.numero}
-          maxLength={16}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="input-group">
-        <label className="labels-cb" htmlFor="expiration">
-          Date d'expiration
-        </label>
-        <input
-          type="text"
-          id="expiration"
-          name="expiration"
-          className="inputs-cb input-exp-cb"
-          value={cardInfo.expiration}
-          onChange={handleExpirationChange}
-        />
-      </div>
-      <div className="input-group">
-        <label className="labels-cb" htmlFor="cvv">
-          CVV / CCV
-        </label>
-        <input
-          type="password"
-          id="cvv"
-          name="cvv"
-          className="inputs-cb input-cvv-cb"
-          value={cardInfo.cvv}
-          onChange={handleInputChange}
-          maxLength={3}
-        />
-      </div>
-      <div className="cb-validate">
-        <button type="button" className="sauvegarder-btn">
-          Sauvegarder
-        </button>
-      </div>
+      <form onSubmit={handleSaveCard}>
+        <div className="input-group">
+          <label className="labels-cb" htmlFor="titulaire">
+            Nom
+          </label>
+          <input
+            type="text"
+            id="titulaire"
+            name="titulaire"
+            className="inputs-cb input-name-cb"
+            value={cardInfo.titulaire}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="input-group">
+          <label className="labels-cb" htmlFor="numero">
+            Numéro de la carte
+          </label>
+          <input
+            type="text"
+            id="numero"
+            name="numero"
+            className="inputs-cb input-number-cb"
+            value={cardInfo.numero}
+            maxLength={16}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="input-group">
+          <label className="labels-cb" htmlFor="expiration">
+            Date d'expiration
+          </label>
+          <input
+            type="text"
+            id="expiration"
+            name="expiration"
+            className="inputs-cb input-exp-cb"
+            value={cardInfo.expiration}
+            onChange={handleExpirationChange}
+          />
+        </div>
+        <div className="input-group">
+          <label className="labels-cb" htmlFor="cvv">
+            CVV / CCV
+          </label>
+          <input
+            type="password"
+            id="cvv"
+            name="cvv"
+            className="inputs-cb input-cvv-cb"
+            value={cardInfo.cvv}
+            onChange={handleInputChange}
+            maxLength={3}
+          />
+        </div>
+        <div className="cb-validate">
+          <button type="submit" className="sauvegarder-btn">
+            Sauvegarder
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

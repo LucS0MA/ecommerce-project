@@ -22,7 +22,33 @@ const read = async (req, res) => {
   }
 };
 
+const add = async (req, res) => {
+  try {
+    const insertId = await models.paiements.create(req.body);
+
+    res.status(201).json({ insertId });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const destroy = async (req, res) => {
+  try {
+    const result = await models.paiements.delete(req.params.id);
+
+    if (result === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(200);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
+  add,
+  destroy,
 };

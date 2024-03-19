@@ -50,5 +50,7 @@ router.delete("/isFav", isFav.destroy);
 
 router.get("/paiements", paiementControllers.browse);
 router.get("/paiements/:id", paiementControllers.read);
+router.post("/paiements", paiementControllers.add);
+router.delete("/paiements/:id", paiementControllers.destroy);
 
 module.exports = router;

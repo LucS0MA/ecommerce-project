@@ -12,8 +12,8 @@ class PaiementsManager extends AbstractManager {
   async create(paiement) {
     // Execute the SQL INSERT query to add a new paiements to the "paiements" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (email,password) values (?,?)`,
-      [paiement.email, paiement.password]
+      `insert into ${this.table} (titulaire,numero,expiration,cvv) values (?,?,?,?)`,
+      [paiement.titulaire, paiement.numero, paiement.expiration, paiement.cvv]
     );
 
     // Return the ID of the newly inserted paiements
@@ -31,14 +31,6 @@ class PaiementsManager extends AbstractManager {
 
     // Return the first row of the result, which represents the paiements
     return rows[0];
-  }
-
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all paiements from the "paiements" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
-
-    // Return the array of paiements
-    return rows;
   }
 
   async update(id, paiement) {
@@ -76,8 +68,9 @@ class PaiementsManager extends AbstractManager {
       `UPDATE ${this.table} SET titulaire = ?,
       numero = ?,
       expiration = ?,
-      cvv = ?`,
-      [titulaire, numero, expiration, cvv]
+      cvv = ?
+      WHERE id = ?`,
+      [titulaire, numero, expiration, cvv, id]
     );
 
     return rows.affectedRows;
@@ -90,28 +83,6 @@ class PaiementsManager extends AbstractManager {
     );
 
     return rows.affectedRows;
-  }
-
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing paiements
-
-  // async update(paiements) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an paiements by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
-  async findByEmail(email) {
-    const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE email = ?`,
-      [email]
-    );
-
-    return rows[0];
   }
 }
 

@@ -99,6 +99,7 @@ function FiltresArticles() {
               seller={seller}
               value={seller.name}
               onSelect={() => setSeelies(seller.name)}
+              isSelected={false}
               alternate
             />
           ))}

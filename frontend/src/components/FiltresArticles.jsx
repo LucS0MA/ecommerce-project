@@ -172,7 +172,7 @@ function FiltresArticles() {
                 <div key={type}>
                   <input
                     className="type_button"
-                    type="checkbox"
+                    type="button"
                     id={type}
                     value={type}
                     onClick={(e) => setTypeValue(e.target.value)}

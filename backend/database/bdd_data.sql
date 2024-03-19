@@ -23,7 +23,7 @@ INSERT INTO paiements (
 INSERT INTO articles (
   nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité
 ) VALUES (
-  "BOUCLE D’OREILLES FEUILLES LOTUS", "/static/boucles_oreilles.png", 25.00, NOW(), 10, 5, "Elya", 12
+  "BOUCLE D OREILLES FEUILLES LOTUS", "/static/boucles_oreilles.png", 25.00, NOW(), 10, 5, "Elya", 12
 ) , (
   "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 49.99, NOW(), 1, 15, "Achlys", 9
 ) , (
@@ -71,84 +71,94 @@ INSERT INTO couleurs (
 INSERT INTO couleurs_has_articles (
   couleurs_id, articles_id
 ) VALUES (
-  5, 1
-), (
   4, 1
 ), (
   7, 3
 ), (
   5, 2
 ), (
-  1, 5
+  6, 5
 ), (
   1, 4
+),(
+  3, 7
 ), (
   2, 6
 );
 
 INSERT INTO thematiques (
   thematique
-) VALUES (
-  "bijoux"
+) VALUES 
+(
+  "STEAMPUNK"
 ),
 (
-  "decoration"
+  "FANTASY"
 ),
 (
-  "illustration"
+  "MEDIEVAL"
 ),
 (
-  "vetement"
+  "MAGIE"
 ),
 (
-  "accessoire"
+  "FEERIE"
+),
+(
+  "COTTAGE CORE"
 );
 
 INSERT INTO thematiques_has_articles (
   thematiques_id, articles_id
 ) VALUES (
-  1, 2
+  1, 1
 ), (
-  1, 3
+  2, 3
 ), (
   3, 2
 ), (
   5, 6
 ), (
-  3, 4
+  4, 4
+), (
+  6, 5
+), (
+  4, 7
 );
 
 INSERT INTO types (
   type
-) VALUES (
-  "steampunk"
+) VALUES 
+(
+  "BIJOUX"
 ),
 (
-  "fantasy"
+  "DECORATION"
 ),
 (
-  "medieval"
+  "ILLUSTRATION"
 ),
 (
-  "magie"
+  "VETEMENT"
 ),
 (
-  "feerie"
-),
-(
-  "cottage-core"
+  "ACCESSOIRE"
 );
 
 INSERT INTO types_has_articles (
   types_id, articles_id
 ) VALUES (
-  1, 2
+  1, 1
 ), (
-  1, 3
+  2, 3
 ), (
   3, 2
 ), (
   5, 6
 ), (
-  3, 4
+  4, 4
+), (
+  1, 5
+), (
+  5, 7
 );

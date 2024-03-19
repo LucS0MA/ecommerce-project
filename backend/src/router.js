@@ -1,5 +1,4 @@
 const express = require("express");
-// http://localhost:4242/api/characters
 
 const router = express.Router();
 
@@ -7,50 +6,72 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
 const articlesControllers = require("./controllers/articlesControllers");
 const utilisateursControllers = require("./controllers/utilisateursControllers");
+const validateUser = require("./middlewares/validateUser");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
+const panier = require("./controllers/panierControllers");
+const userIdToken = require("./middlewares/userIdToken");
 const paiementControllers = require("./controllers/paiementControllers");
-// const moviesControllers = require("./controllers/moviesControllers");
-
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
-
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
-
-// Route to add a new item
-router.post("/items", itemControllers.add);
 
 /* ************************************************************************* */
 
+// PUBLIC
+// routes utilisateurs
+router.post("/utilisateurs", validateUser, utilisateursControllers.add);
+router.post("/auth/login", utilisateursControllers.login);
+
+// toutes festivals
+router.get("/festivals", fesitvalsControllers.browse);
+router.get("/festivals/:id", fesitvalsControllers.read);
+
+// routes articles
 router.get("/articles", articlesControllers.browse);
 router.get("/articles/:id", articlesControllers.read);
+
+// ----- UTILISATEUR -----
+router.use(userIdToken);
+
+// routes utilisateurs
+router.get("/utilisateurs/:id", utilisateursControllers.read);
+router.put("/utilisateurs/:id", utilisateursControllers.edit);
+router.post("/utilisateurs/delete", utilisateursControllers.destroy);
+router.put("/change-password", utilisateursControllers.changePassword);
+
+// routes fav
+router.get("/isFav", isFav.read);
+router.get("/isFav/:id", isFav.browse);
+router.post("/isFav", isFav.add);
+router.delete("/isFav", isFav.destroy);
+
+// routes panier
+router.get("/panier", panier.read);
+router.get("/panier/:id", panier.browse);
+router.post("/panier", panier.add);
+router.delete("/panier", panier.destroy);
+router.put("/panier", panier.edit);
+
+// routes paiements
+router.get("/paiements/:id", paiementControllers.read);
+router.post("/paiements", paiementControllers.add);
+router.delete("/paiements/:id", paiementControllers.destroy);
+
+// ----- ADMIN -----
+// router.use(isAdmin);
+
+// route utilisateurs
+router.get("/utilisateurs", utilisateursControllers.browse);
+
+// routes articles
 router.post("/articles", articlesControllers.add);
 router.put("/articles/:id", articlesControllers.edit);
 router.delete("/articles/:id", articlesControllers.destroy);
 
-router.get("/utilisateurs", utilisateursControllers.browse);
-router.get("/utilisateurs/:id", utilisateursControllers.read);
-router.post("/utilisateurs", utilisateursControllers.add);
-router.put("/utilisateurs/:id", utilisateursControllers.edit);
-router.delete("/utilisateurs/:id", utilisateursControllers.destroy);
-router.post("/auth/login", utilisateursControllers.login);
-
-router.get("/festivals", fesitvalsControllers.browse);
-router.get("/festivals/:id", fesitvalsControllers.read);
+// route festivals
 router.post("/festivals", fesitvalsControllers.add);
 
-router.get("/isFav", isFav.read);
-router.post("/isFav", isFav.add);
-router.delete("/isFav", isFav.destroy);
-
+// route paiements
 router.get("/paiements", paiementControllers.browse);
-router.get("/paiements/:id", paiementControllers.read);
-router.post("/paiements", paiementControllers.add);
-router.delete("/paiements/:id", paiementControllers.destroy);
 
 module.exports = router;

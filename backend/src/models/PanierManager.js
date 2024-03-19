@@ -1,14 +1,14 @@
 const AbstractManager = require("./AbstractManager");
 
-class FavManager extends AbstractManager {
+class PanierManager extends AbstractManager {
   constructor() {
-    super({ table: "isFav" });
+    super({ table: "panier_article" });
   }
 
-  async create(utilisateurId, articleId) {
+  async create(utilisateurId, cart) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (utilisateurs_id, articles_id) VALUES (?, ?)`,
-      [utilisateurId, articleId]
+      `INSERT INTO ${this.table} (quantité, articles_id, utilisateurs_id) VALUES (?, ?, ?)`,
+      [cart.quantité, cart.articleId, utilisateurId]
     );
 
     return result;
@@ -19,13 +19,12 @@ class FavManager extends AbstractManager {
       `SELECT * FROM ${this.table} WHERE utilisateurs_id = ? AND articles_id = ?`,
       [utilisateurId, articleId]
     );
-
     return rows[0];
   }
 
   async readAll(id) {
     const [rows] = await this.database.query(
-      `SELECT articles_id, articles.nom, articles.prix FROM ${this.table} 
+      `SELECT panier_article.quantité, articles_id, articles.nom, articles.prix FROM ${this.table}
       LEFT JOIN articles ON articles_id = articles.id
       WHERE utilisateurs_id = ?`,
       [id]
@@ -42,6 +41,15 @@ class FavManager extends AbstractManager {
 
     return rows.affectedRows;
   }
+
+  async update(utilisateurId, articleId, quantity) {
+    const [rows] = await this.database.query(
+      `UPDATE ${this.table} SET quantité = ? WHERE utilisateurs_id = ? AND articles_id = ?`,
+      [quantity, utilisateurId, articleId]
+    );
+
+    return rows;
+  }
 }
 
-module.exports = FavManager;
+module.exports = PanierManager;

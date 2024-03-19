@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`utilisateurs` (
   `date_de_naissance` DATETIME,
   `telephone` INT,
   `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
   `adresse1` VARCHAR(45),
   `adresse2` VARCHAR(45) NULL DEFAULT NULL,
   `CP` INT,
@@ -181,12 +181,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`panier_article` (
   CONSTRAINT `fk_panier_article_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_panier_article_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -355,12 +355,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`isFav` (
   CONSTRAINT `fk_isFav_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_isFav_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

@@ -7,10 +7,7 @@ class ArticlesManager extends AbstractManager {
     super({ table: "articles" });
   }
 
-  // The C of CRUD - Create operation
-
   async create(article) {
-    // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await this.database.query(
       `insert into ${this.table} (nom,image,prix,ajout_date,nb_ventes,taille,vendeuse,quantité) values (?,?,?,?,?,?,?,?)`,
       [
@@ -25,25 +22,20 @@ class ArticlesManager extends AbstractManager {
       ]
     );
 
-    // Return the ID of the newly inserted item
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
-
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await this.database.query(
       `select * from ${this.table} where id = ?`,
       [id]
     );
 
-    // Return the first row of the result, which represents the item
     return rows[0];
   }
 
   async readAll(filtres) {
-    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité FROM ${this.table}
+    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité, couleur, type, thematique FROM ${this.table}
     LEFT JOIN couleurs_has_articles ON couleurs_has_articles.articles_id = articles.id
     LEFT JOIN couleurs ON couleurs.id = couleurs_has_articles.couleurs_id
     LEFT JOIN thematiques_has_articles ON thematiques_has_articles.articles_id = articles.id
@@ -184,6 +176,7 @@ class ArticlesManager extends AbstractManager {
       `select * from ${this.table} where id = ?`,
       [id]
     );
+    // Initialisation des variables
     let nom = "";
     let image = "";
     let prix;
@@ -193,9 +186,13 @@ class ArticlesManager extends AbstractManager {
     let vendeuse = "";
     let quantité;
 
+    // Si le FRONT envoie un nouveau nom pour l'article au BACK
     if (article.nom) {
+      // alors on attribue le nouveau nom à la variable initialisée
       nom = article.nom;
+      // Sinon, et si l'article avait déjà un nom
     } else if (product[0]) {
+      // alors on attribue l'ancien nom à la variable initialisée
       nom = product[0].nom;
     }
     if (article.image) {
@@ -234,6 +231,7 @@ class ArticlesManager extends AbstractManager {
       quantité = product[0].quantité;
     }
 
+    // Attribution des variables initialisées à la base de donnée
     const [rows] = await this.database.query(
       `UPDATE ${this.table} SET nom = ?,
       image = ?,
@@ -261,20 +259,6 @@ class ArticlesManager extends AbstractManager {
 
     return rows.affectedRows;
   }
-
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing item
-
-  // async update(item) {
-  //   ...
-  // }
-
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an item by its ID
-
-  // async delete(id) {
-  //   ...
-  // }
 }
 
 module.exports = ArticlesManager;

@@ -6,6 +6,8 @@ import MenuProfil from "./MenuProfil";
 import UserInfos from "./UserInfos";
 import UserCreditCard from "./UserCreditCard";
 import UserPassword from "./UserPassword";
+import MesFavoris from "./MesFavoris";
+import DeleteAccount from "./DeleteAccount";
 import Cadre from "./Cadre";
 import "../../styles/ProfilContainer.scss";
 
@@ -21,6 +23,10 @@ function ProfilContainer() {
       case "MotDePasse":
         return <UserPassword />;
       // On ajoutera ici les autres composants a afficher comme les favoris...
+      case "MesFavoris":
+        return <MesFavoris />;
+      case "SupprimerMonCompte":
+        return <DeleteAccount />;
       default:
         return <UserInfos />;
     }

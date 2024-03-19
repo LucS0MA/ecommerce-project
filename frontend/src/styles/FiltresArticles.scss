@@ -1,0 +1,201 @@
+#cards_seelies {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: play, sans-serif;
+  margin-left: 5%;
+  margin-right: 3%;
+
+  p {
+    font-size: 1.5em;
+    text-align: center;
+    font-style: italic;
+    color: var(--lightGreen);
+    width: 20%;
+    margin-right: 20px;
+  }
+
+  span {
+    color: #e2b95b;
+  }
+
+  .seelies_cards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2%;
+    padding-left: 25px;
+  }
+}
+
+#main_container_filtres {
+  display: flex;
+  border: 2px solid #bdc9ac;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 50px;
+}
+
+// Containeur contenant tous les inputs///////////////////////////
+.filtres_container {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--lightGreen);
+  color: var(--lightGreen);
+  min-height: 100%;
+  padding: 5% 2% 5% 2%;
+  gap: 30px;
+  font-family: play, sans-serif;
+
+  // Titre du conteneur contanant tous les inputs/////////////////////
+  .filters_title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: AbhaBold, sans-serif;
+  }
+
+  // Conteneur barre de recherche////////////////
+  .searchBar_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+
+    .input_search {
+      height: 100%;
+      width: 100%;
+      border: solid 2px;
+      color: var(--lightGreen);
+      padding-left: 40px;
+      background: url("../assets/loupe.svg") no-repeat left center;
+      background-size: 24px 24px;
+      background-position: 5px;
+    }
+
+    .input_search::placeholder {
+      color: var(--lightGreen);
+      font-size: 1rem;
+    }
+  }
+  ///////////Conteneur des inputs et titre des Prix, Thematique, Types et couleurs/////////////////////////////////////////////////////
+  .filtre_container {
+    margin-top: 30px;
+  }
+
+  .filtre_title {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    font-family: AbhaBold, sans-serif;
+    gap: 3px;
+    font-size: 1.1rem;
+  }
+
+  // Input Prix/////////
+  .label_price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1rem;
+  }
+
+  .input_range {
+    width: 100%;
+    accent-color: var(--orange);
+  }
+
+  // Input Thématique/////////
+  .thematique_buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    .thematique_button {
+      background-color: var(--darkPink);
+      color: var(--lightGreen);
+      border: 2px solid var(--lightGreen);
+      height: 50px;
+      font-family: play, sans-serif;
+      font-size: 1rem;
+
+      &:focus {
+        background-color: var(--lightGreen);
+        color: var(--darkPink);
+      }
+    }
+  }
+  // Input Types/////////
+  .types_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .type_button {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      background-color: var(--darkPink);
+      color: var(--darkPink);
+      border: 1px solid var(--lightGreen);
+
+      &:focus {
+        background-color: var(--lightGreen);
+        color: var(--lightGreen);
+      }
+    }
+  }
+
+  // Input couleurs/////////
+  .colors_buttons {
+    // display: grid;
+    // grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .color_button {
+      width: 30px;
+      height: 30px;
+
+      &:focus {
+        border: 2px solid var(--lightGreen);
+      }
+    }
+  }
+}
+
+// Container des articles/////////
+.view_articles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 2% auto;
+}
+
+// Articles/////////
+.view_articles .article-container {
+  background-color: var(--bg-color);
+  color: var(--color);
+
+  .article-ligne {
+    background-color: var(--color);
+  }
+
+  .article-prix {
+    background-color: #442332;
+    border: 1px solid #bdc9ac;
+    color: #bdc9ac;
+  }
+
+  .article-logo path {
+    stroke: var(--color);
+  }
+}
+
+// .seelies_cards .sellerCardContainerAlternate {
+// margin: auto;
+
+// }

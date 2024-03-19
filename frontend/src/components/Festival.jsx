@@ -21,6 +21,7 @@ function Festival() {
           start: "top center",
           end: "bottom center",
           scrub: 20,
+          once: true,
         },
       });
 

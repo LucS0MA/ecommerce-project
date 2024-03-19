@@ -1,16 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 import Article from "./Article";
 import Star2 from "./animations/svg/Star2";
+
 import "../styles/Phares.scss";
 
 function Phares() {
   const [articles, setArticles] = useState([]);
 
+  // On récupère les articles présent dans la bdd
   useEffect(() => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/articles/?phares=1&limit=3")
-      .then((data) => setArticles(data.data));
+      .get("http://localhost:3310/api/articles/?phares=1&limit=3", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+        },
+      })
+      .then((response) => setArticles(response.data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -22,6 +32,7 @@ function Phares() {
       </div>
       <div id="phares-articles">
         <div id="phares-articles-content">
+          {/* On affiche les 3 articles les plus vendus */}
           {articles.map((article) => (
             <Article
               key={article.id}

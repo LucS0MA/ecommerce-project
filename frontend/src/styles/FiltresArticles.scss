@@ -11,7 +11,8 @@
     text-align: center;
     font-style: italic;
     color: var(--lightGreen);
-    width: 19%;
+    width: 20%;
+    margin-right: 20px;
   }
 
   span {
@@ -20,9 +21,10 @@
 
   .seelies_cards {
     display: flex;
+    justify-content: space-around;
     align-items: center;
+    gap: 2%;
     padding-left: 25px;
-    padding-right: 10px;
   }
 }
 
@@ -53,7 +55,6 @@
   }
 
   // Conteneur barre de recherche////////////////
-
   .searchBar_container {
     display: flex;
     align-items: center;
@@ -65,7 +66,7 @@
       width: 100%;
       border: solid 2px;
       color: var(--lightGreen);
-      padding-left: 40px; /* ajustez la valeur en fonction de la largeur de votre image + espace */
+      padding-left: 40px;
       background: url("../assets/loupe.svg") no-repeat left center;
       background-size: 24px 24px;
       background-position: 5px;
@@ -133,7 +134,16 @@
 
     .type_button {
       margin-right: 10px;
-      accent-color: var(--lightGreen);
+      width: 20px;
+      height: 20px;
+      background-color: var(--darkPink);
+      color: var(--darkPink);
+      border: 1px solid var(--lightGreen);
+
+      &:focus {
+        background-color: var(--lightGreen);
+        color: var(--lightGreen);
+      }
     }
   }
 
@@ -156,14 +166,16 @@
   }
 }
 
+// Container des articles/////////
 .view_articles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
-  margin: 2% auto 2% auto;
+  gap: 30px;
+  margin: 2% auto;
 }
 
+// Articles/////////
 .view_articles .article-container {
   background-color: var(--bg-color);
   color: var(--color);
@@ -182,3 +194,8 @@
     stroke: var(--color);
   }
 }
+
+// .seelies_cards .sellerCardContainerAlternate {
+// margin: auto;
+
+// }

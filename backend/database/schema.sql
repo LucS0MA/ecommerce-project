@@ -59,18 +59,26 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`paiement`
+-- Table `le_comptoir_des_seelies`.`paiements`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`paiements` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `titulaire` VARCHAR(100),
-  `numero` VARCHAR(16),
-  `expiration` DATETIME,
-  `cvv` INT,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  `utilisateurs_id` INT NOT NULL,
+  `titulaire` VARCHAR(45) NOT NULL,
+  `numero` VARCHAR(45) NOT NULL,
+  `cvv` INT NOT NULL,
+  `expiration` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`utilisateurs_id`),
+  CONSTRAINT `fk_table1_utilisateurs1`
+    FOREIGN KEY (`utilisateurs_id`)
+    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
 -- Table `le_comptoir_des_seelies`.`avis`

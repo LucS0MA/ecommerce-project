@@ -7,10 +7,9 @@ const browse = (req, res) => {
     .catch((err) => console.error(err));
 };
 
-// Read
 const read = async (req, res) => {
   try {
-    const paiement = await models.paiements.read(req.params.id);
+    const paiement = await models.paiements.read(req.auth.id);
 
     if (paiement == null) {
       res.sendStatus(404);
@@ -24,7 +23,7 @@ const read = async (req, res) => {
 
 const add = async (req, res) => {
   try {
-    const insertId = await models.paiements.create(req.body);
+    const insertId = await models.paiements.create(req.body, req.auth.id);
 
     res.status(201).json({ insertId });
   } catch (err) {
@@ -34,7 +33,7 @@ const add = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const result = await models.paiements.delete(req.params.id);
+    const result = await models.paiements.delete(req.auth.id);
 
     if (result === 0) {
       res.sendStatus(404);

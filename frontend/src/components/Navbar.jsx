@@ -49,7 +49,9 @@ function Navbar() {
               <img src={logout2} alt="basket_icon" />
             </div>
           ) : null}
-          <img src={panierIcon} alt="basket_icon" />
+          <Link to="/panier">
+            <img src={panierIcon} alt="basket_icon" />
+          </Link>
           {authentification ? (
             <Link to="/profil">
               <img src={utilisateurIcon} alt="user_icon" />

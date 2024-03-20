@@ -1,5 +1,5 @@
 const isAdmin = (req, res, next) => {
-  const { seelie } = req.auth;
+  const seelie = req.auth.isAdmin;
 
   if (seelie === 1) {
     next();

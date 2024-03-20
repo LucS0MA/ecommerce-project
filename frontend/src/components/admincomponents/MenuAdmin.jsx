@@ -4,11 +4,11 @@ import { useAdmin } from "../../contexts/AdminContext";
 import "../../styles/MenulProfil.scss";
 
 const sections = [
-  { key: "AdminCatalogue", label: "Catalogue" },
+  { key: "CatalogueAdmin", label: "Catalogue" },
   { key: "CommandesAdmin", label: "Voir les commandes" },
-  { key: "AdminClients", label: "Liste clients" },
-  { key: "AdminVendeurs", label: "Profil Vendeurs" },
-  { key: "AdminEvents", label: "Gestion des évènements" },
+  { key: "ClientsAdmin", label: "Liste clients" },
+  { key: "VendeursAdmin", label: "Profil Vendeurs" },
+  { key: "EventsAdmin", label: "Gestion des évènements" },
 ];
 
 function MenuAdmin() {

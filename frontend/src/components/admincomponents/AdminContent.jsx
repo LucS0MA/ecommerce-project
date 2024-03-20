@@ -13,7 +13,7 @@ function AdminContent() {
 
   let content;
   switch (activeSection) {
-    case "AdminCatalogue":
+    case "CatalogueAdmin":
       content = <ArticlesAdmin />;
       break;
     case "CommandesAdmin":

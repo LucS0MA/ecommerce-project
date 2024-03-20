@@ -7,13 +7,15 @@ const router = express.Router();
 /* ************************************************************************* */
 
 const articlesControllers = require("./controllers/articlesControllers");
-const utilisateursControllers = require("./controllers/utilisateursControllers");
-const validateUser = require("./middlewares/validateUser");
+const isFav = require("./controllers/favControllers");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
-const isFav = require("./controllers/FavControllers");
-const panier = require("./controllers/panierControllers");
-const userIdToken = require("./middlewares/userIdToken");
 const paiementControllers = require("./controllers/paiementControllers");
+const panier = require("./controllers/panierControllers");
+const utilisateursControllers = require("./controllers/utilisateursControllers");
+
+const isAdmin = require("./middlewares/isAdmin");
+const userIdToken = require("./middlewares/userIdToken");
+const validateUser = require("./middlewares/validateUser");
 
 /* ************************************************************************* */
 
@@ -58,7 +60,7 @@ router.post("/paiements", paiementControllers.add);
 router.delete("/paiements/:id", paiementControllers.destroy);
 
 // ----- ADMIN -----
-// router.use(isAdmin);
+router.use(isAdmin);
 
 // route utilisateurs
 router.get("/utilisateurs", utilisateursControllers.browse);

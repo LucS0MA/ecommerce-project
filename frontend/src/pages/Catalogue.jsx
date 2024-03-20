@@ -3,6 +3,7 @@ import FiltresArticles from "../components/FiltresArticles";
 import FooterBis from "../components/FooterBis";
 import { ModalProvider } from "../contexts/ConnexionContext";
 import Navbar from "../components/Navbar";
+import ValidationBasket from "../components/ValidationBasket";
 import "../styles/Catalogue.scss";
 
 function Catalogue() {
@@ -32,6 +33,7 @@ function Catalogue() {
         </div>
         <FiltresArticles />
       </main>
+      <ValidationBasket />
       <footer>
         <FooterBis />
       </footer>

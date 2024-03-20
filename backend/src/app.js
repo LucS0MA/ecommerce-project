@@ -25,14 +25,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-app.post("/upload", upload.single("file"), (req) => {
-  console.info("body", req.body);
-  console.info("file", req.file);
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.status(201).json({ file: req.file });
 });
 // ------------
 
 app.get("/", (req, res) => {
-  res.status(200).send("L'API est connectée !");
+  res.status(200).json({ message: "L'API est connectée !" });
 });
 
 app.use("/api", router);

@@ -6,6 +6,7 @@ import Admin from "./pages/Admin";
 import Catalogue from "./pages/Catalogue";
 import Home from "./pages/Home";
 import Page404 from "./pages/404";
+import Panier from "./pages/Panier";
 import Profil from "./pages/Profil";
 
 import "./App.css";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/catalogue",
     element: <Catalogue />,
+  },
+  {
+    path: "/panier",
+    element: <Panier />,
   },
   {
     path: "*",

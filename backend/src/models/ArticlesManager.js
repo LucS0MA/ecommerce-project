@@ -154,8 +154,20 @@ class ArticlesManager extends AbstractManager {
     // Trier par...
     if (parseInt(filtres.nouveautes, 10) === 1) {
       sql += "ORDER BY ajout_date DESC";
-    } else if (parseInt(filtres.phares, 10) === 1) {
-      sql += "ORDER BY nb_ventes DESC";
+    } else if (filtres.phares) {
+      // NB_VENTES
+      if (filtres.phares === "desc") {
+        sql += "ORDER BY nb_ventes DESC";
+      } else if (filtres.phares === "asc") {
+        sql += "ORDER BY nb_ventes ASC";
+      }
+    } else if (filtres.price) {
+      // PRIX
+      if (filtres.price === "desc") {
+        sql += "ORDER BY prix DESC";
+      } else if (filtres.price === "asc") {
+        sql += "ORDER BY prix ASC";
+      }
     }
 
     // LIMIT

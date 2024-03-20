@@ -8,6 +8,8 @@ INSERT INTO utilisateurs (
   "Hippopotame", "Lion", "2001-09-29", 0607593244, "alex@gmail.com", "1234", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
 ), (
   "Hippopotame", "Girafe", "2000-06-19", 0607593244, "abdou@gmail.com", "4321", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
+), (
+  "admin", "seelie", "2000-06-19", 0607593244, "admin@gmail.com", "$2b$10$qjVeymvkdHT9NWcxGsLSGujegcHnWWv/GFEcWhQMYiS9JqT6hohYa", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
 );
 
 INSERT INTO paiements (

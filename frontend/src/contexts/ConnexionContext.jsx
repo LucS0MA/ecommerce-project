@@ -1,5 +1,12 @@
-import React, { createContext, useContext, useState, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const ConnexionContext = createContext();
 
@@ -9,6 +16,7 @@ export const useConnexionContext = () => {
 
 export function ModalProvider({ children }) {
   const [auth, setAuth] = useState();
+  const [userInfo, setUserInfo] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalTwo, setModalTwo] = useState(false);
   const [authentification, setAuthentification] = useState(
@@ -23,6 +31,29 @@ export function ModalProvider({ children }) {
       sessionStorage.setItem("authentification", "false");
     }
   };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      axios
+        .get("http://localhost:3310/api/utilisateurs/0", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserInfo(response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "Erreur lors de la récupération des informations de l'utilisateur :",
+            error
+          );
+          logout();
+        });
+    }
+  }, [authentification]);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -50,8 +81,9 @@ export function ModalProvider({ children }) {
       logout,
       deco,
       setDeco,
+      userInfo, // Ajout de userInfo au contexte
     }),
-    [modal, modalTwo, authentification]
+    [modal, modalTwo, authentification, userInfo]
   );
 
   return (

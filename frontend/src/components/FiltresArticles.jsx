@@ -71,14 +71,14 @@ function FiltresArticles() {
       !thematiqueValue || item.thematique === thematiqueValue;
     const filtreParPrix = prixValue >= item.prix;
     const filtreParType =
-      typeValue.length === 0 || typeValue.includes(item.type);
+      typeValue.length === 0 || item.types.includes(typeValue);
     const filtreParCouleur = !CouleurValue || item.couleur === CouleurValue;
 
     return (
       filtreParSeelies &&
       filtreParNom &&
-      filtreParThematique &&
       filtreParPrix &&
+      filtreParThematique &&
       filtreParType &&
       filtreParCouleur
     );

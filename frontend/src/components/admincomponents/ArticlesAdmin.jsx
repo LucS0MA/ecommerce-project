@@ -76,6 +76,12 @@ function ArticlesAdmin() {
           image: filePath,
           prix: body.price,
           vendeuse: body.creatrice,
+          bijoux: body.bijoux,
+          deco: body.deco,
+          illustration: body.illustration,
+          vetement: body.vetement,
+          accessoire: body.accessoire,
+          thematique: body.thematique,
         },
         {
           headers: {

@@ -1,48 +1,72 @@
-.article_panier {
+.article_panier_container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   border: 2px solid var(--lightGreen);
   color: var(--lightGreen);
   // background-color: var(--darkPink);
   padding: 10px;
 
-  img {
-    border-radius: 200px 200px 0px 0px;
-  }
-  .info_articles_panier {
+  .articles-panier {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-  }
+    padding: 10px 10px;
 
-  .quantity {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--darkPink);
-    border: 1px solid var(--lightGreen);
-    padding: 10px;
-
-    .quantity_bouton {
-      width: 30px;
-      height: 30px;
-      color: var(--lightGreen);
-      background-color: var(--darkPink);
-      border-style: none;
-      font-size: 2rem;
+    img {
+      border-radius: 200px 200px 0px 0px;
+      width: 150px;
     }
 
-    p {
-      font-size: 1.5rem;
-      width: 50px;
-      height: 25px;
+    .info_articles_panier {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      width: 400px;
     }
-  }
 
-  .prix_article_panier {
-    font-size: 1.5rem;
+    .quantity {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--darkPink);
+      border: 1px solid var(--lightGreen);
+      padding: 10px;
+      width: 100px;
+
+      .quantity_bouton {
+        width: 30px;
+        height: 100%;
+        color: var(--lightGreen);
+        background-color: var(--darkPink);
+        border-style: none;
+        font-size: 0.8rem;
+      }
+
+      .moins {
+        background: url("../assets/moins.svg") no-repeat center;
+        // background-size: 100%;
+        // background-position: center;
+      }
+
+      .plus {
+        background: url("../assets/plus.svg") no-repeat center;
+        // background-size: 100%;
+        // background-position: center;
+      }
+
+      p {
+        font-size: 1.5rem;
+        width: 50px;
+        height: 100%;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    .prix_article_panier {
+      font-size: 1.3rem;
+    }
   }
 }

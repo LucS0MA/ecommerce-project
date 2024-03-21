@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use("/static", express.static("images"));
+app.use("/static", express.static("public/images"));
 
 // -- MULTER --
 const storage = multer.diskStorage({
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post("/upload", upload.single("file"), (req, res) => {
-  res.status(201).json({ file: req.file });
+  res.status(201).json({ body: req.body, file: req.file });
 });
 // ------------
 

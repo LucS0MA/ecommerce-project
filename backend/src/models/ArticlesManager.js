@@ -9,17 +9,8 @@ class ArticlesManager extends AbstractManager {
 
   async create(article) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (nom,image,prix,ajout_date,nb_ventes,taille,vendeuse,quantité) values (?,?,?,?,?,?,?,?)`,
-      [
-        article.nom,
-        article.image,
-        article.prix,
-        article.ajout_date,
-        article.nb_ventes,
-        article.taille,
-        article.vendeuse,
-        article.quantité,
-      ]
+      `insert into ${this.table} (nom, image, prix, ajout_date, nb_ventes, vendeuse) values (?, ?, ?, NOW(), 0, ?)`,
+      [article.nom, article.image, article.prix, article.vendeuse]
     );
 
     return result.insertId;
@@ -35,7 +26,7 @@ class ArticlesManager extends AbstractManager {
   }
 
   async readAll(filtres) {
-    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité, couleur, type, thematique FROM ${this.table}
+    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, type, thematique FROM ${this.table}
     LEFT JOIN couleurs_has_articles ON couleurs_has_articles.articles_id = articles.id
     LEFT JOIN couleurs ON couleurs.id = couleurs_has_articles.couleurs_id
     LEFT JOIN thematiques_has_articles ON thematiques_has_articles.articles_id = articles.id
@@ -194,9 +185,7 @@ class ArticlesManager extends AbstractManager {
     let prix;
     let ajoutDate = "";
     let nbVentes;
-    let taille;
     let vendeuse = "";
-    let quantité;
 
     // Si le FRONT envoie un nouveau nom pour l'article au BACK
     if (article.nom) {
@@ -227,20 +216,10 @@ class ArticlesManager extends AbstractManager {
     } else if (product[0]) {
       nbVentes = product[0].nb_ventes;
     }
-    if (article.taille) {
-      taille = article.taille;
-    } else if (product[0]) {
-      taille = product[0].taille;
-    }
     if (article.vendeuse) {
       vendeuse = article.vendeuse;
     } else if (product[0]) {
       vendeuse = product[0].vendeuse;
-    }
-    if (article.quantité) {
-      quantité = article.quantité;
-    } else if (product[0]) {
-      quantité = product[0].quantité;
     }
 
     // Attribution des variables initialisées à la base de donnée
@@ -250,11 +229,9 @@ class ArticlesManager extends AbstractManager {
       prix = ?,
       ajout_date = ?,
       nb_ventes = ?,
-      taille = ?,
       vendeuse = ?,
-      quantité = ?
       WHERE id = ?`,
-      [nom, image, prix, ajoutDate, nbVentes, taille, vendeuse, quantité, id]
+      [nom, image, prix, ajoutDate, nbVentes, vendeuse, id]
     );
 
     return rows.affectedRows;

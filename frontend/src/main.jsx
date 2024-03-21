@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/Home";
-import Profil from "./pages/Profil";
+
+import Admin from "./pages/Admin";
 import Catalogue from "./pages/Catalogue";
+import Home from "./pages/Home";
 import Page404 from "./pages/404";
 import Panier from "./pages/Panier";
+import Profil from "./pages/Profil";
+
+import "./App.css";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/profil",
     element: <Profil />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
   {
     path: "/catalogue",

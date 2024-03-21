@@ -88,7 +88,7 @@ const destroy = async (req, res) => {
       return res.sendStatus(404);
     }
 
-    return res.sendStatus(204);
+    return res.sendStatus(200);
   } catch (err) {
     console.error(err);
     return res

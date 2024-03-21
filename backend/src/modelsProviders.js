@@ -11,6 +11,8 @@ const FestivalsManager = require("./models/FestivalsManager");
 
 const FavManager = require("./models/FavManager");
 
+const PaiementsManager = require("./models/PaiementsManager");
+
 const PanierManager = require("./models/PanierManager");
 
 const managers = [
@@ -18,6 +20,7 @@ const managers = [
   UtilisateursManager,
   FestivalsManager,
   FavManager,
+  PaiementsManager,
   PanierManager,
 ];
 

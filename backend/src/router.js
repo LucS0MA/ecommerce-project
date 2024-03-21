@@ -7,12 +7,15 @@ const router = express.Router();
 /* ************************************************************************* */
 
 const articlesControllers = require("./controllers/articlesControllers");
-const utilisateursControllers = require("./controllers/utilisateursControllers");
-const validateUser = require("./middlewares/validateUser");
-const fesitvalsControllers = require("./controllers/festivalsControllers");
 const isFav = require("./controllers/FavControllers");
+const fesitvalsControllers = require("./controllers/festivalsControllers");
+const paiementControllers = require("./controllers/paiementControllers");
 const panier = require("./controllers/panierControllers");
+const utilisateursControllers = require("./controllers/utilisateursControllers");
+
+const isAdmin = require("./middlewares/isAdmin");
 const userIdToken = require("./middlewares/userIdToken");
+const validateUser = require("./middlewares/validateUser");
 
 /* ************************************************************************* */
 
@@ -51,8 +54,13 @@ router.post("/panier", panier.add);
 router.delete("/panier", panier.destroy);
 router.put("/panier", panier.edit);
 
+// routes paiements
+router.get("/paiements/:id", paiementControllers.read);
+router.post("/paiements", paiementControllers.add);
+router.delete("/paiements/:id", paiementControllers.destroy);
+
 // ----- ADMIN -----
-// router.use(isAdmin);
+router.use(isAdmin);
 
 // route utilisateurs
 router.get("/utilisateurs", utilisateursControllers.browse);
@@ -64,5 +72,8 @@ router.delete("/articles/:id", articlesControllers.destroy);
 
 // route festivals
 router.post("/festivals", fesitvalsControllers.add);
+
+// route paiements
+router.get("/paiements", paiementControllers.browse);
 
 module.exports = router;

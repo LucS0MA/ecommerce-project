@@ -8,6 +8,7 @@ import sellersData from "../../sellerData.json";
 import line from "../assets/line.svg";
 
 import "../styles/FiltresArticles.scss";
+import ArticlesPanier from "./ArticlesPanier";
 
 function FiltresArticles() {
   const [seelies, setSeelies] = useState(null);
@@ -222,6 +223,9 @@ function FiltresArticles() {
           ;
         </div>
       </section>
+      <div>
+        <ArticlesPanier />
+      </div>
     </main>
   );
 }

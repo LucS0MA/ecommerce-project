@@ -6,6 +6,7 @@ import Admin from "./pages/Admin";
 import Catalogue from "./pages/Catalogue";
 import Home from "./pages/Home";
 import Page404 from "./pages/404";
+import About from "./pages/About";
 import Panier from "./pages/Panier";
 import Profil from "./pages/Profil";
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/catalogue",
     element: <Catalogue />,
+  },
+  {
+    path: "/About",
+    element: <About />,
   },
   {
     path: "/panier",

@@ -223,6 +223,10 @@ class ArticlesManager extends AbstractManager {
       }
     }
 
+    // "GROUP BY" complémentaire au "GROUP_CONCAT(type) AS types" et OBLIGATOIRE
+    sql +=
+      "GROUP BY articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, thematique ";
+
     // Trier par...
     if (parseInt(filtres.nouveautes, 10) === 1) {
       sql += "ORDER BY ajout_date DESC";
@@ -248,11 +252,7 @@ class ArticlesManager extends AbstractManager {
       sqlValues.push(parseInt(filtres.limit, 10));
     }
 
-    const [rows] = await this.database.query(
-      `${sql} GROUP BY articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, thematique`,
-      sqlValues
-    );
-
+    const [rows] = await this.database.query(sql, sqlValues);
     return rows;
   }
 

@@ -16,14 +16,11 @@ function About() {
         <Sellers />
         <p className="text">
           Plongez dans un monde artisanal envoûtant, où chaque création est une
-          porte ouverte vers la magie.
-          <br />
-          Au <strong>Comptoir des Seelies,</strong> quatre artisanes
-          exceptionnelles captivent vos sens.
-          <br />
-          Chaque pièce est imprégnée de passion et de compétence, faisant du
-          Comptoir un lieu où l'extraordinaire devient réalité.
-          <br />
+          porte ouverte vers la magie. Dans ce royaume féérique du{" "}
+          <strong>Comptoir des Seelies</strong>, quatre fées bienveillantes
+          veillent sur chaque création avec une grâce infinie. Chaque pièce est
+          imprégnée de passion et de compétence, faisant du Comptoir un lieu où
+          l'extraordinaire devient réalité.
         </p>
       </main>
       <footer>

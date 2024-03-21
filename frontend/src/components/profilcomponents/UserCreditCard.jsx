@@ -10,6 +10,10 @@ function UserCreditCard() {
     cvv: "•••",
   });
 
+  const [isCardLoaded, setIsCardLoaded] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
@@ -27,6 +31,7 @@ function UserCreditCard() {
           expiration,
           cvv,
         });
+        setIsCardLoaded(true);
       })
       .catch((error) =>
         console.error("Erreur chargement des données utilisateur:", error)
@@ -61,8 +66,13 @@ function UserCreditCard() {
         }
       );
       console.info("Carte ajoutée avec succès");
+      setSaveSuccess(true); // Afficher le message de succès
+      setTimeout(() => {
+        window.location.reload(); // Recharger la page après 4 secondes
+      }, 4000);
     } catch (error) {
       console.error("Une erreur de réseau est survenue", error);
+      setSaveSuccess(false); // Ne pas afficher le message de succès en cas d'erreur
     }
   };
 
@@ -97,9 +107,13 @@ function UserCreditCard() {
       });
 
       console.info("Carte supprimée avec succès");
-      setCardInfo({ titulaire: "", numero: "", expiration: "", cvv: "" });
+      setDeleteSuccess(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 4000);
     } catch (error) {
       console.error("Erreur réseau lors de la suppression de la carte", error);
+      setDeleteSuccess(false);
     }
   };
 
@@ -125,12 +139,26 @@ function UserCreditCard() {
         </div>
 
         <div className="buttons-card">
-          <button className="bouton" type="button" onClick={handleDeleteCard}>
-            Supprimer cette carte{" "}
-          </button>
-          <button className="bouton" type="button" onClick={handleSaveCard}>
-            Ajouter une nouvelle carte
-          </button>
+          {" "}
+          {saveSuccess && (
+            <div className="save-success-message">
+              Carte enregistrée avec succès !
+            </div>
+          )}
+          {deleteSuccess && (
+            <div className="delete-success-message">
+              Carte supprimée avec succès !
+            </div>
+          )}
+          {isCardLoaded ? (
+            <button className="bouton" type="button" onClick={handleDeleteCard}>
+              Supprimer cette carte
+            </button>
+          ) : (
+            <button className="bouton" type="button" onClick={handleSaveCard}>
+              Ajouter une nouvelle carte
+            </button>
+          )}
         </div>
       </div>
       <form onSubmit={handleSaveCard}>
@@ -188,11 +216,11 @@ function UserCreditCard() {
             maxLength={3}
           />
         </div>
-        <div className="cb-validate">
+        {/* <div className="cb-validate">
           <button type="submit" className="sauvegarder-btn">
             Sauvegarder
           </button>
-        </div>
+        </div> */}
       </form>
     </div>
   );

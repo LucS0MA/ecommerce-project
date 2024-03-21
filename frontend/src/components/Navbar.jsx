@@ -9,7 +9,8 @@ import panierIcon from "../assets/panier_icon.svg";
 import utilisateurIcon from "../assets/utilisateur_icon.svg";
 
 function Navbar() {
-  const { toggleModal, authentification, logout } = useConnexionContext();
+  const { toggleModal, authentification, logout, userInfo } =
+    useConnexionContext();
   const [showLinks, setShowlinks] = useState(false);
   const handleShowLinks = () => {
     setShowlinks(!showLinks);
@@ -49,9 +50,11 @@ function Navbar() {
               <img src={logout2} alt="basket_icon" />
             </div>
           ) : null}
-          <img src={panierIcon} alt="basket_icon" />
+          <Link to="/panier">
+            <img src={panierIcon} alt="basket_icon" />
+          </Link>
           {authentification ? (
-            <Link to="/profil">
+            <Link to={userInfo && userInfo.seelie ? "/admin" : "/profil"}>
               <img src={utilisateurIcon} alt="user_icon" />
             </Link>
           ) : (

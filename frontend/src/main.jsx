@@ -7,6 +7,7 @@ import Profil from "./pages/Profil";
 import Catalogue from "./pages/Catalogue";
 import Page404 from "./pages/404";
 import About from "./pages/About";
+import Panier from "./pages/Panier";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/About",
     element: <About />,
+  },
+  {
+    path: "/panier",
+    element: <Panier />,
   },
   {
     path: "*",

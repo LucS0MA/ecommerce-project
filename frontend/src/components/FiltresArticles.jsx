@@ -94,16 +94,19 @@ function FiltresArticles() {
           <span> chaque artisane</span>, guidés par leur propre essence magique.
         </p>
         <div className="seelies_cards">
-          {sellersData.map((seller) => (
-            <SellerCard
-              key={seller.name}
-              seller={seller}
-              value={seller.name}
-              onSelect={() => setSeelies(seller.name)}
-              isSelected={false}
-              alternate
-            />
-          ))}
+          {sellersData.map((seller) => {
+            const isSelected = seller.name === seelies;
+            return (
+              <SellerCard
+                key={seller.name}
+                seller={seller}
+                value={seller.name}
+                onSelect={() => setSeelies(seller.name)}
+                isSelected={isSelected}
+                alternate
+              />
+            );
+          })}
         </div>
       </section>
       <section id="main_container_filtres">

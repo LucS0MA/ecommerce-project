@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 import Article from "./Article";
@@ -50,7 +51,9 @@ function Nouveautés() {
               prix={`${article.prix} €`}
             />
           ))}
-          <button type="button">EN VOIR PLUS</button>
+          <Link to="/catalogue">
+            <button type="button">EN VOIR PLUS</button>
+          </Link>
         </div>
       </div>
     </section>

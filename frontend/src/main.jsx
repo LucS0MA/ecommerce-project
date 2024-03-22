@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Admin from "./pages/Admin";
 
 import { BasketProvider } from "./contexts/BasketContext";
+import { ModalProvider } from "./contexts/ConnexionContext";
 
 import Home from "./pages/Home";
 import Profil from "./pages/Profil";
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <ModalProvider>
+        <Admin />
+      </ModalProvider>
+    ),
   },
   {
     path: "/catalogue",
@@ -38,9 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/panier",
     element: (
-      <BasketProvider>
-        <Panier />
-      </BasketProvider>
+      <ModalProvider>
+        <BasketProvider>
+          <Panier />
+        </BasketProvider>
+      </ModalProvider>
     ),
   },
   {

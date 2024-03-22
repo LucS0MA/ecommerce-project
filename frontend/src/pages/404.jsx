@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
-
+import Connexion from "../components/Connexion";
 import FooterBis from "../components/FooterBis";
 import { ModalProvider } from "../contexts/ConnexionContext";
 import Navbar from "../components/Navbar";
@@ -14,6 +14,7 @@ function Page404() {
   return (
     <ModalProvider>
       <Navbar />
+      <Connexion />
       <div className="body404">
         <article className="Info404">
           <div className="Text404">

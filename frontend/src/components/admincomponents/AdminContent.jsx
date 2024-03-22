@@ -1,4 +1,5 @@
 import React from "react";
+import Connexion from "../Connexion";
 import { useAdmin } from "../../contexts/AdminContext";
 import ArticlesAdmin from "./ArticlesAdmin";
 import CommandesAdmin from "./CommandesAdmin";
@@ -26,7 +27,10 @@ function AdminContent() {
 
   return (
     <>
-      <Navbar />
+      <header>
+        <Navbar />
+        <Connexion />
+      </header>
       <div className="container-admin">
         <MenuProfil />
         {content}

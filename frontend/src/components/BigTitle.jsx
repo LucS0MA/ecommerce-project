@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ShroomGuy from "./animations/svg/ShroomGuy";
@@ -65,9 +66,11 @@ function BigTitle() {
         id="create"
       />
       <div id="shroomGuyContainer">
-        <button id="exploreButton" type="button">
-          EXPLORER LE CATALOGUE
-        </button>
+        <Link to="/catalogue">
+          <button id="exploreButton" type="button">
+            EXPLORER LE CATALOGUE
+          </button>
+        </Link>
         <ShroomGuy />
       </div>
       <Star starClassname="star1" />

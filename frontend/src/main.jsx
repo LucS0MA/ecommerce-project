@@ -22,7 +22,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/profil",
-    element: <Profil />,
+    element: (
+      <ModalProvider>
+        <Profil />
+      </ModalProvider>
+    ),
   },
   {
     path: "/admin",

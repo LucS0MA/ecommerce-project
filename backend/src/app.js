@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 
+const isAdmin = require("./middlewares/isAdmin");
 const router = require("./router");
 
 const app = express();
@@ -24,7 +25,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-app.post("/upload", upload.single("file"), (req, res) => {
+app.post("/upload", isAdmin, upload.single("file"), (req, res) => {
   res.status(201).json({ body: req.body, file: req.file });
 });
 // ------------

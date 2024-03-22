@@ -4,14 +4,31 @@
   border: 2px solid var(--lightGreen);
   color: var(--lightGreen);
   // background-color: var(--darkPink);
-  padding: 10px;
 
   .articles-panier {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10px;
+    margin: 25px 25px;
 
+    .image-article-panier {
+      border-radius: 200px 200px 0px 0px;
+      padding: 2px;
+    }
+
+    .Elya {
+      background-color: #8d214c;
+    }
+
+    .Dalhia {
+      background-color: #e2b95b;
+    }
+    .Doireann {
+      background-color: #4e5c2c;
+    }
+    .Achlys {
+      background-color: #df824d;
+    }
     img {
       border-radius: 200px 200px 0px 0px;
       width: 150px;
@@ -24,6 +41,16 @@
       align-items: center;
       text-align: center;
       width: 400px;
+      gap: 15px;
+
+      .article-panier-nom {
+        font-size: 1.2rem;
+      }
+
+      .line-info-article {
+        border: 1px solid var(--lightGreen);
+        width: 50%;
+      }
     }
 
     .quantity {
@@ -68,5 +95,12 @@
     .prix_article_panier {
       font-size: 1.3rem;
     }
+  }
+  .end-line {
+    display: flex;
+    margin: 5px auto;
+    align-items: center;
+    border: 1px solid var(--lightGreen);
+    width: 80%;
   }
 }

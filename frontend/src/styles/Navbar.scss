@@ -75,6 +75,13 @@
   align-items: flex-end;
   overflow: hidden;
 
+  .basketNav {
+    position: relative;
+    top: 5px;
+    width: 55px;
+    height: 43px;
+  }
+
   img {
     width: 55px;
     height: 40px;

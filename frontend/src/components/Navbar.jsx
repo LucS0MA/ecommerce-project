@@ -51,7 +51,7 @@ function Navbar() {
             </div>
           ) : null}
           <Link to="/panier">
-            <img src={panierIcon} alt="basket_icon" />
+            <img className="basketNav" src={panierIcon} alt="basket_icon" />
           </Link>
           {authentification ? (
             <Link to={userInfo && userInfo.seelie ? "/admin" : "/profil"}>

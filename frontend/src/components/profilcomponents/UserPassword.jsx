@@ -25,7 +25,6 @@ function UserChangePassword() {
   };
 
   // Définit une fonction pour évaluer la force du mot de passe basée sur plusieurs critères
-  // Définit une fonction pour évaluer la force du mot de passe basée sur plusieurs critères
   const getPasswordStrength = (password) => {
     let strength = 0;
     if (password.length >= 8) strength += 1;

@@ -47,10 +47,7 @@ const browse = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const affectedRows = await models.panier_article.delete(
-      req.auth.id,
-      req.query.articleId
-    );
+    const affectedRows = await models.panier_article.delete(req.auth.id);
 
     if (affectedRows === 0) {
       res.sendStatus(404);

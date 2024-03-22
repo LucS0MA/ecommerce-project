@@ -33,10 +33,10 @@ class PanierManager extends AbstractManager {
     return rows;
   }
 
-  async delete(utilisateurId, articleId) {
+  async delete(utilisateurId) {
     const [rows] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE utilisateurs_id = ? AND articles_id = ?`,
-      [utilisateurId, articleId]
+      `DELETE FROM ${this.table} WHERE utilisateurs_id = ?`,
+      [utilisateurId]
     );
 
     return rows.affectedRows;

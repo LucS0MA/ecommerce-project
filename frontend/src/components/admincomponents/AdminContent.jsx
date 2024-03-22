@@ -21,7 +21,7 @@ function AdminContent() {
       break;
     //  ici faudra ajouter d'autres composants
     default:
-      content = <div>Composant en attente de Dev'</div>;
+      content = <ArticlesAdmin />;
   }
 
   return (

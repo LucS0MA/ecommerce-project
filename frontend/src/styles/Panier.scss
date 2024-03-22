@@ -1,7 +1,17 @@
+.basket-main {
+  display: flex;
+  flex-direction: column;
+}
+
 .basket-page {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.basket-validation-ok {
   min-height: 100vh;
   padding: 20px;
 }

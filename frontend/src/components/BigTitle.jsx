@@ -1,11 +1,13 @@
-import { useRef } from "react";
-import { Link } from "react-router-dom";
 import gsap from "gsap";
+import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+import AnimatedText from "./animations/AnimatitedText";
 import ShroomGuy from "./animations/svg/ShroomGuy";
 import Star from "./animations/svg/Star";
+
 import "../styles/BigTitle.scss";
-import AnimatedText from "./animations/AnimatitedText";
 
 function BigTitle() {
   const titleRef = useRef(null);

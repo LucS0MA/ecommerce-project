@@ -3,13 +3,15 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Admin from "./pages/Admin";
-import Catalogue from "./pages/Catalogue";
+
+import { BasketProvider } from "./contexts/BasketContext";
+
 import Home from "./pages/Home";
+import Profil from "./pages/Profil";
+import Catalogue from "./pages/Catalogue";
 import Page404 from "./pages/404";
 import About from "./pages/About";
 import Panier from "./pages/Panier";
-import Profil from "./pages/Profil";
-
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -35,7 +37,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/panier",
-    element: <Panier />,
+    element: (
+      <BasketProvider>
+        <Panier />
+      </BasketProvider>
+    ),
   },
   {
     path: "*",

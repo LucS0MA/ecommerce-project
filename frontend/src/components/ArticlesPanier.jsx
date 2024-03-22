@@ -6,26 +6,6 @@ function ArticlesPanier() {
   const [articles, setArticles] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  // const incrementQuantite = (articleId) => {
-  //   const updatedPanier = articles.map(article => {
-  //     if (article.id === articleId) {
-  //       return { ...article, quantite: article.quantite + 1 };
-  //     }
-  //     return article;
-  //   });
-  //   setArticles(updatedPanier);
-  // };
-
-  // const decrementQuantite = (articleId) => {
-  //   const updatedPanier = articles.map(article => {
-  //     if (article.id === articleId && article.quantite > 0) {
-  //       return { ...article, quantite: article.quantite - 1 };
-  //     }
-  //     return article;
-  //   });
-  //   setArticles(updatedPanier);
-  // };
-
   const moreQuantity = () => {
     if (quantity <= 49) {
       setQuantity(quantity + 1);
@@ -56,9 +36,12 @@ function ArticlesPanier() {
       {articles.map((article) => (
         <>
           <div className="articles-panier">
-            <div className={`image-article-panier ${article.vendeuse}`}>
-              <img src={`http://localhost:3310${article.image}`} alt="a" />
-            </div>
+            <img
+              src={`http://localhost:3310${article.image}`}
+              alt="a"
+              className={`article-image ${article.vendeuse}`}
+            />
+
             <div className="info_articles_panier">
               <p className="article-panier-nom">{article.nom}</p>
               <div className="line-info-article"> </div>
@@ -71,7 +54,7 @@ function ArticlesPanier() {
                 type="button"
                 onClick={lessQuantity}
               />
-              <p>{quantity}</p>
+              <p>{article.quantité}</p>
               <input
                 className="quantity_bouton plus"
                 type="button"

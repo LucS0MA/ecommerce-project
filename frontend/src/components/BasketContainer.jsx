@@ -1,5 +1,6 @@
 import basketIcon from "../assets/panier_icon.svg";
 import "../styles/BasketContainer.scss";
+import ArticlesPanier from "./ArticlesPanier";
 
 function BasketContainer() {
   return (
@@ -16,7 +17,9 @@ function BasketContainer() {
           <li>Quantité</li>
           <li>Prix</li>
         </ul>
-        <div id="basketContent">{/* Product */}</div>
+        <div id="basketContent">
+          <ArticlesPanier />
+        </div>
       </div>
     </div>
   );

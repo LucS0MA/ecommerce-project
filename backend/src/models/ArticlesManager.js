@@ -248,7 +248,7 @@ class ArticlesManager extends AbstractManager {
 
     // LIMIT
     if (filtres.limit) {
-      sql += "LIMIT ?";
+      sql += " LIMIT ?";
       sqlValues.push(parseInt(filtres.limit, 10));
     }
 

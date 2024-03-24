@@ -33,8 +33,6 @@ router.get("/festivals/:id", fesitvalsControllers.read);
 router.get("/articles", articlesControllers.browse);
 router.get("/articles/:id", articlesControllers.read);
 
-router.get("/commandes/details", commandesControllers.browse);
-
 // ----- UTILISATEUR -----
 router.use(userIdToken);
 
@@ -80,5 +78,6 @@ router.post("/festivals", fesitvalsControllers.add);
 router.get("/paiements", paiementControllers.browse);
 
 // route commandes
+router.get("/commandes/details", commandesControllers.browse);
 
 module.exports = router;

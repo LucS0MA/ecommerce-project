@@ -52,26 +52,25 @@ function CommandesAdmin() {
 
     const sortedArray = [...data].sort((a, b) => {
       if (field === "date") {
-        const convertDate = (dateStr) => {
-          const [year, month, day] = dateStr.split(" ")[0].split("-");
-          return new Date(year, month - 1, day);
-        };
-
-        const dateA = convertDate(a[field]);
-        const dateB = convertDate(b[field]);
-
+        const dateA = new Date(a.date_commande);
+        const dateB = new Date(b.date_commande);
         return (dateA - dateB) * (order === "asc" ? 1 : -1);
       }
 
-      if (a[field] < b[field]) {
-        return order === "asc" ? -1 : 1;
+      if (field === "nomAcheteur") {
+        const nameA = a.nomAcheteur ? a.nomAcheteur.toUpperCase() : "";
+        const nameB = b.nomAcheteur ? b.nomAcheteur.toUpperCase() : "";
+        return (nameA < nameB ? -1 : 1) * (order === "asc" ? 1 : -1);
       }
-      if (a[field] > b[field]) {
-        return order === "asc" ? 1 : -1;
+
+      if (field === "statut") {
+        const statutA = a.statut.toUpperCase();
+        const statutB = b.statut.toUpperCase();
+        return (statutA < statutB ? -1 : 1) * (order === "asc" ? 1 : -1);
       }
+
       return 0;
     });
-
     setData(sortedArray);
   };
 

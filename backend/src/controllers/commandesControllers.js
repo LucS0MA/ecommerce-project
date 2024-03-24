@@ -1,6 +1,5 @@
 const models = require("../modelsProviders");
 
-// Fonction pour récupérer toutes les commandes
 const browse = async (req, res) => {
   try {
     const commandes = await models.commandes.readAll();

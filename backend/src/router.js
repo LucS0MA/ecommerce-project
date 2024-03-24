@@ -33,6 +33,9 @@ router.get("/festivals/:id", fesitvalsControllers.read);
 router.get("/articles", articlesControllers.browse);
 router.get("/articles/:id", articlesControllers.read);
 
+// routes commandes
+router.post("/commandes", commandesControllers.add);
+
 // ----- UTILISATEUR -----
 router.use(userIdToken);
 

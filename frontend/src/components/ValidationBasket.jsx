@@ -47,17 +47,46 @@ function ValidationBasket() {
     }
 
     try {
-      await axios.delete("http://localhost:3310/api/panier", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setNbArticles(0);
-      setPriceTotal(0);
-      setIsBasketClear(true);
+      // Étape 1: Récupérez les articles du panier
+      const responsePanier = await axios.get(
+        "http://localhost:3310/api/panier",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Assurez-vous que la réponse contient les données
+      if (responsePanier.data && responsePanier.data.length > 0) {
+        const articlesDuPanier = responsePanier.data;
+
+        // Étape 2: Créez la commande avec les articles du panier
+        await axios.post(
+          "http://localhost:3310/api/commandes",
+          { articles: articlesDuPanier },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // Étape 3: Videz le panier après la création de la commande
+        await axios.delete("http://localhost:3310/api/panier", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setNbArticles(0);
+        setPriceTotal(0);
+        setIsBasketClear(true);
+      }
     } catch (error) {
-      console.error("Erreur lors de la suppression du panier:", error);
+      console.error("Erreur lors de la validation du panier:", error);
     } finally {
       setIsLoading(false);
     }

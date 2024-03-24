@@ -47,7 +47,6 @@ function ValidationBasket() {
     }
 
     try {
-      // Étape 1: Récupérez les articles du panier
       const responsePanier = await axios.get(
         "http://localhost:3310/api/panier",
         {
@@ -57,11 +56,9 @@ function ValidationBasket() {
         }
       );
 
-      // Assurez-vous que la réponse contient les données
       if (responsePanier.data && responsePanier.data.length > 0) {
         const articlesDuPanier = responsePanier.data;
 
-        // Étape 2: Créez la commande avec les articles du panier
         await axios.post(
           "http://localhost:3310/api/commandes",
           { articles: articlesDuPanier },
@@ -73,7 +70,6 @@ function ValidationBasket() {
           }
         );
 
-        // Étape 3: Videz le panier après la création de la commande
         await axios.delete("http://localhost:3310/api/panier", {
           headers: {
             "Content-Type": "application/json",

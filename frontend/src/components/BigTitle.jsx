@@ -1,10 +1,13 @@
-import { useRef } from "react";
 import gsap from "gsap";
+import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+import AnimatedText from "./animations/AnimatitedText";
 import ShroomGuy from "./animations/svg/ShroomGuy";
 import Star from "./animations/svg/Star";
+
 import "../styles/BigTitle.scss";
-import AnimatedText from "./animations/AnimatitedText";
 
 function BigTitle() {
   const titleRef = useRef(null);
@@ -65,9 +68,11 @@ function BigTitle() {
         id="create"
       />
       <div id="shroomGuyContainer">
-        <button id="exploreButton" type="button">
-          EXPLORER LE CATALOGUE
-        </button>
+        <Link to="/catalogue">
+          <button id="exploreButton" type="button">
+            EXPLORER LE CATALOGUE
+          </button>
+        </Link>
         <ShroomGuy />
       </div>
       <Star starClassname="star1" />

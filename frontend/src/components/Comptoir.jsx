@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import comptoirIMG from "../assets/comptoir.svg";
 
 import "../styles/Comptoir.scss";
@@ -20,7 +22,9 @@ function Comptoir() {
             Comptoir un lieu où l'extraordinaire devient réalité.
             <br />
           </p>
-          <button type="button">EN SAVOIR PLUS</button>
+          <Link to="/About">
+            <button type="button">EN SAVOIR PLUS</button>
+          </Link>
         </div>
       </div>
     </section>

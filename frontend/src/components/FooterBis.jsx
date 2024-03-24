@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/FooterBis.scss";
 import Icon from "../assets/logoFooter.svg";
 import Insta from "../assets/instag.png";
@@ -20,9 +21,15 @@ function FooterBis() {
             </p>
           </div>
           <div className="footer-nav">
-            <p>ACCEUIL</p>
-            <p>CATALOGUE</p>
-            <p>À PROPOS</p>
+            <Link to="/">
+              <p>ACCEUIL</p>
+            </Link>
+            <Link to="/catalogue">
+              <p>CATALOGUE</p>
+            </Link>
+            <Link to="/About">
+              <p>À PROPOS</p>
+            </Link>
           </div>
         </div>
         <div className="footer-right">

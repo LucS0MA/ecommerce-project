@@ -9,13 +9,13 @@
 //   src: url("../assets/fonts/AbhayaLibre-ExtraBold.ttf");
 // }
 
-.menu_profil_container {
+.menu_profil_container-admin {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.menu_profil_title {
+.menu_profil_title-admin {
   font-family: "Abha";
   font-size: 3rem;
   text-transform: uppercase;
@@ -25,7 +25,7 @@
   color: var(--lightGreen);
 }
 
-.menu_profil {
+.menu_profil-admin {
   max-width: 30vw;
   height: 500px;
   display: flex;
@@ -36,7 +36,7 @@
   padding: 50px;
   text-transform: uppercase;
 
-  .item-menu {
+  .item-menu-admin {
     width: 80%;
     text-align: center;
     font-family: "Antic", sans-serif;
@@ -50,12 +50,12 @@
 
     &:not(:last-child)::after {
       content: "";
-      width: 80%;
+      width: 90%;
       background-color: var(--darkPink);
       display: block;
       height: 2px;
       position: absolute;
-      margin: 40px 0px;
+      margin: 35px 0px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -72,7 +72,7 @@
 }
 
 @media (max-width: 1170px) {
-  .menu_profil {
+  .menu_profil-admin {
     flex-direction: row;
     max-width: 100%;
     height: auto;
@@ -80,7 +80,7 @@
     justify-content: center;
   }
 
-  .item-menu {
+  .item-menu-admin {
     &:not(:last-child)::after {
       visibility: hidden;
     }
@@ -88,7 +88,7 @@
 }
 
 @media (max-width: 830px) {
-  .item-menu {
+  .item-menu-admin {
     font-size: 0.5rem;
   }
 }

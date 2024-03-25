@@ -64,6 +64,7 @@ router.delete("/paiements/:id", paiementControllers.destroy);
 // route commandes
 router.post("/commandes", commandesControllers.add);
 router.post("/commandeArticle", commandeArticleControllers.add);
+router.get("/commandesHistory", commandesControllers.browseByUser);
 
 // ----- ADMIN -----
 router.use(isAdmin);

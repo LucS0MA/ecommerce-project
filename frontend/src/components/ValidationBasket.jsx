@@ -19,17 +19,23 @@ function ValidationBasket() {
         },
       })
       .then((response) => {
+        console.info("Réponse du backend:", response.data);
         const totalQuantity = response.data.reduce(
           (total, article) => total + article.quantité,
           0
         );
+        console.info("Quantité totale:", totalQuantity);
         const totalPrice = response.data.reduce(
           (total, article) => total + article.quantité * article.prix,
           0
         );
+        console.info("Prix total:", totalPrice);
         setNbArticles(totalQuantity);
         setPriceTotal(totalPrice.toFixed(2));
+        console.info("nbArticles après mise à jour:", nbArticles);
+        console.info("priceTotal après mise à jour:", priceTotal);
       })
+
       .catch((error) =>
         console.error("Erreur chargement des articles du panier:", error)
       );
@@ -47,42 +53,17 @@ function ValidationBasket() {
     }
 
     try {
-      const responsePanier = await axios.get(
-        "http://localhost:3310/api/panier",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (responsePanier.data && responsePanier.data.length > 0) {
-        const articlesDuPanier = responsePanier.data;
-
-        await axios.post(
-          "http://localhost:3310/api/commandes",
-          { articles: articlesDuPanier },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        await axios.delete("http://localhost:3310/api/panier", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setNbArticles(0);
-        setPriceTotal(0);
-        setIsBasketClear(true);
-      }
+      await axios.delete("http://localhost:3310/api/panier", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setNbArticles(0);
+      setPriceTotal(0);
+      setIsBasketClear(true);
     } catch (error) {
-      console.error("Erreur lors de la validation du panier:", error);
+      console.error("Erreur lors de la suppression du panier:", error);
     } finally {
       setIsLoading(false);
     }

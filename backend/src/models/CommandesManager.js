@@ -22,24 +22,6 @@ GROUP BY commandes.id, commandes.date_commande, commandes.statut, utilisateurs.n
     `);
     return rows;
   }
-
-  async create(utilisateurId, articles) {
-    const [commande] = await this.database.query(
-      `INSERT INTO commandes (statut, utilisateurs_id) VALUES ('en préparation', ?)`,
-      [utilisateurId]
-    );
-
-    const insertions = articles.map((article) =>
-      this.database.query(
-        `INSERT INTO commande_article (quantité, commandes_id, articles_id) VALUES (?, ?, ?)`,
-        [article.quantité, commande.insertId, article.id]
-      )
-    );
-
-    await Promise.all(insertions);
-
-    return commande.insertId;
-  }
 }
 
 module.exports = CommandesManager;

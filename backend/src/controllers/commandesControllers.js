@@ -13,22 +13,6 @@ const browse = async (req, res) => {
   }
 };
 
-const add = async (req, res) => {
-  try {
-    const commande = await models.commandes.create(
-      req.auth.id,
-      req.body.articles
-    );
-    res.status(201).json(commande);
-  } catch (err) {
-    console.error(err);
-    res
-      .status(404)
-      .json({ message: "Erreur lors de la création de la commande." });
-  }
-};
-
 module.exports = {
   browse,
-  add,
 };

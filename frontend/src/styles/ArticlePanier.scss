@@ -1,61 +1,73 @@
 .article_panier_container {
   display: flex;
   flex-direction: column;
-
   color: var(--lightGreen);
   // background-color: var(--darkPink);
 
   .articles-panier {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    margin: 25px 0px;
+    margin: 35px 0px;
+    padding: 0 10% 0% 0%;
 
-    img {
-      border-radius: 200px 200px 0px 0px;
-      width: 150px;
-      padding: 3px;
-      background-color: #4e5c2c;
-    }
-
-    .Elya {
-      background-color: #8d214c;
-    }
-
-    .Dalhia {
-      background-color: #e2b95b;
-    }
-    .Doireann {
-      background-color: #4e5c2c;
-    }
-    .Achlys {
-      background-color: #df824d;
-    }
-
-    .info_articles_panier {
+    .container-image-infos-article {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      // width: 400px;
-      gap: 15px;
+      gap: 30px;
 
-      .article-panier-nom {
-        font-size: 1.2rem;
-        width: 200px;
+      img {
+        border-radius: 200px 200px 0px 0px;
+        width: 150px;
+        padding: 3px;
       }
 
-      p {
-        font-size: 1.2em;
+      .Elya {
+        background-color: #8d214c;
       }
 
-      .line-info-article {
-        border: 1px solid var(--lightGreen);
-        width: 50%;
+      .Dalhia {
+        background-color: #e2b95b;
+      }
+      .Doireann {
+        background-color: #4e5c2c;
+      }
+      .Achlys {
+        background-color: #df824d;
+      }
+
+      .info_article_panier {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+        margin: 0 15px;
+
+        .article-panier-nom {
+          font-size: 1.2rem;
+          width: 200px;
+        }
+
+        p {
+          font-size: 1.2em;
+        }
+
+        .line-info-article {
+          border: 1px solid var(--lightGreen);
+          width: 50%;
+        }
+
+        .fav p {
+          display: none;
+        }
+
+        .article-logos {
+          margin-left: 20px;
+        }
       }
     }
-
     .quantity {
       display: flex;
       justify-content: center;
@@ -63,7 +75,7 @@
       background-color: var(--darkPink);
       border: 1px solid var(--lightGreen);
       padding: 10px;
-      width: 120px;
+      width: 15%;
 
       .quantity_bouton {
         width: 30px;
@@ -72,6 +84,7 @@
         background-color: var(--darkPink);
         border-style: none;
         font-size: 0.8rem;
+        cursor: pointer;
       }
 
       .moins {
@@ -88,7 +101,6 @@
 
       p {
         font-size: 1.5rem;
-        width: 50px;
         height: 100%;
         text-align: center;
         width: 100%;
@@ -96,7 +108,7 @@
     }
 
     .prix_article_panier {
-      font-size: 1.3rem;
+      font-size: 1.3em;
     }
   }
   .end-line {

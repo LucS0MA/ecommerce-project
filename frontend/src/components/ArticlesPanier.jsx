@@ -1,75 +1,91 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import "../styles/ArticlePanier.scss";
+import Favori from "./profilcomponents/Favori";
 
-function ArticlesPanier() {
-  const [articles, setArticles] = useState([]);
+function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
+  const [articleId] = useState(articlesId);
   const [quantity, setQuantity] = useState(1);
 
+  const axiosPutPanier = (nb) => {
+    const token = sessionStorage.getItem("token");
+
+    axios
+      .put(
+        `http://localhost:3310/api/panier/?articleId=${articleId}`,
+        {
+          quantité: nb + 1,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+          },
+        }
+      )
+      .catch((err) => console.error(err));
+    console.info(articleId, "add another to cart");
+  };
+
   const moreQuantity = () => {
-    if (quantity <= 49) {
-      setQuantity(quantity + 1);
-    }
+    axiosPutPanier(quantity);
+    setQuantity(quantity + 1);
   };
 
   const lessQuantity = () => {
-    if (quantity >= 1) {
+    axiosPutPanier(quantity);
+    if (quantity > 0) {
       setQuantity(quantity - 1);
     }
   };
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .get("http://localhost:3310/api/panier/5", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
-        },
-      })
-      .then((response) => setArticles(response.data))
-      .catch((err) => console.error(err));
-  }, []);
+  //
 
   return (
     <div className="article_panier_container">
-      {articles.map((article) => (
-        <>
-          <div className="articles-panier">
-            <img
-              src={`http://localhost:3310${article.image}`}
-              alt="a"
-              className={`article-image ${article.vendeuse}`}
-            />
-
-            <div className="info_articles_panier">
-              <p className="article-panier-nom">{article.nom}</p>
-              <div className="line-info-article"> </div>
-              <p>{article.vendeuse}</p>
-              <span>fav</span>
-            </div>
-            <div className="quantity">
-              <input
-                className="quantity_bouton moins"
-                type="button"
-                onClick={lessQuantity}
-              />
-              <p>{article.quantité}</p>
-              <input
-                className="quantity_bouton plus"
-                type="button"
-                onClick={moreQuantity}
-              />
-            </div>
-            <div className="prix_article_panier">
-              <p>{article.prix}€</p>
-            </div>
+      <div className="articles-panier">
+        <div className="container-image-infos-article">
+          <img
+            src={`http://localhost:3310${image}`}
+            alt="a"
+            className={`article-image ${vendeuse}`}
+          />
+          <div className="info_article_panier">
+            <p className="article-panier-nom">{nom}</p>
+            <div className="line-info-article"> </div>
+            <p>{vendeuse}</p>
+            <Favori />
           </div>
-          <div className="end-line"> </div>
-        </>
-      ))}
+        </div>
+        <div className="quantity">
+          <input
+            className="quantity_bouton moins"
+            type="button"
+            onClick={() => lessQuantity()}
+          />
+          <p>{quantité}</p>
+          <input
+            className="quantity_bouton plus"
+            type="button"
+            onClick={() => moreQuantity()}
+          />
+        </div>
+        <div className="prix_article_panier">
+          <p>{prix}€</p>
+        </div>
+      </div>
+      <div className="end-line"> </div>
     </div>
   );
 }
+
+ArticlesPanier.propTypes = {
+  articlesId: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  nom: PropTypes.string.isRequired,
+  vendeuse: PropTypes.string.isRequired,
+  prix: PropTypes.string.isRequired,
+  quantité: PropTypes.number.isRequired,
+};
 
 export default ArticlesPanier;

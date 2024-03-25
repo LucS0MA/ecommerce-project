@@ -20,7 +20,6 @@ function AdminContent() {
     case "CommandesAdmin":
       content = <CommandesAdmin />;
       break;
-    //  ici faudra ajouter d'autres composants
     default:
       content = <ArticlesAdmin />;
   }

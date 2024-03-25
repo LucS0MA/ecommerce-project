@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import "../../styles/CommandesAdmin.scss";
+import "../../styles/HistoriqueDesCommandes.scss";
 
-function CommandesAdmin() {
+function HistoriqueDesCommandes() {
   const [sortedField, setSortedField] = useState(null);
   const [order, setOrder] = useState("asc");
   const [data, setData] = useState([]);
@@ -13,7 +13,7 @@ function CommandesAdmin() {
     const token = sessionStorage.getItem("token");
 
     axios
-      .get("http://localhost:3310/api/commandes/details", {
+      .get("http://localhost:3310/api/commandesHistory", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -21,7 +21,7 @@ function CommandesAdmin() {
       .then((response) => {
         setData(response.data);
         setInitialData(response.data);
-        // console.info("La reponse du back :", response.data);
+        console.info("La reponse du back :", response.data);
       })
       .catch((error) => {
         console.error("Il y a eu un problème avec la requête Axios", error);
@@ -91,55 +91,48 @@ function CommandesAdmin() {
   };
 
   return (
-    <div>
-      <div className="orders-container">
-        <h2 className="tilte-admin-command">Les Commandes</h2>
-        <div className="filter-command-buttons">
-          <button type="button" onClick={() => sortData("date")}>
-            Trier par date
-          </button>
-          <button type="button" onClick={() => sortData("statut")}>
-            Trier par statut
-          </button>
-          <button type="button" onClick={() => sortData("nomAcheteur")}>
-            Trier par utilisateur
-          </button>
-          <button type="button" onClick={resetSorting}>
-            Réinitialiser les filtres
-          </button>
-        </div>
-        <table id="array-command-container">
-          <thead id="array-command-title">
-            <tr>
-              <th>NUMÉRO DE COMMANDE</th>
-              <th>DATE</th>
-              <th>NOM D'ACHETEUR</th>
-              <th>TOTAL DE LA COMMANDE</th>
-              <th>NOMBRE D'ARTICLE</th>
-              <th>STATUT</th>
-            </tr>
-          </thead>
-          <tbody id="array-command-data">
-            {data.map((commande) => (
-              <tr key={commande.id}>
-                <td>{commande.id}</td>
-                <td>{formatDate(commande.date_commande)}</td>
-                <td>{commande.nomAcheteur || "Non spécifié"}</td>{" "}
-                <td>{formatTotal(commande.totalCommande)}</td>
-                <td>{commande.nombreArticle}</td>
-                <td>
-                  <span
-                    className={`status-diode ${getStatusClass(commande.statut)}`}
-                    aria-label={`Statut de la commande: ${commande.statut}`}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="orders-container">
+      <h2 className="tilte-admin-command">Historique des commandes</h2>
+      <div className="filter-command-buttons">
+        <button type="button" onClick={() => sortData("date")}>
+          Trier par date
+        </button>
+        <button type="button" onClick={() => sortData("statut")}>
+          Trier par statut
+        </button>
+        <button type="button" onClick={resetSorting}>
+          Réinitialiser les filtres
+        </button>
       </div>
+      <table id="array-command-container">
+        <thead id="array-command-title">
+          <tr>
+            <th>NUMÉRO DE COMMANDE</th>
+            <th>DATE</th>
+            <th>TOTAL DE LA COMMANDE</th>
+            <th>NOMBRE D'ARTICLE</th>
+            <th>STATUT</th>
+          </tr>
+        </thead>
+        <tbody id="array-command-data">
+          {data.map((commande) => (
+            <tr key={commande.id}>
+              <td>{commande.id}</td>
+              <td>{formatDate(commande.date_commande)}</td>
+              <td>{formatTotal(commande.totalCommande)}</td>
+              <td>{commande.nombreArticle}</td>
+              <td>
+                <span
+                  className={`status-diode ${getStatusClass(commande.statut)}`}
+                  aria-label={`Statut de la commande: ${commande.statut}`}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default CommandesAdmin;
+export default HistoriqueDesCommandes;

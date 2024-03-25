@@ -12,6 +12,7 @@ const fesitvalsControllers = require("./controllers/festivalsControllers");
 const paiementControllers = require("./controllers/paiementControllers");
 const panier = require("./controllers/panierControllers");
 const utilisateursControllers = require("./controllers/utilisateursControllers");
+const commandesControllers = require("./controllers/commandesControllers");
 
 const isAdmin = require("./middlewares/isAdmin");
 const userIdToken = require("./middlewares/userIdToken");
@@ -75,5 +76,8 @@ router.post("/festivals", fesitvalsControllers.add);
 
 // route paiements
 router.get("/paiements", paiementControllers.browse);
+
+// route commandes
+router.get("/commandes/details", commandesControllers.browse);
 
 module.exports = router;

@@ -20,6 +20,17 @@ function BasketContainer() {
       .catch((err) => console.error(err));
   }, []);
 
+  const updateArticleQuantity = (articleId, newQuantity) => {
+    setArticles(
+      articles.map((article) => {
+        if (article.articles_id === articleId) {
+          return { ...article, quantité: newQuantity };
+        }
+        return article;
+      })
+    );
+  };
+
   return (
     <div id="basketContainer">
       <div id="basketDetail">
@@ -44,6 +55,9 @@ function BasketContainer() {
               vendeuse={article.vendeuse}
               quantité={article.quantité}
               prix={article.prix}
+              updateQuantity={(newQuantity) =>
+                updateArticleQuantity(article.articles_id, newQuantity)
+              }
             />
           ))}
         </div>

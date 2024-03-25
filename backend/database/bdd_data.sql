@@ -8,6 +8,8 @@ INSERT INTO utilisateurs (
   "Hippopotame", "Lion", "2001-09-29", 0607593244, "alex@gmail.com", "1234", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
 ), (
   "Hippopotame", "Girafe", "2000-06-19", 0607593244, "abdou@gmail.com", "4321", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
+), (
+  "admin", "seelie", "2000-06-19", 0607593244, "admin@gmail.com", "$2b$10$qjVeymvkdHT9NWcxGsLSGujegcHnWWv/GFEcWhQMYiS9JqT6hohYa", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
 );
 
 INSERT INTO paiements (
@@ -21,21 +23,21 @@ INSERT INTO paiements (
 );
 
 INSERT INTO articles (
-  nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité
+  nom, image, prix, ajout_date, nb_ventes, vendeuse
 ) VALUES (
-  "BOUCLE D OREILLES FEUILLES LOTUS", "/static/boucles_oreilles.png", 25.00, NOW(), 10, 5, "Elya", 12
+  "BOUCLE D OREILLES FEUILLES LOTUS", "/static/boucles_oreilles.png", 25.00, NOW(), 10, "Elya"
 ) , (
-  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 49.99, NOW(), 1, 15, "Achlys", 9
+  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 49.99, NOW(), 1, "Achlys"
 ) , (
-  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 19.49, NOW(), 6, 32, "Doireann", 3
+  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 19.49, NOW(), 6, "Doireann"
 ) , (
-  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.49, NOW(), 8, 15, "Achlys", 9
+  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.49, NOW(), 8, "Achlys"
 ) , (
-  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 2, 32, "Doireann", 3
+  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 2, "Doireann"
 ) , (
-  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.99, NOW(), 20, 15, "Achlys", 9
+  "ILLUSTRATION SIRENE", "/static/illustration_sirene.png", 25.99, NOW(), 20, "Achlys"
 ) , (
-  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 2, 32, "Doireann", 3
+  "PELUCHE CHAMPIGNON", "/static/peluche_champignon.png", 25.00, NOW(), 2, "Doireann"
 );
 
 INSERT INTO couleurs (
@@ -162,3 +164,26 @@ INSERT INTO types_has_articles (
 ), (
   5, 7
 );
+
+INSERT INTO commandes (statut, utilisateurs_id)
+VALUES
+('annulée', 1),
+('livrée', 2),
+('en préparation', 4);
+-- Articles pour la commande 1
+INSERT INTO commande_article (quantité, commandes_id, articles_id)
+VALUES
+(2, 1, 1), -- 2x BOUCLE D'OREILLES FEUILLES LOTUS
+(1, 1, 3); -- 1x PELUCHE CHAMPIGNON
+
+-- Articles pour la commande 2
+INSERT INTO commande_article (quantité, commandes_id, articles_id)
+VALUES
+(1, 2, 2), -- 1x ILLUSTRATION SIRENE
+(3, 2, 5); -- 3x PELUCHE CHAMPIGNON
+
+-- Articles pour la commande 3
+INSERT INTO commande_article (quantité, commandes_id, articles_id)
+VALUES
+(1, 3, 4), -- 1x ILLUSTRATION SIRENE
+(2, 3, 2); -- 2x PELUCHE CHAMPIGNON

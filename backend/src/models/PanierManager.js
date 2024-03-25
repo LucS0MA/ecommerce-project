@@ -24,7 +24,7 @@ class PanierManager extends AbstractManager {
 
   async readAll(id) {
     const [rows] = await this.database.query(
-      `SELECT panier_article.quantité, articles_id, articles.nom, articles.prix FROM ${this.table}
+      `SELECT panier_article.quantité, articles_id, articles.nom, articles.prix, articles.image, articles.vendeuse FROM ${this.table}
       LEFT JOIN articles ON articles_id = articles.id
       WHERE utilisateurs_id = ?`,
       [id]
@@ -33,10 +33,10 @@ class PanierManager extends AbstractManager {
     return rows;
   }
 
-  async delete(utilisateurId, articleId) {
+  async delete(utilisateurId) {
     const [rows] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE utilisateurs_id = ? AND articles_id = ?`,
-      [utilisateurId, articleId]
+      `DELETE FROM ${this.table} WHERE utilisateurs_id = ?`,
+      [utilisateurId]
     );
 
     return rows.affectedRows;

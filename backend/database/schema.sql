@@ -23,13 +23,11 @@ USE `le_comptoir_des_seelies` ;
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`articles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
-  `image` VARCHAR(45) NOT NULL,
+  `image` VARCHAR(255) NOT NULL,
   `prix` FLOAT NOT NULL,
   `ajout_date` DATETIME NOT NULL,
   `nb_ventes` INT NULL DEFAULT NULL,
-  `taille` INT NOT NULL,
   `vendeuse` VARCHAR(45) NOT NULL,
-  `quantité` INT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -112,7 +110,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `date_commande` DATETIME NOT NULL,
+  `date_commande` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `statut` VARCHAR(45) NOT NULL,
   `utilisateurs_id` INT NOT NULL,
   PRIMARY KEY (`id`, `utilisateurs_id`),

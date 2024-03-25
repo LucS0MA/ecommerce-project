@@ -71,14 +71,14 @@ function FiltresArticles() {
       !thematiqueValue || item.thematique === thematiqueValue;
     const filtreParPrix = prixValue >= item.prix;
     const filtreParType =
-      typeValue.length === 0 || typeValue.includes(item.type);
+      typeValue.length === 0 || item.types.includes(typeValue);
     const filtreParCouleur = !CouleurValue || item.couleur === CouleurValue;
 
     return (
       filtreParSeelies &&
       filtreParNom &&
-      filtreParThematique &&
       filtreParPrix &&
+      filtreParThematique &&
       filtreParType &&
       filtreParCouleur
     );
@@ -93,16 +93,19 @@ function FiltresArticles() {
           <span> chaque artisane</span>, guidés par leur propre essence magique.
         </p>
         <div className="seelies_cards">
-          {sellersData.map((seller) => (
-            <SellerCard
-              key={seller.name}
-              seller={seller}
-              value={seller.name}
-              onSelect={() => setSeelies(seller.name)}
-              isSelected={false}
-              alternate
-            />
-          ))}
+          {sellersData.map((seller) => {
+            const isSelected = seller.name === seelies;
+            return (
+              <SellerCard
+                key={seller.name}
+                seller={seller}
+                value={seller.name}
+                onSelect={() => setSeelies(seller.name)}
+                isSelected={isSelected}
+                alternate
+              />
+            );
+          })}
         </div>
       </section>
       <section id="main_container_filtres">

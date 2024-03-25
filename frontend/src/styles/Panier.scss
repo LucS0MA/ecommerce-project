@@ -1,7 +1,30 @@
+.basket-main {
+  display: flex;
+  flex-direction: column;
+}
+
 .basket-page {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   min-height: 100vh;
   padding: 20px;
+}
+
+.basket-validation-ok {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.basket-noAccessMain {
+  min-height: 40vh;
+}
+
+.basket-noAccessCont {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  color: var(--yellow);
+  font-family: "Play", sans-serif;
+  font-size: 25px;
 }

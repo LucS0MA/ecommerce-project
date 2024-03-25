@@ -9,18 +9,90 @@ class ArticlesManager extends AbstractManager {
 
   async create(article) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (nom,image,prix,ajout_date,nb_ventes,taille,vendeuse,quantité) values (?,?,?,?,?,?,?,?)`,
-      [
-        article.nom,
-        article.image,
-        article.prix,
-        article.ajout_date,
-        article.nb_ventes,
-        article.taille,
-        article.vendeuse,
-        article.quantité,
-      ]
+      `insert into ${this.table} (nom, image, prix, ajout_date, nb_ventes, vendeuse) values (?, ?, ?, NOW(), 0, ?)`,
+      [article.nom, article.image, article.prix, article.vendeuse]
     );
+
+    // TYPES
+    if (
+      article.bijoux ||
+      article.deco ||
+      article.illustration ||
+      article.vetement ||
+      article.accessoire
+    ) {
+      let sql =
+        "INSERT INTO types_has_articles (types_id, articles_id) VALUES ";
+      const sqlValues = [];
+      let isNext = false;
+
+      if (article.bijoux) {
+        sql += "(?, ?)";
+        sqlValues.push(1, result.insertId);
+        isNext = true;
+      }
+      if (article.deco) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(2, result.insertId);
+        isNext = true;
+      }
+      if (article.illustration) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(3, result.insertId);
+        isNext = true;
+      }
+      if (article.vetement) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(4, result.insertId);
+        isNext = true;
+      }
+      if (article.accessoire) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(5, result.insertId);
+      }
+
+      await this.database.query(sql, sqlValues);
+    }
+
+    // THEMATIQUE
+    if (article.thematique) {
+      let thematiqueId;
+
+      if (article.thematique === "steampunk") {
+        thematiqueId = 1;
+      } else if (article.thematique === "fantasy") {
+        thematiqueId = 2;
+      } else if (article.thematique === "medieval") {
+        thematiqueId = 3;
+      } else if (article.thematique === "magie") {
+        thematiqueId = 4;
+      } else if (article.thematique === "feerie") {
+        thematiqueId = 5;
+      } else if (article.thematique === "cottage core") {
+        thematiqueId = 6;
+      }
+
+      await this.database.query(
+        "INSERT INTO thematiques_has_articles (thematiques_id, articles_id) VALUES (?, ?)",
+        [thematiqueId, result.insertId]
+      );
+    }
 
     return result.insertId;
   }
@@ -35,13 +107,13 @@ class ArticlesManager extends AbstractManager {
   }
 
   async readAll(filtres) {
-    let sql = `SELECT DISTINCT articles.id, nom, image, prix, ajout_date, nb_ventes, taille, vendeuse, quantité, couleur, type, thematique FROM ${this.table}
+    let sql = `SELECT articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, GROUP_CONCAT(type) AS types, thematique FROM ${this.table}
     LEFT JOIN couleurs_has_articles ON couleurs_has_articles.articles_id = articles.id
     LEFT JOIN couleurs ON couleurs.id = couleurs_has_articles.couleurs_id
     LEFT JOIN thematiques_has_articles ON thematiques_has_articles.articles_id = articles.id
     LEFT JOIN thematiques ON thematiques.id = thematiques_has_articles.thematiques_id
     LEFT JOIN types_has_articles ON types_has_articles.articles_id = articles.id
-    LEFT JOIN types ON types.id = types_has_articles.types_id `;
+    LEFT JOIN types ON types.id = types_has_articles.types_id`;
     const select = sql;
     const sqlValues = [];
 
@@ -61,7 +133,7 @@ class ArticlesManager extends AbstractManager {
 
       // MINPRIX +
       if (filtres.maxPrix) {
-        sql += " AND prix <= ?";
+        sql += "AND prix <= ?";
         sqlValues.push(parseInt(filtres.maxPrix, 10));
       }
     } else if (filtres.maxPrix) {
@@ -151,11 +223,27 @@ class ArticlesManager extends AbstractManager {
       }
     }
 
+    // "GROUP BY" complémentaire au "GROUP_CONCAT(type) AS types" et OBLIGATOIRE
+    sql +=
+      "GROUP BY articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, thematique ";
+
     // Trier par...
     if (parseInt(filtres.nouveautes, 10) === 1) {
       sql += "ORDER BY ajout_date DESC";
-    } else if (parseInt(filtres.phares, 10) === 1) {
-      sql += "ORDER BY nb_ventes DESC";
+    } else if (filtres.phares) {
+      // NB_VENTES
+      if (filtres.phares === "desc") {
+        sql += "ORDER BY nb_ventes DESC";
+      } else if (filtres.phares === "asc") {
+        sql += "ORDER BY nb_ventes ASC";
+      }
+    } else if (filtres.price) {
+      // PRIX
+      if (filtres.price === "desc") {
+        sql += "ORDER BY prix DESC";
+      } else if (filtres.price === "asc") {
+        sql += "ORDER BY prix ASC";
+      }
     }
 
     // LIMIT
@@ -164,10 +252,7 @@ class ArticlesManager extends AbstractManager {
       sqlValues.push(parseInt(filtres.limit, 10));
     }
 
-    // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await this.database.query(sql, sqlValues);
-
-    // Return the array of items
     return rows;
   }
 
@@ -182,9 +267,7 @@ class ArticlesManager extends AbstractManager {
     let prix;
     let ajoutDate = "";
     let nbVentes;
-    let taille;
     let vendeuse = "";
-    let quantité;
 
     // Si le FRONT envoie un nouveau nom pour l'article au BACK
     if (article.nom) {
@@ -215,20 +298,10 @@ class ArticlesManager extends AbstractManager {
     } else if (product[0]) {
       nbVentes = product[0].nb_ventes;
     }
-    if (article.taille) {
-      taille = article.taille;
-    } else if (product[0]) {
-      taille = product[0].taille;
-    }
     if (article.vendeuse) {
       vendeuse = article.vendeuse;
     } else if (product[0]) {
       vendeuse = product[0].vendeuse;
-    }
-    if (article.quantité) {
-      quantité = article.quantité;
-    } else if (product[0]) {
-      quantité = product[0].quantité;
     }
 
     // Attribution des variables initialisées à la base de donnée
@@ -238,11 +311,9 @@ class ArticlesManager extends AbstractManager {
       prix = ?,
       ajout_date = ?,
       nb_ventes = ?,
-      taille = ?,
       vendeuse = ?,
-      quantité = ?
       WHERE id = ?`,
-      [nom, image, prix, ajoutDate, nbVentes, taille, vendeuse, quantité, id]
+      [nom, image, prix, ajoutDate, nbVentes, vendeuse, id]
     );
 
     return rows.affectedRows;

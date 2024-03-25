@@ -110,7 +110,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `date_commande` DATETIME NOT NULL,
+  `date_commande` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `statut` VARCHAR(45) NOT NULL,
   `utilisateurs_id` INT NOT NULL,
   PRIMARY KEY (`id`, `utilisateurs_id`),

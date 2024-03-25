@@ -13,6 +13,17 @@ const browse = async (req, res) => {
   }
 };
 
+const add = async (req, res) => {
+  try {
+    const result = await models.commandes.create(req.auth.id, req.body);
+
+    res.status(201).json({ result });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   browse,
+  add,
 };

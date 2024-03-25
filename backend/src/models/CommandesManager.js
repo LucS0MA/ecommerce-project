@@ -22,6 +22,15 @@ GROUP BY commandes.id, commandes.date_commande, commandes.statut, utilisateurs.n
     `);
     return rows;
   }
+
+  async create(utilisateurId, commande) {
+    const [result] = await this.database.query(
+      `insert into ${this.table} (statut, utilisateurs_id) values (?,?)`,
+      [commande.statut, utilisateurId]
+    );
+
+    return result.insertId;
+  }
 }
 
 module.exports = CommandesManager;

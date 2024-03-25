@@ -7,12 +7,13 @@ const router = express.Router();
 /* ************************************************************************* */
 
 const articlesControllers = require("./controllers/articlesControllers");
+const commandeArticleControllers = require("./controllers/commandeArticleControllers");
+const commandesControllers = require("./controllers/commandesControllers");
 const isFav = require("./controllers/favControllers");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const paiementControllers = require("./controllers/paiementControllers");
 const panier = require("./controllers/panierControllers");
 const utilisateursControllers = require("./controllers/utilisateursControllers");
-const commandesControllers = require("./controllers/commandesControllers");
 
 const isAdmin = require("./middlewares/isAdmin");
 const userIdToken = require("./middlewares/userIdToken");
@@ -59,6 +60,10 @@ router.put("/panier", panier.edit);
 router.get("/paiements/:id", paiementControllers.read);
 router.post("/paiements", paiementControllers.add);
 router.delete("/paiements/:id", paiementControllers.destroy);
+
+// route commandes
+router.post("/commandes", commandesControllers.add);
+router.post("/commandeArticle", commandeArticleControllers.add);
 
 // ----- ADMIN -----
 router.use(isAdmin);

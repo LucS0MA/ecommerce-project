@@ -17,6 +17,8 @@ const PanierManager = require("./models/PanierManager");
 
 const CommandesManager = require("./models/CommandesManager");
 
+const CommandeArticleManager = require("./models/CommandeArticleManager");
+
 const managers = [
   ArticlesManager,
   UtilisateursManager,
@@ -25,6 +27,7 @@ const managers = [
   PaiementsManager,
   PanierManager,
   CommandesManager,
+  CommandeArticleManager,
 ];
 
 // Create an empty object to hold data managers for different tables

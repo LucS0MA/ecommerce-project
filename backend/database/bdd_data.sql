@@ -164,3 +164,26 @@ INSERT INTO types_has_articles (
 ), (
   5, 7
 );
+
+INSERT INTO commandes (statut, utilisateurs_id)
+VALUES
+('annulée', 1),
+('livrée', 2),
+('en préparation', 4);
+-- Articles pour la commande 1
+INSERT INTO commande_article (quantité, commandes_id, articles_id)
+VALUES
+(2, 1, 1), -- 2x BOUCLE D'OREILLES FEUILLES LOTUS
+(1, 1, 3); -- 1x PELUCHE CHAMPIGNON
+
+-- Articles pour la commande 2
+INSERT INTO commande_article (quantité, commandes_id, articles_id)
+VALUES
+(1, 2, 2), -- 1x ILLUSTRATION SIRENE
+(3, 2, 5); -- 3x PELUCHE CHAMPIGNON
+
+-- Articles pour la commande 3
+INSERT INTO commande_article (quantité, commandes_id, articles_id)
+VALUES
+(1, 3, 4), -- 1x ILLUSTRATION SIRENE
+(2, 3, 2); -- 2x PELUCHE CHAMPIGNON

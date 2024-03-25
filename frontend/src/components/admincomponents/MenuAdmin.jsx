@@ -1,18 +1,21 @@
 // composant Menu a gauche de la page admin
-import React from "react";
+import { useEffect } from "react";
 import { useAdmin } from "../../contexts/AdminContext";
-import "../../styles/MenulProfil.scss";
+import "../../styles/MenulAdmin.scss";
 
 const sections = [
   { key: "CatalogueAdmin", label: "Catalogue" },
   { key: "CommandesAdmin", label: "Voir les commandes" },
   { key: "ClientsAdmin", label: "Liste clients" },
-  { key: "VendeursAdmin", label: "Profil Vendeurs" },
   { key: "EventsAdmin", label: "Gestion des évènements" },
 ];
 
 function MenuAdmin() {
   const { activeSection, switchSection } = useAdmin();
+
+  useEffect(() => {
+    switchSection("CatalogueAdmin");
+  }, [switchSection]);
 
   const handleKeyDown = (event, sectionKey) => {
     if (event.key === "Enter") {

@@ -124,7 +124,7 @@ function CommandesAdmin() {
               <tr key={commande.id}>
                 <td>{commande.id}</td>
                 <td>{formatDate(commande.date_commande)}</td>
-                <td>{commande.nomAcheteur || "Non spécifié"}</td>{" "}
+                <td>{commande.nomAcheteur || "Non spécifié"}</td>
                 <td>{formatTotal(commande.totalCommande)}</td>
                 <td>{commande.nombreArticle}</td>
                 <td>

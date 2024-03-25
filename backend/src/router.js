@@ -7,7 +7,7 @@ const router = express.Router();
 /* ************************************************************************* */
 
 const articlesControllers = require("./controllers/articlesControllers");
-const isFav = require("./controllers/FavControllers");
+const isFav = require("./controllers/favControllers");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const paiementControllers = require("./controllers/paiementControllers");
 const panier = require("./controllers/panierControllers");

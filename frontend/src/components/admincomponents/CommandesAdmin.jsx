@@ -42,9 +42,8 @@ function CommandesAdmin() {
   }
 
   const sortData = (field) => {
-    if (sortedField === field && order === "desc") {
-      setSortedField(field);
-      setOrder("desc");
+    if (sortedField === field) {
+      setOrder(order === "asc" ? "desc" : "asc");
     } else {
       setSortedField(field);
       setOrder("asc");

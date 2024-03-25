@@ -8,6 +8,7 @@ function ValidationBasket() {
   const [nbArticles, setNbArticles] = useState(0);
   const [priceTotal, setPriceTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [basket, setBasket] = useState([]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -39,6 +40,17 @@ function ValidationBasket() {
       .catch((error) =>
         console.error("Erreur chargement des articles du panier:", error)
       );
+
+    // Récupération du panier
+    axios
+      .get("http://localhost:3310/api/panier/0", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setBasket(response.data))
+      .catch((err) => console.error(err));
   }, []);
 
   const handleValidBasket = async (e) => {
@@ -53,6 +65,42 @@ function ValidationBasket() {
     }
 
     try {
+      // --- Création de la commande à partir des infos du panier ---
+      const { data } = await axios.post(
+        "http://localhost:3310/api/commandes",
+        {
+          statut: "en préparation",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      basket.forEach((article) => {
+        axios
+          .post(
+            "http://localhost:3310/api/commandeArticle",
+            {
+              quantité: article.quantité,
+              commandeId: data.result,
+              articleId: article.articles_id,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .catch((err) => console.error(err));
+      });
+
+      //-------------------------------------------------------------
+
+      // Supression du panier
       await axios.delete("http://localhost:3310/api/panier", {
         headers: {
           "Content-Type": "application/json",

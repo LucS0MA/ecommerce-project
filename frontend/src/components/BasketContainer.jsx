@@ -1,7 +1,36 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import basketIcon from "../assets/panier_icon.svg";
 import "../styles/BasketContainer.scss";
+import ArticlesPanier from "./ArticlesPanier";
 
 function BasketContainer() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    axios
+      .get(`http://localhost:3310/api/panier/0`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+        },
+      })
+      .then((response) => setArticles(response.data))
+      .catch((err) => console.error(err));
+  }, []);
+
+  const updateArticleQuantity = (articleId, newQuantity) => {
+    setArticles(
+      articles.map((article) => {
+        if (article.articles_id === articleId) {
+          return { ...article, quantité: newQuantity };
+        }
+        return article;
+      })
+    );
+  };
+
   return (
     <div id="basketContainer">
       <div id="basketDetail">
@@ -16,7 +45,22 @@ function BasketContainer() {
           <li>Quantité</li>
           <li>Prix</li>
         </ul>
-        <div id="basketContent">{/* Product */}</div>
+        <div id="basketContent">
+          {articles.map((article) => (
+            <ArticlesPanier
+              key={article.id}
+              articlesId={article.articles_id}
+              image={article.image}
+              nom={article.nom}
+              vendeuse={article.vendeuse}
+              quantité={article.quantité}
+              prix={article.prix}
+              updateQuantity={(newQuantity) =>
+                updateArticleQuantity(article.articles_id, newQuantity)
+              }
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@
 .detail-image {
   object-fit: cover;
   min-height: 271.03px;
-  width: 80%;
+  width: 70%;
   background-color: var(--bg-color);
   border-radius: 200px 200px 0 0;
   padding: 4px;
@@ -54,6 +54,8 @@
 }
 
 .detail-left {
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 
@@ -91,9 +93,10 @@
   .detail-right {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     width: 100%;
     gap: 1em;
+    align-items: stretch;
   }
   .detail-title {
     font-size: 20px;

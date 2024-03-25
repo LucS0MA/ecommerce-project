@@ -213,7 +213,10 @@ function FiltresArticles() {
           {articlesFiltrees
             .sort((a, b) => a.nom.localeCompare(b.nom))
             .map((article) => (
-              <Link to={`/catalogue/${article.id}`} key={article.id}>
+              <div key={article.id}>
+                <Link to={`/catalogue/${article.id}`}>
+                  <div className="clickableZoneToDetails" />
+                </Link>
                 <Article
                   key={article.id}
                   id={article.id}
@@ -223,7 +226,7 @@ function FiltresArticles() {
                   prix={`${article.prix} €`}
                   isFav={false}
                 />
-              </Link>
+              </div>
             ))}
           ;
         </div>

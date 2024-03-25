@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+
+import confirmation from "../../assets/confirmation.png";
+
 import "../../styles/ArticlesAdmin.scss";
 
 function ArticlesAdmin() {
@@ -7,6 +10,7 @@ function ArticlesAdmin() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [addArticleIsOpen, setAddArticleIsOpen] = useState(false);
+  const [articleAdded, setArticleAdded] = useState(false);
   // Initialisation de la state stockant l'image
   const [file, setFile] = useState();
   // Initialisation des states du formulaire
@@ -22,9 +26,6 @@ function ArticlesAdmin() {
     thematique: "",
     file: null,
   });
-  // Initialisation des states à envoyer dans le Back pour créer le nouvel article
-  const [body, setBody] = useState({});
-  const [filePath, setFilePath] = useState("");
 
   useEffect(() => {
     axios
@@ -43,7 +44,7 @@ function ArticlesAdmin() {
     }));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     // On créait un Formulaire
     const newArticleData = new FormData();
 
@@ -57,21 +58,49 @@ function ArticlesAdmin() {
       }
     }
 
+    // On initialise les variables (1)
+    const body = {};
+    let filePath = "";
+
     // On envoie l'image dans le Back et on récupère les données du Formulaire
-    axios
+    await axios
       .post("http://localhost:3310/upload", newArticleData)
       .then((response) => {
-        setBody(response.data.body);
-        setFilePath(`/static/${response.data.file.filename}`);
+        // On récupère les valeurs (2)
+        const {
+          name,
+          price,
+          creatrice,
+          bijoux,
+          deco,
+          illustration,
+          vetement,
+          accessoire,
+          thematique,
+        } = response.data.body;
+        const { filename } = response.data.file; // Correction
+
+        // et on les attribue aux variables initialisées (3)
+        body.name = name;
+        body.price = price;
+        body.creatrice = creatrice;
+        body.bijoux = bijoux;
+        body.deco = deco;
+        body.illustration = illustration;
+        body.vetement = vetement;
+        body.accessoire = accessoire;
+        body.thematique = thematique;
+        filePath = `/static/${filename}`; // Correction
       })
       .catch((err) => console.error(err));
 
     // On envoie les données du Formulaire dans le Back
     const token = sessionStorage.getItem("token");
-    axios
+    await axios
       .post(
         "http://localhost:3310/api/articles/",
         {
+          // On envoie les variables body et filePath dans le BACK (4)
           nom: body.name,
           image: filePath,
           prix: body.price,
@@ -91,10 +120,32 @@ function ArticlesAdmin() {
         }
       )
       .catch((err) => console.error(err));
+
+    // On retire la modale d'ajout et on affiche une popup de confirmation
+    setAddArticleIsOpen(false);
+    setArticleAdded(true);
+    setTimeout(() => {
+      setArticleAdded(false);
+      window.location.reload();
+    }, 3000);
   };
 
   return (
     <>
+      {/* Modal de confirmation */}
+      {articleAdded && (
+        <img
+          style={{
+            position: "fixed",
+            top: "50vh",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 1,
+          }}
+          src={confirmation}
+          alt="confirmation"
+        />
+      )}
       {/* Modal d'ajout d'article */}
       {addArticleIsOpen && (
         <>

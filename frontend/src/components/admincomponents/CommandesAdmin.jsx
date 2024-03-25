@@ -1,19 +1,40 @@
-import React, { useState } from "react";
-import commandesData from "../../../commandData.json";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../styles/CommandesAdmin.scss";
 
 function CommandesAdmin() {
   const [sortedField, setSortedField] = useState(null);
   const [order, setOrder] = useState("asc");
-  const [data, setData] = useState(commandesData);
+  const [data, setData] = useState([]);
+  const [initialData, setInitialData] = useState([]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    axios
+      .get("http://localhost:3310/api/commandes/details", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+        setInitialData(response.data);
+        console.info("La reponse du back :", response.data);
+      })
+      .catch((error) => {
+        console.error("Il y a eu un problème avec la requête Axios", error);
+      });
+  }, []);
 
   function getStatusClass(statut) {
-    switch (statut) {
-      case "Livrée":
+    const lowerCaseStatut = statut.toLowerCase(); // ici on change le statut en minuscules car j'avais un soucis de recuperationd e données ca ne marchait pas
+    switch (lowerCaseStatut) {
+      case "livrée":
         return "status-delivered";
-      case "En préparation":
+      case "en préparation":
         return "status-in-preparation";
-      case "Annulée":
+      case "annulée":
         return "status-cancelled";
       default:
         return "";
@@ -21,9 +42,8 @@ function CommandesAdmin() {
   }
 
   const sortData = (field) => {
-    if (sortedField === field && order === "desc") {
-      setSortedField(field);
-      setOrder("desc");
+    if (sortedField === field) {
+      setOrder(order === "asc" ? "desc" : "asc");
     } else {
       setSortedField(field);
       setOrder("asc");
@@ -31,33 +51,42 @@ function CommandesAdmin() {
 
     const sortedArray = [...data].sort((a, b) => {
       if (field === "date") {
-        const convertDate = (dateStr) => {
-          const [day, month, year] = dateStr.split("/");
-          return new Date(`20${year}`, month - 1, day);
-        };
-
-        const dateA = convertDate(a[field]);
-        const dateB = convertDate(b[field]);
-
+        const dateA = new Date(a.date_commande);
+        const dateB = new Date(b.date_commande);
         return (dateA - dateB) * (order === "asc" ? 1 : -1);
       }
 
-      if (a[field] < b[field]) {
-        return order === "asc" ? -1 : 1;
+      if (field === "nomAcheteur") {
+        const nameA = a.nomAcheteur ? a.nomAcheteur.toUpperCase() : "";
+        const nameB = b.nomAcheteur ? b.nomAcheteur.toUpperCase() : "";
+        return (nameA < nameB ? -1 : 1) * (order === "asc" ? 1 : -1);
       }
-      if (a[field] > b[field]) {
-        return order === "asc" ? 1 : -1;
+
+      if (field === "statut") {
+        const statutA = a.statut.toUpperCase();
+        const statutB = b.statut.toUpperCase();
+        return (statutA < statutB ? -1 : 1) * (order === "asc" ? 1 : -1);
       }
+
       return 0;
     });
-
     setData(sortedArray);
+  };
+
+  // Merci stackoverflow pour ce qui suit !
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return `${date.toLocaleDateString("fr-FR")} ${date.toLocaleTimeString("fr-FR")}`;
+  };
+
+  const formatTotal = (total) => {
+    return `${total.toFixed(2)} €`;
   };
 
   const resetSorting = () => {
     setSortedField(null);
     setOrder("asc");
-    setData(commandesData);
+    setData(initialData);
   };
 
   return (
@@ -91,11 +120,11 @@ function CommandesAdmin() {
           </thead>
           <tbody id="array-command-data">
             {data.map((commande) => (
-              <tr key={commande.commandeId}>
-                <td>{commande.commandeId}</td>
-                <td>{commande.date}</td>
-                <td>{commande.nomAcheteur}</td>
-                <td>{commande.totalCommande}</td>
+              <tr key={commande.id}>
+                <td>{commande.id}</td>
+                <td>{formatDate(commande.date_commande)}</td>
+                <td>{commande.nomAcheteur || "Non spécifié"}</td>{" "}
+                <td>{formatTotal(commande.totalCommande)}</td>
                 <td>{commande.nombreArticle}</td>
                 <td>
                   <span

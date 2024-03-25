@@ -54,6 +54,7 @@
   text-align: center;
   background-color: var(--lightGreen);
 }
+
 #array-command-container th {
   width: 30px;
   position: relative;
@@ -77,7 +78,7 @@ th::before {
 }
 
 th::after {
-  bottom: -2px; /* Positionné 10px en dessous du th */
+  bottom: -2px;
 }
 .status-diode {
   height: 8px;

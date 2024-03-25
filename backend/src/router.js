@@ -7,6 +7,8 @@ const router = express.Router();
 /* ************************************************************************* */
 
 const articlesControllers = require("./controllers/articlesControllers");
+const commandeArticleControllers = require("./controllers/commandeArticleControllers");
+const commandesControllers = require("./controllers/commandesControllers");
 const isFav = require("./controllers/favControllers");
 const fesitvalsControllers = require("./controllers/festivalsControllers");
 const paiementControllers = require("./controllers/paiementControllers");
@@ -59,6 +61,10 @@ router.get("/paiements/:id", paiementControllers.read);
 router.post("/paiements", paiementControllers.add);
 router.delete("/paiements/:id", paiementControllers.destroy);
 
+// route commandes
+router.post("/commandes", commandesControllers.add);
+router.post("/commandeArticle", commandeArticleControllers.add);
+
 // ----- ADMIN -----
 router.use(isAdmin);
 
@@ -75,5 +81,8 @@ router.post("/festivals", fesitvalsControllers.add);
 
 // route paiements
 router.get("/paiements", paiementControllers.browse);
+
+// route commandes
+router.get("/commandes/details", commandesControllers.browse);
 
 module.exports = router;

@@ -21,7 +21,7 @@ function CommandesAdmin() {
       .then((response) => {
         setData(response.data);
         setInitialData(response.data);
-        console.info("La reponse du back :", response.data);
+        // console.info("La reponse du back :", response.data);
       })
       .catch((error) => {
         console.error("Il y a eu un problème avec la requête Axios", error);

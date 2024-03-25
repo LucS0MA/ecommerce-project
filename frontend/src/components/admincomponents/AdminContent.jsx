@@ -10,7 +10,7 @@ import "../../styles/AdminContent.scss";
 
 function AdminContent() {
   const { activeSection } = useAdmin();
-  console.info("Ce qui est selectionné", activeSection);
+  // console.info("Ce qui est selectionné", activeSection);
 
   let content;
   switch (activeSection) {

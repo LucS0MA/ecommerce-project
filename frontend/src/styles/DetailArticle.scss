@@ -16,7 +16,7 @@
 .detail-image {
   object-fit: cover;
   min-height: 271.03px;
-  width: 84%;
+  width: 80%;
   background-color: var(--bg-color);
   border-radius: 200px 200px 0 0;
   padding: 4px;
@@ -27,6 +27,7 @@
   border: 1px solid white;
   display: flex;
   padding: 50px;
+  gap: 4em;
 }
 
 .detail-button-add {
@@ -56,6 +57,16 @@
   width: 100%;
 }
 
+.detail-desc {
+  min-width: 150px;
+  max-width: 550px;
+  font-size: 14px;
+}
+
+.detail-quantity {
+  width: 40px;
+}
+
 .detail-right {
   display: flex;
   flex-direction: column;
@@ -70,14 +81,21 @@
 }
 
 @media (max-width: 770px) {
-  .detail-image {
-    width: 75%;
-    background-color: var(--bg-color);
-    border-radius: 200px 200px 0 0;
-    padding: 4px;
-    min-height: 75%;
+  .detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1em;
+  }
+  .detail-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 1em;
   }
   .detail-title {
-    font-size: 15px;
+    font-size: 20px;
   }
 }

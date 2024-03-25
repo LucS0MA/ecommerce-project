@@ -99,7 +99,7 @@ function DetailArticle() {
           }
         );
         setArticle(response.data);
-        console.info(article.image);
+        console.info(article);
       } catch (error) {
         console.error("Error fetching article:", error);
       }
@@ -108,33 +108,13 @@ function DetailArticle() {
     fetchArticle();
   }, [articleId]);
 
-  const axiosPostPanier = () => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .post(
-        "http://localhost:3310/api/panier/",
-        {
-          articleId,
-          quantité: 1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .catch((err) => console.error(err));
-    console.info(articleId, "add to cart");
-  };
-
-  const axiosPutPanier = (nb) => {
+  const axiosPutPanier = (newQuantity) => {
     const token = sessionStorage.getItem("token");
     axios
       .put(
         `http://localhost:3310/api/panier/?articleId=${articleId}`,
         {
-          quantité: nb + 1,
+          quantité: newQuantity,
         },
         {
           headers: {
@@ -155,16 +135,39 @@ function DetailArticle() {
   };
 
   const handleCart = () => {
-    if (nbCart === 0) {
-      axiosPostPanier(quantity);
-      setNbCart(nbCart + quantity);
-      showAddToCartNotification();
-    }
-
+    const newQuantity = nbCart + quantity;
     if (nbCart > 0) {
-      axiosPutPanier(nbCart, quantity);
-      setNbCart(nbCart + quantity);
-      showAddToCartNotification();
+      axiosPutPanier(newQuantity)
+        .then(() => {
+          setNbCart(newQuantity);
+          showAddToCartNotification();
+        })
+        .catch((error) => {
+          console.error("Error updating cart:", error);
+        });
+    } else {
+      const token = sessionStorage.getItem("token");
+      axios
+        .post(
+          "http://localhost:3310/api/panier/",
+          {
+            articleId,
+            quantité: quantity,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          setNbCart(quantity);
+          showAddToCartNotification();
+        })
+        .catch((error) => {
+          console.error("Error adding to cart:", error);
+        });
     }
   };
 
@@ -186,12 +189,20 @@ function DetailArticle() {
           <div className="detail-right">
             <h1 className="detail-title">{article.nom}</h1>
             <p>Vendeuse: {article.vendeuse}</p>
+            <p className="detail-desc">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi
+              repudiandae quaerat quod, dolore nisi error, eligendi dignissimos
+              accusamus ad porro esse illum harum quam deleniti exercitationem
+              voluptas accusantium voluptatem ducimus?
+            </p>
             <p>Prix: {article.prix} €</p>
             <div>
-              <label htmlFor="quantity">Quantité:</label>
+              <label className="detail-label-quantity" htmlFor="quantity">
+                Quantité:
+              </label>
               <input
                 type="number"
-                id="quantity"
+                className="detail-quantity"
                 name="quantity"
                 min="1"
                 value={quantity}

@@ -59,14 +59,18 @@
 .clients-list-array-labels {
   ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+
     border-top: 1px solid var(--lightGreen);
     border-bottom: 1px solid var(--lightGreen);
-    padding: 10px 0px;
+    padding: 1% 5%;
+    margin: 2% 0%;
   }
 
   li {
     list-style: none;
+    font-size: 1.3em;
+    margin: auto;
   }
 }
 
@@ -76,11 +80,18 @@
   ul {
     color: var(--lightGreen);
     background-color: var(--lightGreen);
-    padding: 0px 10px;
+    margin: 7px;
+    padding-left: 6%;
+    padding-right: 7%;
 
     li {
       color: var(--darkPink);
       padding: 10px 0px;
+      width: 10%;
+      text-align: center;
+      font-size: 1.2em;
+      position: relative;
+      left: -1%;
     }
   }
 }

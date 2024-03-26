@@ -23,6 +23,7 @@ const validateUser = require("./middlewares/validateUser");
 
 // PUBLIC
 // routes utilisateurs
+
 router.post("/utilisateurs", validateUser, utilisateursControllers.add);
 router.post("/auth/login", utilisateursControllers.login);
 
@@ -70,6 +71,7 @@ router.use(isAdmin);
 
 // route utilisateurs
 router.get("/utilisateurs", utilisateursControllers.browse);
+router.get("/clients", utilisateursControllers.browseClientsOrders);
 
 // routes articles
 router.post("/articles", articlesControllers.add);

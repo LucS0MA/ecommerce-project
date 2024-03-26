@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Article from "./Article";
@@ -213,20 +212,15 @@ function FiltresArticles() {
           {articlesFiltrees
             .sort((a, b) => a.nom.localeCompare(b.nom))
             .map((article) => (
-              <div key={article.id}>
-                <Link to={`/catalogue/${article.id}`}>
-                  <div className="clickableZoneToDetails" />
-                </Link>
-                <Article
-                  key={article.id}
-                  id={article.id}
-                  image={`http://localhost:3310${article.image}`}
-                  nom={article.nom}
-                  vendeuse={article.vendeuse}
-                  prix={`${article.prix} €`}
-                  isFav={false}
-                />
-              </div>
+              <Article
+                key={article.id}
+                id={article.id}
+                image={`http://localhost:3310${article.image}`}
+                nom={article.nom}
+                vendeuse={article.vendeuse}
+                prix={`${article.prix} €`}
+                isFav={false}
+              />
             ))}
           ;
         </div>

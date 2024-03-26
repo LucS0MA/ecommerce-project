@@ -2,58 +2,74 @@ const AbstractManager = require("./AbstractManager");
 
 class FestivalsManager extends AbstractManager {
   constructor() {
-    // Call the constructor of the parent class (AbstractManager)
-    // and pass the table name "festivals" as configuration
     super({ table: "festivals" });
   }
 
-  // The C of CRUD - Create operation
-
   async create(festivals) {
-    // Execute the SQL INSERT query to add a new festivals to the "festivals" table
     const [result] = await this.database.query(
       `insert into ${this.table} (nom,lieu,date) values (?,?,?)`,
       [festivals.nom, festivals.lieu, festivals.date]
     );
 
-    // Return the ID of the newly inserted festivals
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
-
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific festivals by its ID
     const [rows] = await this.database.query(
       `select * from ${this.table} where id = ?`,
       [id]
     );
 
-    // Return the first row of the result, which represents the festivals
     return rows[0];
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all festivals from the "festivals" table
     const [rows] = await this.database.query(`select * from ${this.table}`);
 
-    // Return the array of festivals
     return rows;
   }
 
-  // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing festivals
+  async update(festival, id) {
+    const [evenement] = await this.database.query(
+      `select * from ${this.table}`,
+      [id]
+    );
+    let nom = "";
+    let lieu = "";
+    let date = "";
 
-  // async update(festivals) {
-  //   ...
-  // }
+    if (festival.nom) {
+      nom = festival.nom;
+    } else if (evenement[0]) {
+      nom = evenement[0].nom;
+    }
+    if (festival.lieu) {
+      lieu = festival.lieu;
+    } else if (evenement[0]) {
+      lieu = evenement[0].lieu;
+    }
+    if (festival.date) {
+      date = festival.date;
+    } else if (evenement[0]) {
+      date = evenement[0].date;
+    }
 
-  // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an festivals by its ID
+    const [rows] = await this.database.query(
+      `UPDATE ${this.table} SET nom = ?, lieu = ?, date = ? WHERE id = ?`,
+      [nom, lieu, date, id]
+    );
 
-  // async delete(id) {
-  //   ...
-  // }
+    return rows.affectedRows;
+  }
+
+  async delete(id) {
+    const [rows] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+
+    return rows.affectedRows;
+  }
 }
 
 module.exports = FestivalsManager;

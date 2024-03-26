@@ -101,6 +101,10 @@
   margin: 0;
 }
 
+.detail-title {
+  color: var(--yellow);
+}
+
 @media (max-width: 770px) {
   .detail-container {
     display: flex;

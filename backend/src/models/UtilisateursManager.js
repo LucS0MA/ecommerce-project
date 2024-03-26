@@ -163,7 +163,7 @@ class UtilisateursManager extends AbstractManager {
   // Affiche les utilisateurs et le nombre de commandes pour chacun d'entre eux//
   async findByClientOrders() {
     const [rows] = await this.database
-      .query(`SELECT ${this.table}.id, nom, prénom, COUNT(c.id) AS nombre_de_commandes
+      .query(`SELECT ${this.table}.id, nom, prénom, date_inscription, COUNT(c.id) AS nombre_de_commandes
     FROM ${this.table}
     LEFT JOIN commandes c ON ${this.table}.id = c.utilisateurs_id
     WHERE seelie = 0

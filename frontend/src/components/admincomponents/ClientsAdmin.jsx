@@ -19,6 +19,20 @@ function ClientsAdmin() {
       .catch((err) => console.error(err));
   }, []);
 
+  const date = () => {
+    return clientsList.map((inscription) => {
+      const changeDateFormat = new Date(inscription.date_inscription);
+      const jour = changeDateFormat.getDate();
+      const mois = changeDateFormat.getMonth() + 1; // Les mois commencent à partir de zéro, donc ajoutez 1
+      const année = changeDateFormat.getFullYear();
+      const resultat = `${jour}/${mois}/${année}`;
+
+      return resultat;
+    });
+  };
+
+  const inscriptionDate = date();
+
   const sortByOrders = () => {
     if (isFiltered === false) {
       const sortCommands = clientsList.sort(
@@ -61,7 +75,7 @@ function ClientsAdmin() {
                 <li>{client.nom}</li>
                 <li>{client.prénom}</li>
                 <li>{client.nombre_de_commandes}</li>
-                <li>01/01/2021</li>
+                <li>{inscriptionDate}</li>
               </ul>
             ))}
           </div>

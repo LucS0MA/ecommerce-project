@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useConnexionContext } from "../contexts/ConnexionContext";
 import NoFav from "../assets/NoFav.svg";
 import Fav from "../assets/Fav.svg";
 import "../styles/DetailArticle.scss";
 
 function DetailArticle() {
+  const { authentification, toggleModal } = useConnexionContext();
   const { articleId } = useParams();
+  const [isAuthForWarning, setIsAuthForWarning] = useState(false);
   const [article, setArticle] = useState(null);
   const [nbCart, setNbCart] = useState(0);
   const [guest, setGuest] = useState(false);
@@ -99,7 +102,6 @@ function DetailArticle() {
           }
         );
         setArticle(response.data);
-        console.info(article);
       } catch (error) {
         console.error("Error fetching article:", error);
       }
@@ -108,67 +110,85 @@ function DetailArticle() {
     fetchArticle();
   }, [articleId]);
 
-  const axiosPutPanier = (newQuantity) => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .put(
-        `http://localhost:3310/api/panier/?articleId=${articleId}`,
-        {
-          quantité: newQuantity,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .catch((err) => console.error(err));
-    console.info(articleId, "add another to cart");
-  };
-
   const showAddToCartNotification = () => {
     setShowNotification(true);
     setTimeout(() => {
       setShowNotification(false);
-    }, 2000);
+    }, 5000);
+  };
+
+  const showAuthWarning = () => {
+    if (!authentification) {
+      setIsAuthForWarning(true);
+      setTimeout(() => {
+        setIsAuthForWarning(false);
+      }, 5000);
+    }
   };
 
   const handleCart = () => {
-    const newQuantity = nbCart + quantity;
-    if (nbCart > 0) {
-      axiosPutPanier(newQuantity)
-        .then(() => {
-          setNbCart(newQuantity);
-          showAddToCartNotification();
-        })
-        .catch((error) => {
-          console.error("Error updating cart:", error);
-        });
-    } else {
-      const token = sessionStorage.getItem("token");
-      axios
-        .post(
-          "http://localhost:3310/api/panier/",
-          {
-            articleId,
-            quantité: quantity,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(() => {
-          setNbCart(quantity);
-          showAddToCartNotification();
-        })
-        .catch((error) => {
-          console.error("Error adding to cart:", error);
-        });
-    }
+    const token = sessionStorage.getItem("token");
+
+    axios
+      .get(`http://localhost:3310/api/panier/?articleId=${articleId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          const existingQuantity = response.data.quantité;
+          const newQuantity = existingQuantity + quantity;
+          axios
+            .put(
+              `http://localhost:3310/api/panier/?articleId=${articleId}`,
+              { quantité: newQuantity },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then(() => {
+              setNbCart(newQuantity);
+              console.info(nbCart);
+              showAddToCartNotification();
+            })
+            .catch((error) => {
+              console.error("Error updating cart:", error);
+              showAuthWarning();
+            });
+        } else {
+          axios
+            .post(
+              "http://localhost:3310/api/panier/",
+              {
+                articleId,
+                quantité: quantity,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            )
+            .then(() => {
+              setNbCart(quantity);
+              showAddToCartNotification();
+            })
+            .catch((error) => {
+              showAuthWarning();
+              console.error("Error adding to cart:", error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking cart:", error);
+        showAuthWarning();
+      });
   };
 
   if (!article) {
@@ -196,7 +216,7 @@ function DetailArticle() {
               voluptas accusantium voluptatem ducimus?
             </p>
             <p>Prix: {article.prix} €</p>
-            <div>
+            <div className="detail-quantity-form">
               <label className="detail-label-quantity" htmlFor="quantity">
                 Quantité:
               </label>
@@ -249,7 +269,25 @@ function DetailArticle() {
             </div>
             {showNotification && (
               <div className="detail-notification">
-                Article bien ajouté au panier
+                Article bien ajouté au{" "}
+                <Link to="/panier">
+                  <span className="detail-toggle-link">panier</span>
+                </Link>
+              </div>
+            )}
+            {isAuthForWarning && (
+              <div className="detail-notification">
+                Veuillez vous{" "}
+                <span
+                  className="detail-toggle-link"
+                  onClick={toggleModal}
+                  role="button"
+                  onKeyDown=""
+                  tabIndex={0}
+                >
+                  connectez
+                </span>{" "}
+                pour ajouter des articles à votre panier
               </div>
             )}
           </div>

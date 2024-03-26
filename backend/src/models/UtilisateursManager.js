@@ -166,7 +166,9 @@ class UtilisateursManager extends AbstractManager {
       .query(`SELECT ${this.table}.id, nom, prénom, COUNT(c.id) AS nombre_de_commandes
     FROM ${this.table}
     LEFT JOIN commandes c ON ${this.table}.id = c.utilisateurs_id
-    GROUP BY ${this.table}.id;`);
+    WHERE seelie = 0
+    GROUP BY ${this.table}.id
+    ;`);
 
     return rows;
   }

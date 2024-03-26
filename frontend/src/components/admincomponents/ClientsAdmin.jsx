@@ -36,7 +36,7 @@ function ClientsAdmin() {
 
   return (
     <div className="clients-list-main-container">
-      <h1>LISTE DES CLIENTS</h1>
+      <h2>LISTE DES CLIENTS</h2>
       <section className="clients-list-container">
         <div className="filters-clients-list">
           <button type="button" onClick={sortByOrders}>

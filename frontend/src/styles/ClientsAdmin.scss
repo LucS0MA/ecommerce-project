@@ -5,12 +5,13 @@
   font-family: "Antic", sans-serif;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
+  margin: 3%;
 
-  h1 {
+  h2 {
     background-color: var(--lightGreen);
     color: var(--darkPink);
-    width: 56%;
+    width: 39%;
     margin-bottom: 40px;
     text-align: center;
     font-size: 1.4rem;
@@ -33,21 +34,25 @@
     background-color: var(--darkPink);
     color: var(--lightGreen);
     border: 1px solid var(--lightGreen);
-    height: 65px;
-
-    width: 10%;
+    height: 64px;
+    position: relative;
+    left: +10%;
+    width: 18%;
     cursor: pointer;
   }
 
   .input_search {
     height: 50px;
-    // width: 30%;
+
     border: solid 2px;
     color: var(--lightGreen);
     padding-right: 40px;
     background: url("../assets/loupe.svg") no-repeat right;
     background-size: 24px 24px;
+    background-position: right 20px center;
     padding-left: 200px;
+    position: relative;
+    top: 36px;
   }
 
   .input_search::placeholder {
@@ -60,29 +65,37 @@
   ul {
     display: flex;
     justify-content: space-around;
-
     border-top: 1px solid var(--lightGreen);
     border-bottom: 1px solid var(--lightGreen);
-    padding: 1% 5%;
+    padding: 2% 5%;
     margin: 2% 0%;
+    gap: 15px;
   }
 
   li {
     list-style: none;
-    font-size: 1.3em;
-    margin: auto;
+    font-size: 1.2em;
   }
 }
 
 .clients-list-details {
   margin: 10px 0px;
+  height: 600px;
+  overflow-y: scroll;
+  scrollbar-color: var(--lightGreen) rgba(189, 201, 172, 29%);
+  scrollbar-width: thin;
 
   ul {
     color: var(--lightGreen);
     background-color: var(--lightGreen);
     margin: 7px;
     padding-left: 6%;
-    padding-right: 7%;
+    padding-right: 6%;
+
+    :nth-child(4) {
+      position: relative;
+      left: 1%;
+    }
 
     li {
       color: var(--darkPink);
@@ -91,7 +104,7 @@
       text-align: center;
       font-size: 1.2em;
       position: relative;
-      left: -1%;
+      left: -5%;
     }
   }
 }

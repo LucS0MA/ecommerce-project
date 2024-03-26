@@ -187,3 +187,10 @@ INSERT INTO commande_article (quantité, commandes_id, articles_id)
 VALUES
 (1, 3, 4), -- 1x ILLUSTRATION SIRENE
 (2, 3, 2); -- 2x PELUCHE CHAMPIGNON
+
+
+INSERT INTO utilisateurs (
+  nom,  prénom, date_de_naissance, telephone, email, password, adresse1, CP, ville, pays, seelie
+) VALUES (
+  "admin", "seelie", "2000-06-19", 0607593244, "admin@gmail.com", "$2b$10$qjVeymvkdHT9NWcxGsLSGujegcHnWWv/GFEcWhQMYiS9JqT6hohYa", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 1 
+);

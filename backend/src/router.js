@@ -23,6 +23,7 @@ const validateUser = require("./middlewares/validateUser");
 
 // PUBLIC
 // routes utilisateurs
+
 router.post("/utilisateurs", validateUser, utilisateursControllers.add);
 router.post("/auth/login", utilisateursControllers.login);
 
@@ -64,12 +65,14 @@ router.delete("/paiements/:id", paiementControllers.destroy);
 // route commandes
 router.post("/commandes", commandesControllers.add);
 router.post("/commandeArticle", commandeArticleControllers.add);
+router.get("/commandesHistory", commandesControllers.browseByUser);
 
 // ----- ADMIN -----
 router.use(isAdmin);
 
 // route utilisateurs
 router.get("/utilisateurs", utilisateursControllers.browse);
+router.get("/clients", utilisateursControllers.browseClientsOrders);
 
 // routes articles
 router.post("/articles", articlesControllers.add);
@@ -78,6 +81,8 @@ router.delete("/articles/:id", articlesControllers.destroy);
 
 // route festivals
 router.post("/festivals", fesitvalsControllers.add);
+router.put("/festivals/:id", fesitvalsControllers.edit);
+router.delete("/festivals/:id", fesitvalsControllers.destroy);
 
 // route paiements
 router.get("/paiements", paiementControllers.browse);

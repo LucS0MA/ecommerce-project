@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/ArticlePanier.scss";
@@ -77,11 +78,20 @@ function ArticlesPanier({
     <div className="article_panier_container">
       <div className="articles-panier">
         <div className="container-image-infos-article">
-          <img
-            src={`http://localhost:3310${image}`}
-            alt="a"
-            className={`article-image ${vendeuse}`}
-          />
+          <Link
+            to={`/catalogue/${articleId}`}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+            }}
+          >
+            <img
+              src={`http://localhost:3310${image}`}
+              alt="a"
+              className={`article-image ${vendeuse}`}
+            />
+          </Link>
           <div className="info_article_panier">
             <p className="article-panier-nom">{nom}</p>
             <div className="line-info-article"> </div>

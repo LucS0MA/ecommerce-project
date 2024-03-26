@@ -3,6 +3,7 @@ import Connexion from "../Connexion";
 import { useAdmin } from "../../contexts/AdminContext";
 import ArticlesAdmin from "./ArticlesAdmin";
 import CommandesAdmin from "./CommandesAdmin";
+import ClientsAdmin from "./ClientsAdmin";
 import FooterBis from "../FooterBis";
 import MenuProfil from "./MenuAdmin";
 import Navbar from "../Navbar";
@@ -10,7 +11,7 @@ import "../../styles/AdminContent.scss";
 
 function AdminContent() {
   const { activeSection } = useAdmin();
-  console.info("Ce qui est selectionné", activeSection);
+  // console.info("Ce qui est selectionné", activeSection);
 
   let content;
   switch (activeSection) {
@@ -20,7 +21,9 @@ function AdminContent() {
     case "CommandesAdmin":
       content = <CommandesAdmin />;
       break;
-    //  ici faudra ajouter d'autres composants
+    case "ClientsAdmin":
+      content = <ClientsAdmin />;
+      break;
     default:
       content = <ArticlesAdmin />;
   }

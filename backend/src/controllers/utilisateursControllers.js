@@ -10,6 +10,20 @@ const browse = (req, res) => {
     .catch((err) => console.error(err));
 };
 
+// Affiche les clients et le nombre de commandes pour chacun d'entre eux//
+const browseClientsOrders = async (req, res) => {
+  try {
+    const clients = await models.utilisateurs.findByClientOrders(req.query);
+    if (clients.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.json(clients);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const read = async (req, res) => {
   try {
     const utilisateur = await models.utilisateurs.read(req.auth.id);
@@ -177,6 +191,7 @@ const changePassword = async (req, res) => {
 };
 
 module.exports = {
+  browseClientsOrders,
   changePassword,
   browse,
   read,

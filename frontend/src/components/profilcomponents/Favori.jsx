@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
@@ -99,8 +100,17 @@ function Favori({ articleId, nom, prix }) {
     <>
       <div className="fav">
         <div className="infos">
-          <h3>{nom}</h3>
-          <p>{`${prix} €`}</p>
+          <Link
+            to={`/catalogue/${articleId}`}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+            }}
+          >
+            <h3>{nom}</h3>
+            <p>{`${prix} €`}</p>
+          </Link>
         </div>
         <div className="logos">
           <div className="fav-ligne-v" />

@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`utilisateurs` (
   `telephone` INT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
+  `date_inscription` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `adresse1` VARCHAR(45),
   `adresse2` VARCHAR(45) NULL DEFAULT NULL,
   `CP` INT,
@@ -112,13 +113,13 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date_commande` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `statut` VARCHAR(45) NOT NULL,
-  `utilisateurs_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `utilisateurs_id`),
+  `utilisateurs_id` INT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_commandes_utilisateurs1_idx` (`utilisateurs_id` ASC) VISIBLE,
   CONSTRAINT `fk_commandes_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -131,8 +132,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commande_article` (
   `quantité` INT NOT NULL,
   `commandes_id` INT NOT NULL,
-  `articles_id` INT NOT NULL,
-  PRIMARY KEY (`commandes_id`, `articles_id`),
+  `articles_id` INT NULL,
   INDEX `fk_commande_article_articles1_idx` (`articles_id` ASC) VISIBLE,
   CONSTRAINT `fk_commande_article_commandes1`
     FOREIGN KEY (`commandes_id`)
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commande_article` (
   CONSTRAINT `fk_commande_article_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

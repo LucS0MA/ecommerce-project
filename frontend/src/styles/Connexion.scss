@@ -100,6 +100,14 @@ body.active-modalTwoCo {
   font-size: 14px;
 }
 
+.error2 {
+  top: 325px;
+  position: absolute;
+  font-family: "Antic", sans-serif;
+  color: var(--yellow);
+  font-size: 14px;
+}
+
 .errorMail {
   position: absolute;
   font-family: "Antic", sans-serif;
@@ -367,6 +375,14 @@ body.active-modalTwoCo {
   }
 
   .error {
+    width: 245px;
+    top: 327px;
+    position: absolute;
+    font-family: Antic;
+    color: var(--yellow);
+    font-size: 14px;
+  }
+  .error2 {
     width: 245px;
     top: 327px;
     position: absolute;

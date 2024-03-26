@@ -86,18 +86,11 @@
         background: var(--lightGreen);
       }
     }
-    .success-message {
-      margin: 1vh;
-      font-size: 16px;
-      font-family: "Antic", sans-serif;
-      color: var(--lightGreen);
-      font-weight: lighter;
-      text-transform: uppercase;
-    }
   }
-  .error-messageDelAcc {
-    margin: 1.5vh;
-    font-size: 15px;
+  .messageDelAcc {
+    top: 57%;
+    position: absolute;
+    font-size: 16px;
     font-family: "Antic", sans-serif;
     color: var(--lightGreen);
     font-weight: lighter;

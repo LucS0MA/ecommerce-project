@@ -3,6 +3,7 @@
 }
 
 .detail-page {
+  margin-top: 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +12,7 @@
   padding: 20px;
   color: var(--lightGreen);
   font-family: "Play", sans-serif;
+  margin-bottom: 75px;
 }
 
 .detail-image {
@@ -44,7 +46,7 @@
 
 .detail-notification {
   position: absolute;
-  top: 60%;
+  top: 35%;
   font-size: 13px;
 }
 
@@ -129,7 +131,7 @@
 @media (max-width: 1050px) {
   .detail-notification {
     position: absolute;
-    top: 57%;
+    top: 33%;
     width: 30%;
   }
 }
@@ -137,7 +139,7 @@
 @media (max-width: 940px) {
   .detail-notification {
     position: absolute;
-    top: 50.5%;
+    top: 32%;
     width: 35%;
   }
 }

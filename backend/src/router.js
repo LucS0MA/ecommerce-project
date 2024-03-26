@@ -79,6 +79,8 @@ router.delete("/articles/:id", articlesControllers.destroy);
 
 // route festivals
 router.post("/festivals", fesitvalsControllers.add);
+router.put("/festivals/:id", fesitvalsControllers.edit);
+router.delete("/festivals/:id", fesitvalsControllers.destroy);
 
 // route paiements
 router.get("/paiements", paiementControllers.browse);

@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`utilisateurs` (
   `telephone` INT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
+  `date_inscription` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `adresse1` VARCHAR(45),
   `adresse2` VARCHAR(45) NULL DEFAULT NULL,
   `CP` INT,
@@ -119,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE UPDATE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

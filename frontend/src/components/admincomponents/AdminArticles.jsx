@@ -1,71 +1,78 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/AdminArticle.scss";
-// import Modif from "../../assets/Modif.svg";
-// import Delete from "../../assets/Delete.svg";
+import PropTypes from "prop-types";
+import Modif from "../../assets/Modif.svg";
+import Delete from "../../assets/Delete.svg";
 
-function AdminArticles() {
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    axios
-      .get("http://localhost:3310/api/articles", {
+function AdminArticles({ id, image, vendeuse, nom, prix, nbVentes }) {
+  const [deleted, setDeleted] = useState(false);
+  const token = sessionStorage.getItem("token");
+  const handleModif = () => {
+    console.info("Mofifié");
+  };
+  const handleDelete = async () => {
+    await axios
+      .delete(`http://localhost:3310/api/articles/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
         },
       })
-      .then((response) => setArticles(response.data))
       .catch((err) => console.error(err));
-  }, []);
-
-  // const handleModif = () => {
-  //   console.info("Mofifié");
-  // };
-  // const handleDelete = () => {
-  //   console.info("Supprimé");
-  // };
+    setDeleted(true);
+  };
   return (
-    <div className="article_admin_container">
-      {articles.map((article) => (
+    <div>
+      {!deleted && (
         <>
           <div className="articles-admin">
             <img
-              src={`http://localhost:3310${article.image}`}
+              src={`http://localhost:3310${image}`}
               alt="a"
-              className={`img-article article-image ${article.vendeuse}`}
+              className={`img-article article-image ${vendeuse}`}
             />
             <div className="info_articles_admin">
-              <p className="article-admin-nom">{article.nom}</p>
+              <p className="article-admin-nom">{nom}</p>
               <div className="line-info-article"> </div>
-              <p>{article.vendeuse}</p>
+              <p>{vendeuse}</p>
             </div>
             <div className="prix_article_admin">
-              <p>{article.prix}€</p>
+              <p>{prix}€</p>
             </div>
             <div className="vendu">
               <p className="article-vendu">VENDU</p>
-              <p className="article-nombre-vendu">{article.nb_ventes}</p>
+              <p className="article-nombre-vendu">{nbVentes}</p>
             </div>
-            {/* <img
-              src={Modif}
-              alt="Modif"
-              className="admin-modification"
+            <button
+              type="button"
+              className="admin-cadre"
               onClick={() => handleModif()}
-            />
-            <img
-              src={Delete}
-              alt="Delete"
-              className="admin-delete"
+            >
+              <img src={Modif} alt="Modif" className="admin-img" />
+            </button>
+            <button
+              type="button"
+              className="admin-cadre"
               onClick={() => handleDelete()}
-            /> */}
+            >
+              <img src={Delete} alt="Delete" className="admin-img" />
+            </button>
           </div>
-          <div className="end-line"> </div>
+          <div className="end-line" />
         </>
-      ))}
+      )}
     </div>
   );
 }
+
+AdminArticles.propTypes = {
+  id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  vendeuse: PropTypes.string.isRequired,
+  nom: PropTypes.string.isRequired,
+  prix: PropTypes.number.isRequired,
+  nbVentes: PropTypes.number.isRequired,
+};
 
 export default AdminArticles;

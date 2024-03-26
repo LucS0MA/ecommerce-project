@@ -132,8 +132,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commande_article` (
   `quantité` INT NOT NULL,
   `commandes_id` INT NOT NULL,
-  `articles_id` INT NOT NULL,
-  PRIMARY KEY (`commandes_id`, `articles_id`),
+  `articles_id` INT NULL,
   INDEX `fk_commande_article_articles1_idx` (`articles_id` ASC) VISIBLE,
   CONSTRAINT `fk_commande_article_commandes1`
     FOREIGN KEY (`commandes_id`)
@@ -143,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commande_article` (
   CONSTRAINT `fk_commande_article_articles1`
     FOREIGN KEY (`articles_id`)
     REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

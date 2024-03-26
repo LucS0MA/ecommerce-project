@@ -333,8 +333,19 @@ function ArticlesAdmin() {
             <span>+</span> AJOUTER UN ARTICLE
           </button>
           {/* Liste des articles présents dans le catalogue */}
-          <AdminArticles />
-          {console.info(articles)}
+          <div id="admin-list">
+            {articles.map((article) => (
+              <AdminArticles
+                key={article.id}
+                id={article.id}
+                image={article.image}
+                vendeuse={article.vendeuse}
+                nom={article.nom}
+                prix={article.prix}
+                nbVentes={article.nb_ventes}
+              />
+            ))}
+          </div>
         </section>
       </section>
     </>

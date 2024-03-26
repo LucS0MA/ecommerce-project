@@ -321,10 +321,8 @@ class ArticlesManager extends AbstractManager {
 
   async delete(id) {
     const [rows] = await this.database.query(
-      `DELETE couleurs_has_articles, ${this.table} FROM ${this.table}
-      JOIN couleurs_has_articles
-      ON ${this.table}.id = couleurs_has_articles.${this.table}_id
-      WHERE ${this.table}.id = ?`,
+      `DELETE FROM ${this.table}
+      WHERE id = ?`,
       [id]
     );
 

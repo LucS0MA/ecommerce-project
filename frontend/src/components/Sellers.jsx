@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -10,7 +10,8 @@ import IvyBranch2 from "./animations/svg/IvyBranch2";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Sellers() {
+// eslint-disable-next-line react/prop-types
+function Sellers({ onSellerSelect }) {
   const [selectedSeller, setSelectedSeller] = useState(null);
   const ivySellersRef1 = useRef(null);
   const ivySellersRef2 = useRef(null);
@@ -82,7 +83,10 @@ function Sellers() {
               key={seller.name}
               seller={seller}
               isSelected={isSelected}
-              onSelect={setSelectedSeller}
+              onSelect={() => {
+                setSelectedSeller(seller.name);
+                onSellerSelect(seller.name);
+              }}
             />
           );
         })}

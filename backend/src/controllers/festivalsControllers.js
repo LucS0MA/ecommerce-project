@@ -1,62 +1,72 @@
-// Import access to database tables
 const models = require("../modelsProviders");
 
-// The B of BREAD - Browse (Read All) operation
 const browse = (req, res) => {
-  // Fetch all festivals from the database
   models.festivals
     .findAll()
     .then((festivals) => res.json(festivals))
     .catch((err) => console.error(err));
 };
 
-// The R of BREAD - Read operation
 const read = async (req, res) => {
   try {
-    // Fetch a specific festival from the database based on the provided ID
     const festival = await models.festivals.read(req.params.id);
 
-    // If the festival is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the festival in JSON format
     if (festival == null) {
       res.sendStatus(404);
     } else {
       res.json(festival);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     console.error(err);
   }
 };
 
-// The E of BREAD - Edit (Update) operation
-// This operation is not yet implemented
-
-// The A of BREAD - Add (Create) operation
-const add = async (req, res) => {
-  // Extract the festival data from the request body
+const edit = async (req, res) => {
   const festival = req.body;
 
   try {
-    // Insert the festival into the database
-    const insertId = await models.festivals.create(festival);
+    const affectedRows = await models.festivals.update(festival, req.params.id);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted festival
-    res.status(201).json({ insertId });
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     console.error(err);
   }
 };
 
-// The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+const add = async (req, res) => {
+  const festival = req.body;
 
-// Ready to export the controller functions
+  try {
+    const insertId = await models.festivals.create(festival);
+
+    res.status(201).json({ insertId });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const destroy = async (req, res) => {
+  try {
+    const affectedRows = await models.festivals.delete(req.params.id);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(200);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   browse,
   read,
-  // edit,
+  edit,
   add,
-  // destroy,
+  destroy,
 };

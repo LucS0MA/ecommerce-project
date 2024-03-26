@@ -114,12 +114,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
   `date_commande` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `statut` VARCHAR(45) NOT NULL,
   `utilisateurs_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `utilisateurs_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_commandes_utilisateurs1_idx` (`utilisateurs_id` ASC) VISIBLE,
   CONSTRAINT `fk_commandes_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
     REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4

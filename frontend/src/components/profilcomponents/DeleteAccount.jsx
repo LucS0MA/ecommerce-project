@@ -80,11 +80,9 @@ function DeleteAccount() {
             Supprimer le compte
           </button>
         </div>
-        {passwordError && (
-          <div className="error-messageDelAcc">{passwordError}</div>
-        )}
+        {passwordError && <div className="messageDelAcc">{passwordError}</div>}
         {accountDeleted && (
-          <div className="success-message">Compte supprimé avec succès.</div>
+          <div className="messageDelAcc">Compte supprimé avec succès.</div>
         )}
       </form>
     </main>

@@ -39,10 +39,8 @@ function Connexion() {
         }
       );
 
-      // Extract the token from the response data using object destructuring
       const { token } = response.data;
 
-      // Set user authentication and token in local storage
       setAuthentification(true);
       sessionStorage.setItem("authentification", "true");
       sessionStorage.setItem("token", token);
@@ -106,6 +104,7 @@ function Connexion() {
         });
     } else {
       setPasswordFormat(true);
+      setPasswordError(false);
     }
   };
 
@@ -284,7 +283,7 @@ function Connexion() {
                       </p>
                     )}
                     {passwordError && (
-                      <p className="error">
+                      <p className="error2">
                         Les mots de passe ne correspondent pas.
                       </p>
                     )}

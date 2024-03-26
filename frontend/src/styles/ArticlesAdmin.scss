@@ -79,6 +79,10 @@
       overflow-y: scroll;
       scrollbar-color: var(--lightGreen) rgba(189, 201, 172, 29%);
       scrollbar-width: thin;
+
+      display: flex;
+      flex-direction: column;
+      color: var(--lightGreen);
     }
   }
 }

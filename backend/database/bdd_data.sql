@@ -3,7 +3,7 @@ INSERT INTO utilisateurs (
 ) VALUES (
   "Poulet", "Alex", "2001-09-29", 0607593244, "alex@gmail.com", "1234", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 0
 ), (
-  "Poulet", "Abdou", "2000-06-19", 0607593244, "abdou@gmail.com", "4321", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 0
+  "Poulet", "Abdou", "2000-06-19", 0607593244, "abdou@gmail.com", "4321", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 0 
 ), (
   "Hippopotame", "Lion", "2001-09-29", 0607593244, "alex@gmail.com", "1234", "6 rue de la Moutarde", 67000, "Strasbourg", "France", 0
 ), (
@@ -187,4 +187,3 @@ INSERT INTO commande_article (quantité, commandes_id, articles_id)
 VALUES
 (1, 3, 4), -- 1x ILLUSTRATION SIRENE
 (2, 3, 2); -- 2x PELUCHE CHAMPIGNON
-

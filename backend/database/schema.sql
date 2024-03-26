@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date_commande` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `statut` VARCHAR(45) NOT NULL,
-  `utilisateurs_id` INT NOT NULL,
+  `utilisateurs_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_commandes_utilisateurs1_idx` (`utilisateurs_id` ASC) VISIBLE,
   CONSTRAINT `fk_commandes_utilisateurs1`

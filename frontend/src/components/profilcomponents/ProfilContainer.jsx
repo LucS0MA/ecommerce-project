@@ -1,14 +1,17 @@
 // Attention composant servant a gérer la navigation du block de gauche MenuProfil
 
 import React from "react";
-import { useProfile } from "./ProfileContext";
-import MenuProfil from "./MenuProfil";
-import UserInfos from "./UserInfos";
-import UserCreditCard from "./UserCreditCard";
-import UserPassword from "./UserPassword";
-import MesFavoris from "./MesFavoris";
-import DeleteAccount from "./DeleteAccount";
+
 import Cadre from "./Cadre";
+import DeleteAccount from "./DeleteAccount";
+import HistoriqueDesCommandes from "./HistoriqueDesCommandes";
+import MenuProfil from "./MenuProfil";
+import MesFavoris from "./MesFavoris";
+import { useProfile } from "./ProfileContext";
+import UserCreditCard from "./UserCreditCard";
+import UserInfos from "./UserInfos";
+import UserPassword from "./UserPassword";
+
 import "../../styles/ProfilContainer.scss";
 
 function ProfilContainer() {
@@ -22,9 +25,10 @@ function ProfilContainer() {
         return <UserCreditCard />;
       case "MotDePasse":
         return <UserPassword />;
-      // On ajoutera ici les autres composants a afficher comme les favoris...
       case "MesFavoris":
         return <MesFavoris />;
+      case "HistoriqueDesCommandes":
+        return <HistoriqueDesCommandes />;
       case "SupprimerMonCompte":
         return <DeleteAccount />;
       default:

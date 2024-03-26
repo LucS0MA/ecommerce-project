@@ -199,3 +199,14 @@
 // margin: auto;
 
 // }
+
+.clickableZoneToDetails {
+  cursor: pointer;
+  z-index: 200;
+  position: absolute;
+  padding: 5em;
+  height: 325px;
+  width: 220px;
+  margin-left: 25px;
+  border-radius: 200px 200px 0 0;
+}

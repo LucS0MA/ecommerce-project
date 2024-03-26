@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`utilisateurs` (
   `telephone` INT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
+  `date_inscription` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `adresse1` VARCHAR(45),
   `adresse2` VARCHAR(45) NULL DEFAULT NULL,
   `CP` INT,

@@ -23,7 +23,21 @@ const add = async (req, res) => {
   }
 };
 
+const browseByUser = async (req, res) => {
+  try {
+    const commandes = await models.commandes.readAllByUser(req.auth.id);
+    res.json(commandes);
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({
+      message:
+        "Erreur serveur lors de la récupération des détails des commandes.",
+    });
+  }
+};
+
 module.exports = {
   browse,
   add,
+  browseByUser,
 };

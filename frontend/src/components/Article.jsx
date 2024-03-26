@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
@@ -137,7 +138,17 @@ function Article({ id, image, nom, vendeuse, prix }) {
 
   return (
     <div className={`article-container ${vendeuse}`}>
-      <img className="article-image" src={image} alt={nom} />
+      <Link
+        to={`/catalogue/${articleId}`}
+        style={{
+          textDecoration: "none",
+          color: "inherit",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <img className="article-image" src={image} alt={nom} />
+      </Link>
       <div className="article-titre-container">
         <h2 className="article-titre">{nom}</h2>
       </div>

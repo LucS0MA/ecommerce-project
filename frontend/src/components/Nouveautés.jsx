@@ -42,19 +42,14 @@ function Nouveautés() {
         <div id="nouveautés-articles">
           {/* On affiche les 3 articles les plus récents */}
           {articles.map((article) => (
-            <div key={article.id}>
-              <Link to={`/catalogue/${article.id}`}>
-                <div className="clickableZoneToDetails" />
-              </Link>
-              <Article
-                key={article.id}
-                id={article.id}
-                image={`http://localhost:3310${article.image}`}
-                nom={article.nom}
-                vendeuse={article.vendeuse}
-                prix={`${article.prix} €`}
-              />
-            </div>
+            <Article
+              key={article.id}
+              id={article.id}
+              image={`http://localhost:3310${article.image}`}
+              nom={article.nom}
+              vendeuse={article.vendeuse}
+              prix={`${article.prix} €`}
+            />
           ))}
           <Link to="/catalogue">
             <button type="button">EN VOIR PLUS</button>

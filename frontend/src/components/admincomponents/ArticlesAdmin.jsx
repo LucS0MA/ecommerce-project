@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import confirmation from "../../assets/confirmation.png";
 
 import "../../styles/ArticlesAdmin.scss";
+import AdminArticles from "./AdminArticles";
 
 function ArticlesAdmin() {
   const [articles, setArticles] = useState([]);
@@ -332,29 +333,8 @@ function ArticlesAdmin() {
             <span>+</span> AJOUTER UN ARTICLE
           </button>
           {/* Liste des articles présents dans le catalogue */}
-          <div id="admin-list">
-            {articles.map((article) => (
-              <div style={{ display: "flex", marginTop: "50px" }}>
-                <aside>
-                  <img
-                    src={`http://localhost:3310${article.image}`}
-                    alt={article.nom}
-                  />
-                </aside>
-                <article
-                  style={{
-                    textAlign: "center",
-                    alignSelf: "center",
-                    marginLeft: "50px",
-                  }}
-                >
-                  <p>PRIX : {article.prix}</p>
-                  <p>DATE D'AJOUT : {article.ajout_date}</p>
-                  <p>NB VENTE(S) : {article.nb_ventes}</p>
-                </article>
-              </div>
-            ))}
-          </div>
+          <AdminArticles />
+          {console.info(articles)}
         </section>
       </section>
     </>

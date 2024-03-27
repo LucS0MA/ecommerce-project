@@ -1,10 +1,9 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useState } from "react";
-
-import Favori from "./profilcomponents/Favori";
-
+import NoFav from "../assets/NoFav.svg";
+import Fav from "../assets/Fav.svg";
 import "../styles/ArticlePanier.scss";
 
 function ArticlesPanier({
@@ -18,7 +17,69 @@ function ArticlesPanier({
   prix,
 }) {
   const [articleId] = useState(articlesId);
+  const [fav, setFav] = useState(false);
   const [quantity, setQuantity] = useState(quantité);
+
+  // Récupération des favoris//
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    axios
+      .get(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => response.data && setFav(true))
+      .catch((err) => console.error(err));
+  }, []);
+
+  // Ajouter le favoris//
+  const axiosPostFav = () => {
+    const token = sessionStorage.getItem("token");
+    axios
+      .post(
+        "http://localhost:3310/api/isFav/",
+        {
+          articleId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => console.error(err));
+    console.info(articleId, "post fav");
+
+    setFav(true);
+  };
+
+  // Supprimer le favoris//
+  const axiosDeleteFav = () => {
+    const token = sessionStorage.getItem("token");
+    axios
+      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => console.error(err));
+    console.info(articleId, "delete fav");
+
+    setFav(false);
+  };
+
+  const handleFav = () => {
+    if (!fav) {
+      axiosPostFav();
+    } else {
+      axiosDeleteFav();
+    }
+  };
 
   // Ajout d'un article supplémentaire dans le panier//
   const axiosPutPanierPlus = (nb) => {
@@ -96,9 +157,28 @@ function ArticlesPanier({
             <p className="article-panier-nom">{nom}</p>
             <div className="line-info-article"> </div>
             <p>{vendeuse}</p>
-            <Favori />
+            {fav ? (
+              <button
+                className="fav-button"
+                onClick={handleFav}
+                aria-label="Toggle favorite"
+                type="button"
+              >
+                <img src={Fav} alt="favoris-logo" className="isfav" />
+              </button>
+            ) : (
+              <button
+                className="fav-button"
+                onClick={handleFav}
+                aria-label="Toggle favorite"
+                type="button"
+              >
+                <img src={NoFav} alt="favoris-logo" className="nofav" />
+              </button>
+            )}
           </div>
         </div>
+
         <div className="quantity">
           <input
             className="quantity_bouton moins"

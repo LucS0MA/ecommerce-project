@@ -43,7 +43,6 @@
 
   .input_search {
     height: 50px;
-
     border: solid 2px;
     color: var(--lightGreen);
     padding-right: 40px;
@@ -52,7 +51,7 @@
     background-position: right 20px center;
     padding-left: 200px;
     position: relative;
-    top: 36px;
+    top: 35px;
   }
 
   .input_search::placeholder {

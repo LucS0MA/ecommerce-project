@@ -128,7 +128,11 @@ function Connexion() {
             onClick={() => {
               closeModal();
             }}
-            onKeyDown=""
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                toggleModalTwo();
+              }
+            }}
             tabIndex={0}
             role="button"
             className="overlayCo"
@@ -191,11 +195,15 @@ function Connexion() {
                     </form>
                     <div className="ligneCo" />
                     <p className="noAcc">
-                      Pas encore de compte ?{" "}
+                      Pas encore de compte ?
                       <span
                         onClick={toggleModalTwo}
                         className="noAccountCo"
-                        onKeyDown=""
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            toggleModalTwo();
+                          }
+                        }}
                         tabIndex={0}
                         role="button"
                       >
@@ -217,7 +225,11 @@ function Connexion() {
               closeAccountCreated();
             }}
             className="overlayCo"
-            onKeyDown=""
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                toggleModalTwo();
+              }
+            }}
             tabIndex={0}
             role="button"
             aria-label="Close Modal"
@@ -297,11 +309,15 @@ function Connexion() {
                     CREÉ LE COMPTE
                   </button>
                   <p className="noAcc">
-                    Vous avez déjà un compte ?{" "}
+                    Vous avez déjà un compte ?
                     <span
                       onClick={toggleModalTwo}
                       className="noAccountCo"
-                      onKeyDown=""
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          toggleModalTwo();
+                        }
+                      }}
                       tabIndex={0}
                       role="button"
                     >

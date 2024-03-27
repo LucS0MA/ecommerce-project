@@ -128,7 +128,7 @@ ArticlesPanier.propTypes = {
   image: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,
   vendeuse: PropTypes.string.isRequired,
-  prix: PropTypes.string.isRequired,
+  prix: PropTypes.number.isRequired,
   quantité: PropTypes.number.isRequired,
 };
 

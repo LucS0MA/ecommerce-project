@@ -1,23 +1,27 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import PropTypes from "prop-types";
-import "../styles/ArticlePanier.scss";
+import { useState } from "react";
+
 import Favori from "./profilcomponents/Favori";
 
+import "../styles/ArticlePanier.scss";
+
 function ArticlesPanier({
+  reload,
+  setReload,
   articlesId,
   image,
   nom,
   vendeuse,
   quantité,
   prix,
-  updateQuantity,
 }) {
   const [articleId] = useState(articlesId);
   const [quantity, setQuantity] = useState(quantité);
 
-  const axiosPutPanier = (nb) => {
+  // Ajout d'un article supplémentaire dans le panier//
+  const axiosPutPanierPlus = (nb) => {
     const token = sessionStorage.getItem("token");
 
     axios
@@ -29,15 +33,21 @@ function ArticlesPanier({
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+            Authorization: `Bearer ${token}`,
           },
         }
       )
-      .catch((err) => console.error(err));
-    console.info(articleId, "add another to cart");
+      .then(() => {
+        setQuantity(nb + 1);
+        setReload(!reload);
+      })
+      .catch((err) =>
+        console.error("Erreur lors de la mise à jour des quantités", err)
+      );
   };
 
-  const axiosPutPaniermoins = (nb) => {
+  // Suppréssion d'un article dans le panier//
+  const axiosPutPanierMoins = (nb) => {
     const token = sessionStorage.getItem("token");
 
     axios
@@ -49,30 +59,20 @@ function ArticlesPanier({
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+            Authorization: `Bearer ${token}`,
           },
         }
       )
-      .catch((err) => console.error(err));
-    console.info(articleId, "add another to cart");
+      .then(() => {
+        if (nb >= 1) {
+          setQuantity(nb - 1);
+        }
+        setReload(!reload);
+      })
+      .catch((err) =>
+        console.error("Erreur lors de la mise à jour des quantités", err)
+      );
   };
-
-  const moreQuantity = () => {
-    axiosPutPanier(quantity);
-    setQuantity(quantity + 1);
-    updateQuantity(quantity);
-    document.getElementById("quantityDisplay").innerText = quantity;
-  };
-
-  const lessQuantity = () => {
-    axiosPutPaniermoins(quantity);
-    if (quantity >= 1) {
-      setQuantity(quantity - 1);
-      updateQuantity(quantity);
-      document.getElementById("quantityDisplay").innerText = quantity;
-    }
-  };
-  //
 
   return (
     <div className="article_panier_container">
@@ -103,13 +103,13 @@ function ArticlesPanier({
           <input
             className="quantity_bouton moins"
             type="button"
-            onClick={() => lessQuantity()}
+            onClick={() => axiosPutPanierMoins(quantity)}
           />
           <p>{quantity}</p>
           <input
             className="quantity_bouton plus"
             type="button"
-            onClick={() => moreQuantity()}
+            onClick={() => axiosPutPanierPlus(quantity)}
           />
         </div>
         <div className="prix_article_panier">
@@ -122,13 +122,14 @@ function ArticlesPanier({
 }
 
 ArticlesPanier.propTypes = {
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired,
   articlesId: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,
   vendeuse: PropTypes.string.isRequired,
-  prix: PropTypes.string.isRequired,
+  prix: PropTypes.number.isRequired,
   quantité: PropTypes.number.isRequired,
-  updateQuantity: PropTypes.number.isRequired,
 };
 
 export default ArticlesPanier;

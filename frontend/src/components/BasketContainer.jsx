@@ -1,12 +1,17 @@
 import axios from "axios";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import basketIcon from "../assets/panier_icon.svg";
-import "../styles/BasketContainer.scss";
+
 import ArticlesPanier from "./ArticlesPanier";
 
-function BasketContainer() {
+import basketIcon from "../assets/panier_icon.svg";
+
+import "../styles/BasketContainer.scss";
+
+function BasketContainer({ reload, setReload }) {
   const [articles, setArticles] = useState([]);
 
+  // Recupération de tous les produits dans le panier//
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
@@ -19,17 +24,6 @@ function BasketContainer() {
       .then((response) => setArticles(response.data))
       .catch((err) => console.error(err));
   }, []);
-
-  const updateArticleQuantity = (articleId, newQuantity) => {
-    setArticles(
-      articles.map((article) => {
-        if (article.articles_id === articleId) {
-          return { ...article, quantité: newQuantity };
-        }
-        return article;
-      })
-    );
-  };
 
   return (
     <div id="basketContainer">
@@ -48,6 +42,8 @@ function BasketContainer() {
         <div id="basketContent">
           {articles.map((article) => (
             <ArticlesPanier
+              reload={reload}
+              setReload={setReload}
               key={article.id}
               articlesId={article.articles_id}
               image={article.image}
@@ -55,9 +51,6 @@ function BasketContainer() {
               vendeuse={article.vendeuse}
               quantité={article.quantité}
               prix={article.prix}
-              updateQuantity={(newQuantity) =>
-                updateArticleQuantity(article.articles_id, newQuantity)
-              }
             />
           ))}
         </div>
@@ -65,5 +58,10 @@ function BasketContainer() {
     </div>
   );
 }
+
+BasketContainer.propTypes = {
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired,
+};
 
 export default BasketContainer;

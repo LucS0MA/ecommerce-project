@@ -122,7 +122,7 @@ function DetailArticle() {
       setIsAuthForWarning(true);
       setTimeout(() => {
         setIsAuthForWarning(false);
-      }, 5000);
+      }, 100000);
     }
   };
 

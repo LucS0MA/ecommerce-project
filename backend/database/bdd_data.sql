@@ -340,6 +340,7 @@ INSERT INTO commande_article (quantité, commandes_id, articles_id)
 VALUES
 (1, 3, 4), -- 1x ILLUSTRATION SIRENE
 (2, 3, 2); -- 2x PELUCHE CHAMPIGNON
+<<<<<<< HEAD
 
 
 INSERT INTO utilisateurs (
@@ -359,3 +360,5 @@ INSERT INTO paiements (
 ), (
   'Capitaine Crochet', '9999111122223333', '2028-05-01 00:00:00', '679'
 );
+=======
+>>>>>>> dev

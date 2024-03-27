@@ -5,6 +5,7 @@ import "../../styles/ClientsAdmin.scss";
 function ClientsAdmin() {
   const [clientsList, setClientsList] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -12,40 +13,42 @@ function ClientsAdmin() {
       .get(`http://localhost:3310/api/clients`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => setClientsList(response.data))
       .catch((err) => console.error(err));
   }, []);
 
-  const date = () => {
-    return clientsList.map((inscription) => {
-      const changeDateFormat = new Date(inscription.date_inscription);
-      const jour = changeDateFormat.getDate();
-      const mois = changeDateFormat.getMonth() + 1; // Les mois commencent à partir de zéro, donc ajoutez 1
-      const année = changeDateFormat.getFullYear();
-      const resultat = `${jour}/${mois}/${année}`;
-
-      return resultat;
-    });
-  };
-
-  const inscriptionDate = date();
-
+  //
   const sortByOrders = () => {
-    if (isFiltered === false) {
-      const sortCommands = clientsList.sort(
+    if (!isFiltered) {
+      const sortedByOrders = [...clientsList].sort(
         (a, b) => b.nombre_de_commandes - a.nombre_de_commandes
       );
-      setClientsList(sortCommands);
+      setClientsList(sortedByOrders);
       setIsFiltered(true);
-    }
-
-    if (isFiltered === true) {
-      setClientsList(clientsList.sort((a, b) => a.id - b.id));
+    } else {
+      const sortedById = [...clientsList].sort((a, b) => a.id - b.id);
+      setClientsList(sortedById);
       setIsFiltered(false);
     }
+  };
+
+  const filterCustomers = clientsList.filter((customer) => {
+    const searchLower = search.toLowerCase();
+    const customerNomLower = customer.nom.toLowerCase();
+    const filtreParNom = customerNomLower.includes(searchLower);
+
+    return filtreParNom;
+  });
+
+  const formatDate = (dateString) => {
+    const changeDateFormat = new Date(dateString);
+    const jour = changeDateFormat.getDate().toString().padStart(2, "0");
+    const mois = (changeDateFormat.getMonth() + 1).toString().padStart(2, "0");
+    const année = changeDateFormat.getFullYear().toString();
+    return `${jour}/${mois}/${année}`;
   };
 
   return (
@@ -59,7 +62,10 @@ function ClientsAdmin() {
           <input
             className="input_search"
             type="search"
-            placeholder="rechercher un article"
+            placeholder="Rechercher un client"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
           />
         </div>
         <div className="clients-list-array-labels">
@@ -70,12 +76,12 @@ function ClientsAdmin() {
             <li>DATE D'INSCRIPTION</li>
           </ul>
           <div className="clients-list-details">
-            {clientsList.map((client) => (
+            {filterCustomers.map((client) => (
               <ul key={client.id}>
                 <li>{client.nom}</li>
                 <li>{client.prénom}</li>
                 <li>{client.nombre_de_commandes}</li>
-                <li>{inscriptionDate}</li>
+                <li>{formatDate(client.date_inscription)}</li>
               </ul>
             ))}
           </div>

@@ -11,14 +11,13 @@ import Article from "../components/Article";
 
 function ArticleDetails() {
   const [articles, setArticles] = useState([]);
-  // On récupère les articles présent dans la bdd
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
       .get("http://localhost:3310/api/articles/?phares=desc&limit=3", {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => setArticles(response.data))
@@ -30,10 +29,9 @@ function ArticleDetails() {
       <NavBar />
       <Connexion />
       <DetailArticle />
-
       <div id="articles-phares-articles">
         <div className="title-suggest-article">
-          <h2 className="articles-title-articles">Articles phares</h2>
+          <h2 className="articles-title-articles-details">Articles phares</h2>
           <div id="articles-phares-articles-content">
             {articles.map((article) => (
               <Article

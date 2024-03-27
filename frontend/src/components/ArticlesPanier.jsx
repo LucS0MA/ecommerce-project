@@ -1,11 +1,22 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import PropTypes from "prop-types";
-import "../styles/ArticlePanier.scss";
+import { useState } from "react";
+
 import Favori from "./profilcomponents/Favori";
 
-function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
+import "../styles/ArticlePanier.scss";
+
+function ArticlesPanier({
+  reload,
+  setReload,
+  articlesId,
+  image,
+  nom,
+  vendeuse,
+  quantité,
+  prix,
+}) {
   const [articleId] = useState(articlesId);
   const [quantity, setQuantity] = useState(quantité);
 
@@ -28,6 +39,7 @@ function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
       )
       .then(() => {
         setQuantity(nb + 1);
+        setReload(!reload);
       })
       .catch((err) =>
         console.error("Erreur lors de la mise à jour des quantités", err)
@@ -55,6 +67,7 @@ function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
         if (nb >= 1) {
           setQuantity(nb - 1);
         }
+        setReload(!reload);
       })
       .catch((err) =>
         console.error("Erreur lors de la mise à jour des quantités", err)
@@ -109,6 +122,8 @@ function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
 }
 
 ArticlesPanier.propTypes = {
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired,
   articlesId: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,

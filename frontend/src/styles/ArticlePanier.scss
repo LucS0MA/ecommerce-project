@@ -27,7 +27,7 @@
         background-color: #8d214c;
       }
 
-      .Dalhia {
+      .Dahlia {
         background-color: #e2b95b;
       }
       .Doireann {
@@ -44,23 +44,32 @@
         align-items: center;
         text-align: center;
         gap: 15px;
+        margin: auto;
+        width: 250px;
 
         .article-panier-nom {
           font-size: 1.3rem;
-          width: 250px;
         }
 
         p {
-          font-size: 1.2em;
+          font-size: 1.3rem;
+          margin-right: 15px;
+        }
+
+        .fav-button {
+          cursor: pointer;
+          background: none;
+          border: none;
+
+          img {
+            width: 35px;
+            height: 35px;
+          }
         }
 
         .line-info-article {
           border: 1px solid var(--lightGreen);
           width: 50%;
-        }
-
-        .fav p {
-          display: none;
         }
 
         .article-logos {

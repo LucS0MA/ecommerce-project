@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+
 import { useBasketContext } from "../contexts/BasketContext";
+
 import "../styles/ValidationBasket.scss";
 
-function ValidationBasket() {
+function ValidationBasket({ reload }) {
   const { setIsBasketClear } = useBasketContext();
   const [nbArticles, setNbArticles] = useState(0);
   const [priceTotal, setPriceTotal] = useState(0);
@@ -51,7 +54,7 @@ function ValidationBasket() {
       })
       .then((response) => setBasket(response.data))
       .catch((err) => console.error(err));
-  }, []);
+  }, [reload]);
 
   const handleValidBasket = async (e) => {
     e.preventDefault();
@@ -135,5 +138,9 @@ function ValidationBasket() {
     </main>
   );
 }
+
+ValidationBasket.propTypes = {
+  reload: PropTypes.bool.isRequired,
+};
 
 export default ValidationBasket;

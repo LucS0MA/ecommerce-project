@@ -6,7 +6,16 @@ import NoFav from "../assets/NoFav.svg";
 import Fav from "../assets/Fav.svg";
 import "../styles/ArticlePanier.scss";
 
-function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
+function ArticlesPanier({
+  reload,
+  setReload,
+  articlesId,
+  image,
+  nom,
+  vendeuse,
+  quantité,
+  prix,
+}) {
   const [articleId] = useState(articlesId);
   const [fav, setFav] = useState(false);
   const [quantity, setQuantity] = useState(quantité);
@@ -91,6 +100,7 @@ function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
       )
       .then(() => {
         setQuantity(nb + 1);
+        setReload(!reload);
       })
       .catch((err) =>
         console.error("Erreur lors de la mise à jour des quantités", err)
@@ -118,6 +128,7 @@ function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
         if (nb >= 1) {
           setQuantity(nb - 1);
         }
+        setReload(!reload);
       })
       .catch((err) =>
         console.error("Erreur lors de la mise à jour des quantités", err)
@@ -191,11 +202,13 @@ function ArticlesPanier({ articlesId, image, nom, vendeuse, quantité, prix }) {
 }
 
 ArticlesPanier.propTypes = {
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired,
   articlesId: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,
   vendeuse: PropTypes.string.isRequired,
-  prix: PropTypes.string.isRequired,
+  prix: PropTypes.number.isRequired,
   quantité: PropTypes.number.isRequired,
 };
 

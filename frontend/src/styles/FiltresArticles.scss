@@ -210,3 +210,35 @@
   margin-left: 25px;
   border-radius: 200px 200px 0 0;
 }
+
+@media screen and (max-width: 800px) {
+  #cards_seelies {
+    display: block;
+
+    p {
+      width: 100%;
+      font-size: 1.3rem;
+      margin: auto;
+      text-align: center;
+    }
+
+    .seelies_cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .filtres_container {
+    position: absolute;
+    z-index: 1;
+    background-color: #442332;
+    width: 95%;
+    transform: translateX(-1000px);
+  }
+
+  .view_articles {
+    display: flex;
+    flex-direction: column;
+  }
+}

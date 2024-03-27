@@ -9,3 +9,11 @@
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
+@media screen and (max-width: 900px) {
+  .title_page {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 40px 0px;
+  }
+}

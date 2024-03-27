@@ -136,8 +136,8 @@ function ArticlesPanier({
   };
 
   return (
-    <div className="article_panier_container">
-      <div className="articles-panier">
+    <>
+      <div className="article-panier-container">
         <div className="container-image-infos-article">
           <Link
             to={`/catalogue/${articleId}`}
@@ -197,7 +197,7 @@ function ArticlesPanier({
         </div>
       </div>
       <div className="end-line"> </div>
-    </div>
+    </>
   );
 }
 

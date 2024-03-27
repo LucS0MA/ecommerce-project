@@ -340,3 +340,9 @@ INSERT INTO commande_article (quantité, commandes_id, articles_id)
 VALUES
 (1, 3, 4), -- 1x ILLUSTRATION SIRENE
 (2, 3, 2); -- 2x PELUCHE CHAMPIGNON
+
+-- Festivals
+
+INSERT INTO festivals (nom, lieu, date) 
+VALUES ('Médiéval de Mecquignies', 'Impasse du Culot, MECQUIGNIES 59570', '2024-06-12 00:00:00'), 
+       ('LudiGeek Festival', '11 Rue Jacquard, 59250 Halluin', '2024-11-16 00:00:00');

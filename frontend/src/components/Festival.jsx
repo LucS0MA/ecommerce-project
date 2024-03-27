@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -9,6 +10,7 @@ import IvyBranch3 from "./animations/svg/IvyBranch3";
 gsap.registerPlugin(ScrollTrigger);
 
 function Festival() {
+  const [festivalInfo, setFestivalInfo] = useState();
   const ivyFestRef = useRef(null);
 
   useGSAP(() => {
@@ -52,6 +54,41 @@ function Festival() {
     });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3310/api/festivals/`)
+      .then((response) => {
+        setFestivalInfo(response.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  console.info(festivalInfo);
+
+  const formatDate = (dateString) => {
+    const months = [
+      "JANVIER",
+      "FÉVRIER",
+      "MARS",
+      "AVRIL",
+      "MAI",
+      "JUIN",
+      "JUILLET",
+      "AOÛT",
+      "SEPTEMBRE",
+      "OCTOBRE",
+      "NOVEMBRE",
+      "DÉCEMBRE",
+    ];
+
+    const dateParts = dateString.split("T")[0].split("-");
+    const year = dateParts[0];
+    const month = months[parseInt(dateParts[1], 10)];
+    const day = parseInt(dateParts[2], 10);
+
+    return `${day} ${month} ${year}`;
+  };
+
   return (
     <div className="festival">
       <IvyBranch3 BranchID="branch1Fest" IvyRef={ivyFestRef} />
@@ -60,18 +97,15 @@ function Festival() {
           <h1>Retrouvez vos sellies et nos Prochains Festivals</h1>
         </div>
         <div className="dates-box">
-          <Date
-            date="12 - 13 JUIN 2024"
-            nom="Médiéval de Mecquignies"
-            lieu="Mecquignies / Hauts-de-France / France MECQUIGNIES 59570 - Impasse
-              du Culot"
-          />
-          <Date
-            date="16 - 17 NOVEMBRE 2024 "
-            nom="LudiGeek Festival"
-            lieu="Salle du Manège, 11 Rue Jacquard, 59250 Halluin"
-          />
-          <Date date={null} nom={null} lieu={null} />
+          {festivalInfo &&
+            festivalInfo.map((festival) => (
+              <Date
+                key={festival.id}
+                date={formatDate(festival.date)}
+                nom={festival.nom}
+                lieu={festival.lieu}
+              />
+            ))}
         </div>
       </div>
     </div>

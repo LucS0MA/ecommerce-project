@@ -7,6 +7,7 @@ import ArticlesPanier from "./ArticlesPanier";
 function BasketContainer() {
   const [articles, setArticles] = useState([]);
 
+  // Recupération de tous les produits dans le panier//
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
@@ -19,17 +20,6 @@ function BasketContainer() {
       .then((response) => setArticles(response.data))
       .catch((err) => console.error(err));
   }, []);
-
-  const updateArticleQuantity = (articleId, newQuantity) => {
-    setArticles(
-      articles.map((article) => {
-        if (article.articles_id === articleId) {
-          return { ...article, quantité: newQuantity };
-        }
-        return article;
-      })
-    );
-  };
 
   return (
     <div id="basketContainer">
@@ -55,9 +45,6 @@ function BasketContainer() {
               vendeuse={article.vendeuse}
               quantité={article.quantité}
               prix={article.prix}
-              updateQuantity={(newQuantity) =>
-                updateArticleQuantity(article.articles_id, newQuantity)
-              }
             />
           ))}
         </div>

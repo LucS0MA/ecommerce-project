@@ -85,7 +85,9 @@ function Sellers({ onSellerSelect }) {
               isSelected={isSelected}
               onSelect={() => {
                 setSelectedSeller(seller.name);
-                onSellerSelect(seller.name);
+                if (typeof onSellerSelect === "function") {
+                  onSellerSelect(seller.name);
+                }
               }}
             />
           );

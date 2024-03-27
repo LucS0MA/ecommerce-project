@@ -3,6 +3,7 @@ import Connexion from "../Connexion";
 import { useAdmin } from "../../contexts/AdminContext";
 import ArticlesAdmin from "./ArticlesAdmin";
 import CommandesAdmin from "./CommandesAdmin";
+import FestivalsAdmin from "./FestivalsAdmin";
 import ClientsAdmin from "./ClientsAdmin";
 import FooterBis from "../FooterBis";
 import MenuProfil from "./MenuAdmin";
@@ -23,6 +24,9 @@ function AdminContent() {
       break;
     case "ClientsAdmin":
       content = <ClientsAdmin />;
+      break;
+    case "EventsAdmin":
+      content = <FestivalsAdmin />;
       break;
     default:
       content = <ArticlesAdmin />;

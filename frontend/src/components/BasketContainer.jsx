@@ -1,10 +1,14 @@
 import axios from "axios";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import basketIcon from "../assets/panier_icon.svg";
-import "../styles/BasketContainer.scss";
+
 import ArticlesPanier from "./ArticlesPanier";
 
-function BasketContainer() {
+import basketIcon from "../assets/panier_icon.svg";
+
+import "../styles/BasketContainer.scss";
+
+function BasketContainer({ reload, setReload }) {
   const [articles, setArticles] = useState([]);
 
   // Recupération de tous les produits dans le panier//
@@ -38,6 +42,8 @@ function BasketContainer() {
         <div id="basketContent">
           {articles.map((article) => (
             <ArticlesPanier
+              reload={reload}
+              setReload={setReload}
               key={article.id}
               articlesId={article.articles_id}
               image={article.image}
@@ -52,5 +58,10 @@ function BasketContainer() {
     </div>
   );
 }
+
+BasketContainer.propTypes = {
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired,
+};
 
 export default BasketContainer;

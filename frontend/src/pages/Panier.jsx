@@ -1,20 +1,23 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import FooterBis from "../components/FooterBis";
-import Error404 from "./404";
-import "../styles/Panier.scss";
-import ValidationBasket from "../components/ValidationBasket";
+import React, { useState } from "react";
+
+import BasketContainer from "../components/BasketContainer";
 import BasketModal from "../components/BasketModal";
+import Error404 from "./404";
+import FooterBis from "../components/FooterBis";
 import {
   ModalProvider,
   useConnexionContext,
 } from "../contexts/ConnexionContext";
+import Navbar from "../components/Navbar";
 import { useBasketContext } from "../contexts/BasketContext";
-import BasketContainer from "../components/BasketContainer";
+import ValidationBasket from "../components/ValidationBasket";
+
+import "../styles/Panier.scss";
 
 function Panier() {
   const { isBasketClear } = useBasketContext();
   const { authentification } = useConnexionContext();
+  const [reload, setReload] = useState(false);
 
   if (!authentification) {
     return (
@@ -32,8 +35,8 @@ function Panier() {
           <BasketModal />
         ) : (
           <div className="basket-page">
-            <BasketContainer />
-            <ValidationBasket />
+            <BasketContainer reload={reload} setReload={setReload} />
+            <ValidationBasket reload={reload} />
           </div>
         )}
       </main>

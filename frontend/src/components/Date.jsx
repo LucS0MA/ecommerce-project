@@ -3,48 +3,10 @@ import "../styles/Date.scss";
 import Loca from "../assets/Layer 10.png";
 
 function Date({ nom, lieu, date }) {
-  if (!date || !nom || !lieu) {
-    return <div className="containerD" style={{ opacity: 0 }} />;
-  }
-
-  const months = [
-    "janvier",
-    "février",
-    "mars",
-    "avril",
-    "mai",
-    "juin",
-    "juillet",
-    "août",
-    "septembre",
-    "octobre",
-    "novembre",
-    "décembre",
-  ];
-
-  const dateWords = date.split(" ");
-  const formattedDate = [];
-  dateWords.forEach((word, index) => {
-    const lowerCaseWord = word.toLowerCase();
-    const isMonth = months.includes(lowerCaseWord);
-    const key = `${word}-${index}`;
-    formattedDate.push(
-      isMonth ? (
-        <span key={key} className="month">
-          {word}
-        </span>
-      ) : (
-        word
-      )
-    );
-    if (index < dateWords.length - 1) {
-      formattedDate.push(" ");
-    }
-  });
   return (
     <div className="containerD">
       <div className="dateD">
-        <p className="numberD">{formattedDate}</p>
+        <p className="numberD">{date}</p>
       </div>
       <div className="lineD" />
       <div className="locaD">

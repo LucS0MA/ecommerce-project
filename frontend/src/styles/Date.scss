@@ -3,11 +3,11 @@
 .containerD {
   border: 1px #bdc9ac solid;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: #bdc9ac;
   margin: 20px;
   min-height: 150px;
+  justify-content: space-around;
 
   // Date
 
@@ -18,7 +18,7 @@
     flex-direction: row;
     font-family: "Abha", sans-serif;
     gap: 10px;
-    min-width: 45%;
+    min-width: 35%;
     text-align: center;
 
     .numberD {
@@ -26,6 +26,7 @@
       align-items: center;
       font-weight: bold;
       font-size: 2rem;
+      font-family: "Abha";
 
       .month {
         font:

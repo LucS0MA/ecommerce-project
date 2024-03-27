@@ -37,7 +37,7 @@ function ClientsAdmin() {
 
   const filterCustomers = clientsList.filter((customer) => {
     const searchLower = search ? search.toLowerCase() : "";
-    const customerNomLower = customer.nom.toLowerCase();
+    const customerNomLower = (customer.nom || "").toLowerCase();
     const filtreParNom = customerNomLower.includes(searchLower);
 
     return filtreParNom;
@@ -61,7 +61,7 @@ function ClientsAdmin() {
           </button>
           <input
             className="input_search"
-            type="text"
+            type="search"
             placeholder="Rechercher un client"
             onChange={(e) => {
               setSearch(e.target.value);

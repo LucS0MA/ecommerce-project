@@ -1,5 +1,6 @@
 .outLine {
   border: 1px solid var(--lightGreen);
+  width: 70%;
 }
 
 .detail-page {
@@ -17,7 +18,8 @@
 
 .detail-image {
   object-fit: cover;
-  min-height: 271.03px;
+  min-height: 350.03px;
+  max-width: 50%;
   width: 70%;
   background-color: var(--bg-color);
   border-radius: 200px 200px 0 0;
@@ -126,6 +128,12 @@
   .detail-title {
     font-size: 20px;
   }
+  .detail-image {
+    object-fit: cover;
+    min-height: 271.03px;
+    max-width: 80%;
+    width: 80%;
+  }
 }
 
 @media (max-width: 1050px) {
@@ -133,6 +141,12 @@
     position: absolute;
     top: 33%;
     width: 30%;
+  }
+  .detail-image {
+    object-fit: cover;
+    min-height: 271.03px;
+    max-width: 80%;
+    width: 80%;
   }
 }
 
@@ -142,11 +156,23 @@
     top: 32%;
     width: 35%;
   }
+  .detail-image {
+    object-fit: cover;
+    min-height: 271.03px;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 @media (max-width: 771px) {
   .detail-notification {
     position: relative;
+    width: 100%;
+  }
+  .detail-image {
+    object-fit: cover;
+    min-height: 271.03px;
+    max-width: 100%;
     width: 100%;
   }
 }

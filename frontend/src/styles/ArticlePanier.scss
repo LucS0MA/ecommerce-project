@@ -10,11 +10,70 @@
     display: flex;
     justify-content: center;
 
-    img {
-      border-radius: 200px 200px 0px 0px;
-      width: 150px;
-      padding: 3px;
-      margin-right: 20px;
+    .container-image-infos-article {
+      display: flex;
+      justify-content: center;
+
+      img {
+        border-radius: 200px 200px 0px 0px;
+        width: 150px;
+        padding: 3px;
+        margin-right: 20px;
+      }
+
+      .Elya {
+        background-color: #8d214c;
+      }
+
+      .Dahlia {
+        background-color: #e2b95b;
+      }
+      .Doireann {
+        background-color: #4e5c2c;
+      }
+      .Achlys {
+        background-color: #df824d;
+      }
+
+      .info_article_panier {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+        margin: auto;
+        width: 250px;
+
+        .article-panier-nom {
+          font-size: 1.3rem;
+        }
+
+        p {
+          font-size: 1.3rem;
+          margin-right: 15px;
+        }
+
+        .fav-button {
+          cursor: pointer;
+          background: none;
+          border: none;
+
+          img {
+            width: 35px;
+            height: 35px;
+          }
+        }
+
+        .line-info-article {
+          border: 1px solid var(--lightGreen);
+          width: 50%;
+        }
+
+        .article-logos {
+          margin-left: 22px;
+        }
+      }
     }
 
     .Elya {

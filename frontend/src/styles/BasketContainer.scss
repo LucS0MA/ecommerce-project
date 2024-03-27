@@ -1,11 +1,10 @@
 #basketContainer {
   align-self: center;
-  margin: 0 auto;
   width: 70%;
 
   #basketDetail {
     border: 1px solid var(--lightGreen);
-    width: 100%;
+    width: 90%;
     position: relative;
 
     #basketHeading {
@@ -65,10 +64,11 @@
     }
 
     #basketContent {
-      min-height: 50vh;
-      padding: 5%;
-      display: flex;
-      flex-direction: column;
+      height: 60vh;
+      padding: 1% 3%;
+      overflow-y: scroll;
+      scrollbar-color: var(--lightGreen) rgba(189, 201, 172, 29%);
+      scrollbar-width: thin;
     }
   }
 }

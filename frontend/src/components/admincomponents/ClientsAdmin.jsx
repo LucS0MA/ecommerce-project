@@ -5,6 +5,7 @@ import "../../styles/ClientsAdmin.scss";
 function ClientsAdmin() {
   const [clientsList, setClientsList] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -19,6 +20,7 @@ function ClientsAdmin() {
       .catch((err) => console.error(err));
   }, []);
 
+  //
   const sortByOrders = () => {
     if (!isFiltered) {
       const sortedByOrders = [...clientsList].sort(
@@ -32,6 +34,14 @@ function ClientsAdmin() {
       setIsFiltered(false);
     }
   };
+
+  const filterCustomers = clientsList.filter((customer) => {
+    const searchLower = search.toLowerCase();
+    const customerNomLower = customer.nom.toLowerCase();
+    const filtreParNom = customerNomLower.includes(searchLower);
+
+    return filtreParNom;
+  });
 
   const formatDate = (dateString) => {
     const changeDateFormat = new Date(dateString);
@@ -53,6 +63,9 @@ function ClientsAdmin() {
             className="input_search"
             type="search"
             placeholder="Rechercher un client"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
           />
         </div>
         <div className="clients-list-array-labels">
@@ -63,7 +76,7 @@ function ClientsAdmin() {
             <li>DATE D'INSCRIPTION</li>
           </ul>
           <div className="clients-list-details">
-            {clientsList.map((client) => (
+            {filterCustomers.map((client) => (
               <ul key={client.id}>
                 <li>{client.nom}</li>
                 <li>{client.prénom}</li>

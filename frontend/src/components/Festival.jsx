@@ -83,7 +83,7 @@ function Festival() {
 
     const dateParts = dateString.split("T")[0].split("-");
     const year = dateParts[0];
-    const month = months[parseInt(dateParts[1], 10) - 1];
+    const month = months[parseInt(dateParts[1], 10)];
     const day = parseInt(dateParts[2], 10);
 
     return `${day} ${month} ${year}`;

@@ -25,6 +25,7 @@
     align-items: center;
     gap: 2%;
     padding-left: 25px;
+    cursor: pointer;
   }
 }
 
@@ -119,6 +120,7 @@
       height: 50px;
       font-family: play, sans-serif;
       font-size: 1rem;
+      cursor: pointer;
 
       &:focus {
         background-color: var(--lightGreen);
@@ -158,6 +160,7 @@
     .color_button {
       width: 30px;
       height: 30px;
+      cursor: pointer;
 
       &:focus {
         border: 2px solid var(--lightGreen);
@@ -179,6 +182,11 @@
 .view_articles .article-container {
   background-color: var(--bg-color);
   color: var(--color);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   .article-ligne {
     background-color: var(--color);

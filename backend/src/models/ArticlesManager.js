@@ -74,17 +74,17 @@ class ArticlesManager extends AbstractManager {
     if (article.thematique) {
       let thematiqueId;
 
-      if (article.thematique === "steampunk") {
+      if (article.thematique === "STEAMPUNK") {
         thematiqueId = 1;
-      } else if (article.thematique === "fantasy") {
+      } else if (article.thematique === "FANTASY") {
         thematiqueId = 2;
-      } else if (article.thematique === "medieval") {
+      } else if (article.thematique === "MEDIEVAL") {
         thematiqueId = 3;
-      } else if (article.thematique === "magie") {
+      } else if (article.thematique === "MAGIE") {
         thematiqueId = 4;
-      } else if (article.thematique === "feerie") {
+      } else if (article.thematique === "FEERIE") {
         thematiqueId = 5;
-      } else if (article.thematique === "cottage core") {
+      } else if (article.thematique === "COTTAGE CORE") {
         thematiqueId = 6;
       }
 
@@ -99,7 +99,14 @@ class ArticlesManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `SELECT articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, GROUP_CONCAT(type) AS types, thematique FROM ${this.table}
+      LEFT JOIN couleurs_has_articles ON couleurs_has_articles.articles_id = articles.id
+      LEFT JOIN couleurs ON couleurs.id = couleurs_has_articles.couleurs_id
+      LEFT JOIN thematiques_has_articles ON thematiques_has_articles.articles_id = articles.id
+      LEFT JOIN thematiques ON thematiques.id = thematiques_has_articles.thematiques_id
+      LEFT JOIN types_has_articles ON types_has_articles.articles_id = articles.id
+      LEFT JOIN types ON types.id = types_has_articles.types_id where articles.id = ?
+      GROUP BY articles.id, nom, image, prix, ajout_date, nb_ventes, vendeuse, couleur, thematique`,
       [id]
     );
 
@@ -311,10 +318,96 @@ class ArticlesManager extends AbstractManager {
       prix = ?,
       ajout_date = ?,
       nb_ventes = ?,
-      vendeuse = ?,
+      vendeuse = ?
       WHERE id = ?`,
       [nom, image, prix, ajoutDate, nbVentes, vendeuse, id]
     );
+
+    // TYPES
+    await this.database.query(
+      `DELETE FROM types_has_articles WHERE articles_id = ?`,
+      [id]
+    );
+
+    if (
+      article.bijoux ||
+      article.deco ||
+      article.illustration ||
+      article.vetement ||
+      article.accessoire
+    ) {
+      let sql =
+        "INSERT INTO types_has_articles (types_id, articles_id) VALUES ";
+      const sqlValues = [];
+      let isNext = false;
+
+      if (article.bijoux) {
+        sql += "(?, ?)";
+        sqlValues.push(1, id);
+        isNext = true;
+      }
+      if (article.deco) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(2, id);
+        isNext = true;
+      }
+      if (article.illustration) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(3, id);
+        isNext = true;
+      }
+      if (article.vetement) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(4, id);
+        isNext = true;
+      }
+      if (article.accessoire) {
+        if (isNext) {
+          sql += ", (?, ?)";
+        } else {
+          sql += "(?, ?)";
+        }
+        sqlValues.push(5, id);
+      }
+
+      await this.database.query(sql, sqlValues);
+    }
+
+    // THEMATIQUE
+    if (article.thematique) {
+      let thematiqueId;
+
+      if (article.thematique === "STEAMPUNK") {
+        thematiqueId = 1;
+      } else if (article.thematique === "FANTASY") {
+        thematiqueId = 2;
+      } else if (article.thematique === "MEDIEVAL") {
+        thematiqueId = 3;
+      } else if (article.thematique === "MAGIE") {
+        thematiqueId = 4;
+      } else if (article.thematique === "FEERIE") {
+        thematiqueId = 5;
+      } else if (article.thematique === "COTTAGE CORE") {
+        thematiqueId = 6;
+      }
+
+      await this.database.query(
+        "UPDATE thematiques_has_articles SET thematiques_id = ? WHERE articles_id = ?",
+        [thematiqueId, id]
+      );
+    }
 
     return rows.affectedRows;
   }

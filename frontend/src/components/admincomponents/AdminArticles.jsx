@@ -1,16 +1,24 @@
-import React, { useState } from "react";
 import axios from "axios";
-import "../../styles/AdminArticle.scss";
 import PropTypes from "prop-types";
-import Modif from "../../assets/Modif.svg";
-import Delete from "../../assets/Delete.svg";
+import React, { useState } from "react";
 
-function AdminArticles({ id, image, vendeuse, nom, prix, nbVentes }) {
+import Delete from "../../assets/Delete.svg";
+import Modif from "../../assets/Modif.svg";
+
+import "../../styles/AdminArticle.scss";
+
+function AdminArticles({
+  handleModif,
+  id,
+  image,
+  vendeuse,
+  nom,
+  prix,
+  nbVentes,
+}) {
   const [deleted, setDeleted] = useState(false);
   const token = sessionStorage.getItem("token");
-  const handleModif = () => {
-    console.info("Mofifié");
-  };
+
   const handleDelete = async () => {
     await axios
       .delete(`http://localhost:3310/api/articles/${id}`, {
@@ -22,6 +30,7 @@ function AdminArticles({ id, image, vendeuse, nom, prix, nbVentes }) {
       .catch((err) => console.error(err));
     setDeleted(true);
   };
+
   return (
     <div>
       {!deleted && (
@@ -47,7 +56,7 @@ function AdminArticles({ id, image, vendeuse, nom, prix, nbVentes }) {
             <button
               type="button"
               className="admin-cadre"
-              onClick={() => handleModif()}
+              onClick={() => handleModif(id)}
             >
               <img src={Modif} alt="Modif" className="admin-img" />
             </button>
@@ -67,6 +76,7 @@ function AdminArticles({ id, image, vendeuse, nom, prix, nbVentes }) {
 }
 
 AdminArticles.propTypes = {
+  handleModif: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   vendeuse: PropTypes.string.isRequired,

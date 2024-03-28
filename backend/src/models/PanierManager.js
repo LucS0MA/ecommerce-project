@@ -60,9 +60,6 @@ class PanierManager extends AbstractManager {
       )
     );
     await Promise.all(updatePromises);
-
-    // Vider le panier après la mise à jour
-    await this.delete(utilisateurId);
   }
 }
 

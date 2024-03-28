@@ -44,7 +44,7 @@ function BasketContainer({ reload, setReload }) {
             <ArticlesPanier
               reload={reload}
               setReload={setReload}
-              key={article.id}
+              key={article.articles_id}
               articlesId={article.articles_id}
               image={article.image}
               nom={article.nom}

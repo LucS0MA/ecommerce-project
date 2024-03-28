@@ -56,6 +56,7 @@ router.get("/panier/:id", panier.browse);
 router.post("/panier", panier.add);
 router.delete("/panier", panier.destroy);
 router.put("/panier", panier.edit);
+router.post("/validerPanier", panier.validate);
 
 // routes paiements
 router.get("/paiements/:id", paiementControllers.read);

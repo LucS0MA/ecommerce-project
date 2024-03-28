@@ -18,7 +18,15 @@ function ModalArticle({
 
   const handleChange = (e) => {
     const { id, type, name, value, checked } = e.target;
-    const newValue = type === "checkbox" ? checked : value;
+    let newValue;
+
+    if (type === "checkbox") {
+      newValue = checked;
+    } else if (type === "price") {
+      newValue = parseInt(value, 10);
+    } else {
+      newValue = value;
+    }
 
     setFormData((prevState) => ({
       ...prevState,

@@ -88,10 +88,27 @@
 
   #basketHeading {
     top: 0;
+
+    h1 {
+      display: none;
+    }
   }
 
   #basketFilter {
     visibility: hidden;
+  }
+
+  .article-panier-container .quantity {
+    margin: 10px auto;
+    width: 35%;
+    position: relative;
+    right: 3%;
+  }
+
+  .article-panier-container .prix_article_panier {
+    margin: 10px auto;
+    position: relative;
+    right: 3%;
   }
 
   main.firstBorder {

@@ -61,6 +61,10 @@
         width: 100%;
         border-bottom: 1px solid var(--lightGreen);
       }
+
+      :nth-child(2) {
+        margin-left: 26%;
+      }
     }
 
     #basketContent {
@@ -72,5 +76,25 @@
       scrollbar-color: var(--lightGreen) rgba(189, 201, 172, 29%);
       scrollbar-width: thin;
     }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #basketContainer {
+    margin-top: 25%;
+    margin-left: 8%;
+    width: 86%;
+  }
+
+  #basketHeading {
+    top: 0;
+  }
+
+  #basketFilter {
+    visibility: hidden;
+  }
+
+  main.firstBorder {
+    width: 77%;
   }
 }

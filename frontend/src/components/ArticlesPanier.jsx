@@ -110,29 +110,30 @@ function ArticlesPanier({
   // Suppréssion d'un article dans le panier//
   const axiosPutPanierMoins = (nb) => {
     const token = sessionStorage.getItem("token");
-
-    axios
-      .put(
-        `http://localhost:3310/api/panier/?articleId=${articleId}`,
-        {
-          quantité: nb - 1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+    if (nb > 0) {
+      axios
+        .put(
+          `http://localhost:3310/api/panier/?articleId=${articleId}`,
+          {
+            quantité: nb - 1,
           },
-        }
-      )
-      .then(() => {
-        if (nb >= 1) {
-          setQuantity(nb - 1);
-        }
-        setReload(!reload);
-      })
-      .catch((err) =>
-        console.error("Erreur lors de la mise à jour des quantités", err)
-      );
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          if (nb >= 1) {
+            setQuantity(nb - 1);
+          }
+          setReload(!reload);
+        })
+        .catch((err) =>
+          console.error("Erreur lors de la mise à jour des quantités", err)
+        );
+    }
   };
 
   return (

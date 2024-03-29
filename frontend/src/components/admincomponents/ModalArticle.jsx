@@ -2,7 +2,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-import confirmation from "../../assets/confirmation.png";
+import confAjout from "../../assets/confAjout.png";
+import confModif from "../../assets/confModif.png";
 
 function ModalArticle({
   articleId,
@@ -22,8 +23,6 @@ function ModalArticle({
 
     if (type === "checkbox") {
       newValue = checked;
-    } else if (type === "price") {
-      newValue = parseInt(value, 10);
     } else {
       newValue = value;
     }
@@ -220,7 +219,7 @@ function ModalArticle({
             transform: "translate(-50%, -50%)",
             zIndex: 1,
           }}
-          src={confirmation}
+          src={submit === "modif" ? confModif : confAjout}
           alt="confirmation"
         />
       )}
@@ -404,7 +403,7 @@ ModalArticle.propTypes = {
   formData: PropTypes.shape({
     name: PropTypes.string.isRequired,
     creatrice: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     bijoux: PropTypes.bool.isRequired,
     deco: PropTypes.bool.isRequired,
     illustration: PropTypes.bool.isRequired,

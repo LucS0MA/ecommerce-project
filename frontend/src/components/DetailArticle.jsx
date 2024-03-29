@@ -60,7 +60,7 @@ function DetailArticle() {
         }
       )
       .catch((err) => console.error(err));
-    console.info(articleId, "post");
+    // console.info(articleId, "post");
 
     setFav(true);
   };
@@ -75,7 +75,7 @@ function DetailArticle() {
         },
       })
       .catch((err) => console.error(err));
-    console.info(articleId, "delete");
+    // console.info(articleId, "delete");
 
     setFav(false);
   };
@@ -111,10 +111,12 @@ function DetailArticle() {
   }, [articleId]);
 
   const showAddToCartNotification = () => {
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 5000);
+    if (quantity !== "0" && quantity !== "") {
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 5000);
+    }
   };
 
   const showAuthWarning = () => {
@@ -127,7 +129,14 @@ function DetailArticle() {
   };
 
   const handleCart = () => {
+    console.info("Quantité dans le panier :", nbCart + parseInt(quantity, 10));
+
     const token = sessionStorage.getItem("token");
+
+    let quantité = 0;
+    if (quantity) {
+      quantité = parseInt(quantity, 10);
+    }
 
     axios
       .get(`http://localhost:3310/api/panier/?articleId=${articleId}`, {
@@ -139,7 +148,7 @@ function DetailArticle() {
       .then((response) => {
         if (response.data) {
           const existingQuantity = response.data.quantité;
-          const newQuantity = existingQuantity + quantity;
+          const newQuantity = existingQuantity + quantité;
           axios
             .put(
               `http://localhost:3310/api/panier/?articleId=${articleId}`,
@@ -153,7 +162,7 @@ function DetailArticle() {
             )
             .then(() => {
               setNbCart(newQuantity);
-              console.info(nbCart);
+              // console.info(nbCart);
               showAddToCartNotification();
             })
             .catch((error) => {
@@ -166,7 +175,7 @@ function DetailArticle() {
               "http://localhost:3310/api/panier/",
               {
                 articleId,
-                quantité: quantity,
+                quantité,
               },
               {
                 headers: {
@@ -176,7 +185,7 @@ function DetailArticle() {
               }
             )
             .then(() => {
-              setNbCart(quantity);
+              setNbCart(quantité);
               showAddToCartNotification();
             })
             .catch((error) => {
@@ -226,7 +235,7 @@ function DetailArticle() {
                 name="quantity"
                 min="1"
                 value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+                onChange={(e) => setQuantity(e.target.value, 10)}
               />
             </div>
             <div className="detail-logos">
@@ -267,13 +276,19 @@ function DetailArticle() {
                 </button>
               )}
             </div>
-            {showNotification && (
+            {showNotification && quantity !== "0" && quantity !== "" ? (
               <div className="detail-notification">
                 Article bien ajouté au{" "}
                 <Link to="/panier">
                   <span className="detail-toggle-link">panier</span>
                 </Link>
               </div>
+            ) : (
+              (quantity === "0" || quantity === "") && (
+                <div className="detail-notification">
+                  Veuillez ajouter une quantité
+                </div>
+              )
             )}
             {isAuthForWarning && (
               <div className="detail-notification">

@@ -10,7 +10,7 @@ export function AdminProvider({ children }) {
 
   // Fonction pour changer la section active
   const switchSection = (sectionKey) => {
-    console.info("L'appel de changement vers", sectionKey);
+    // console.info("L'appel de changement vers", sectionKey);
     setActiveSection(sectionKey);
   };
 

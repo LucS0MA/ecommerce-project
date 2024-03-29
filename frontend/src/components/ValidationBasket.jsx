@@ -23,21 +23,21 @@ function ValidationBasket({ reload }) {
         },
       })
       .then((response) => {
-        console.info("Réponse du backend:", response.data);
+        // console.info("Réponse du backend:", response.data);
         const totalQuantity = response.data.reduce(
           (total, article) => total + article.quantité,
           0
         );
-        console.info("Quantité totale:", totalQuantity);
+        // console.info("Quantité totale:", totalQuantity);
         const totalPrice = response.data.reduce(
           (total, article) => total + article.quantité * article.prix,
           0
         );
-        console.info("Prix total:", totalPrice);
+        // console.info("Prix total:", totalPrice);
         setNbArticles(totalQuantity);
         setPriceTotal(totalPrice.toFixed(2));
-        console.info("nbArticles après mise à jour:", nbArticles);
-        console.info("priceTotal après mise à jour:", priceTotal);
+        // console.info("nbArticles après mise à jour:", nbArticles);
+        // console.info("priceTotal après mise à jour:", priceTotal);
       })
 
       .catch((error) =>

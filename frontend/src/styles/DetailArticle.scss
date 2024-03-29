@@ -30,8 +30,7 @@
   margin: 8px;
   border: 1px solid white;
   display: flex;
-  padding: 50px;
-  gap: 4em;
+  padding: 20px;
 }
 
 .detail-button-add {
@@ -79,7 +78,7 @@
 .detail-left {
   display: flex;
   justify-content: center;
-  width: 100%;
+  flex: 1;
 }
 
 .detail-desc {
@@ -96,7 +95,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 100%;
+  flex: 1;
 }
 
 .detail-logos {

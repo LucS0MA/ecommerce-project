@@ -63,7 +63,7 @@ function Festival() {
       .catch((err) => console.error(err));
   }, []);
 
-  console.info(festivalInfo);
+  // console.info(festivalInfo);
 
   const formatDate = (dateString) => {
     const months = [

@@ -24,7 +24,7 @@ function Favori({ articleId, nom, prix }) {
         }
       )
       .catch((err) => console.error(err));
-    console.info(articleId, "post");
+    // console.info(articleId, "post");
     // On actualise l'état
     setFav(true);
   };
@@ -40,7 +40,7 @@ function Favori({ articleId, nom, prix }) {
         },
       })
       .catch((err) => console.error(err));
-    console.info(articleId, "delete");
+    // console.info(articleId, "delete");
     // On actualise l'état
     setFav(false);
   };
@@ -62,7 +62,7 @@ function Favori({ articleId, nom, prix }) {
         }
       )
       .catch((err) => console.error(err));
-    console.info(articleId, "add to cart");
+    // console.info(articleId, "add to cart");
   };
 
   const axiosPutPanier = (nb) => {
@@ -81,7 +81,7 @@ function Favori({ articleId, nom, prix }) {
         }
       )
       .catch((err) => console.error(err));
-    console.info(articleId, "add another to cart");
+    // console.info(articleId, "add another to cart");
   };
 
   const handleCart = () => {

@@ -15,7 +15,7 @@ function ArticlesAdmin() {
   const [formData, setFormData] = useState({
     name: "",
     creatrice: "",
-    price: 0,
+    price: "0",
     bijoux: false,
     deco: false,
     illustration: false,
@@ -41,7 +41,7 @@ function ArticlesAdmin() {
         // On attribue les valeurs aux variables (1)
         const name = response.data.nom;
         const creatrice = response.data.vendeuse;
-        const price = response.data.prix;
+        const price = response.data.prix.toString();
         let bijoux;
         let deco;
         let illustration;
@@ -91,7 +91,7 @@ function ArticlesAdmin() {
     setFormData({
       name: "",
       creatrice: "",
-      price: 0,
+      price: "0",
       bijoux: false,
       deco: false,
       illustration: false,

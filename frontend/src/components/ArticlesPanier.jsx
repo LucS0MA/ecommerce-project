@@ -52,7 +52,7 @@ function ArticlesPanier({
         }
       )
       .catch((err) => console.error(err));
-    console.info(articleId, "post fav");
+    // console.info(articleId, "post fav");
 
     setFav(true);
   };
@@ -68,7 +68,7 @@ function ArticlesPanier({
         },
       })
       .catch((err) => console.error(err));
-    console.info(articleId, "delete fav");
+    // console.info(articleId, "delete fav");
 
     setFav(false);
   };

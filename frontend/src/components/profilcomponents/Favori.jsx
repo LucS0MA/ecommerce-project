@@ -109,8 +109,8 @@ function Favori({ articleId, nom, prix }) {
             }}
           >
             <h3>{nom}</h3>
-            <p>{`${prix} €`}</p>
           </Link>
+          <p>{`${prix} €`}</p>
         </div>
         <div className="logos">
           <div className="fav-ligne-v" />

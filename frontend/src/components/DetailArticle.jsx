@@ -11,7 +11,7 @@ function DetailArticle() {
   const { articleId } = useParams();
   const [isAuthForWarning, setIsAuthForWarning] = useState(false);
   const [article, setArticle] = useState(null);
-  const [setNbCart] = useState(0);
+  const [nbCart, setNbCart] = useState(0);
   const [guest, setGuest] = useState(false);
   const [fav, setFav] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -129,6 +129,8 @@ function DetailArticle() {
   };
 
   const handleCart = () => {
+    console.info("Quantité dans le panier :", nbCart + parseInt(quantity, 10));
+
     const token = sessionStorage.getItem("token");
 
     let quantité = 0;

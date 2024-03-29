@@ -17,6 +17,7 @@ function FiltresArticles() {
   const [typeValue, setTypeValue] = useState([]);
   const [CouleurValue, setCouleurValue] = useState(null); /// / Valeur inputs couleur ////
   const [articles, setArticles] = useState([]); /// / Tableau contenant les articles de la BDD ////
+  const [showfilters, setShowFilters] = useState(false);
 
   const thematiques = [
     "STEAMPUNK",
@@ -84,6 +85,20 @@ function FiltresArticles() {
     );
   });
 
+  // Fonction permettant d'annuler les filtres //
+  function removeFilters() {
+    setSeelies(null);
+    setSearch("");
+    setPrixValue(200);
+    setThematiqueValue(null);
+    setTypeValue([]);
+    setCouleurValue(null);
+  }
+
+  // Affiche ou enleve le menu des filtres en format mobile //
+  const toggleFiltersMenu = () => {
+    setShowFilters(!showfilters);
+  };
   return (
     <main>
       <section id="cards_seelies">
@@ -108,7 +123,20 @@ function FiltresArticles() {
           })}
         </div>
       </section>
-      <section id="main_container_filtres">
+      <div className="filter-button-container">
+        <h1 className="articles-title">NOS CREATIONS</h1>
+        <div className="line-article-title"> </div>
+        <button
+          type="button"
+          className="filter-button"
+          onClick={toggleFiltersMenu}
+        >
+          {showfilters ? "CACHER LES FILTRES" : "AFFICHER LES FILTRES"}
+        </button>
+      </div>
+      <section
+        className={`main_container_filtres ${showfilters ? "filter-active" : ""}`}
+      >
         <div className="filtres_container">
           <h1 className="filters_title">FILTRES</h1>
           <img src={line} alt="" />
@@ -206,6 +234,15 @@ function FiltresArticles() {
                 />
               ))}
             </div>
+          </div>
+          <div>
+            <button
+              type="button"
+              className="remove-filter-button"
+              onClick={removeFilters}
+            >
+              ANNULER LES FILTRES
+            </button>
           </div>
         </div>
         <div className="view_articles">

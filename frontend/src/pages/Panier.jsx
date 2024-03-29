@@ -29,7 +29,9 @@ function Panier() {
 
   return (
     <ModalProvider>
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <main className="basket-main">
         {isBasketClear ? (
           <BasketModal />
@@ -40,7 +42,9 @@ function Panier() {
           </div>
         )}
       </main>
-      <FooterBis />
+      <footer>
+        <FooterBis />
+      </footer>
     </ModalProvider>
   );
 }

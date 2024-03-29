@@ -302,7 +302,7 @@ function Connexion() {
                   </div>
                   {accountCreated && (
                     <p className="success">
-                      Merci, votre compte à bein été créé.
+                      Merci, votre compte à bien été créé.
                     </p>
                   )}
                   <button className="buttonCoBis" type="submit">

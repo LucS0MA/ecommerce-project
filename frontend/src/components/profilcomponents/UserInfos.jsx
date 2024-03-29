@@ -18,7 +18,7 @@ function UserInfos() {
     email: "",
     adresse1: "",
     adresse2: "",
-    codePostal: "",
+    CP: "",
     ville: "",
     pays: "",
     telephone: "",
@@ -55,7 +55,7 @@ function UserInfos() {
           email: email || "",
           adresse1: adresse1 || "",
           adresse2: adresse2 || "",
-          codePostal: CP || "",
+          CP: CP || "",
           ville: ville || "",
           pays: pays || "",
           telephone: telephone || "",
@@ -194,10 +194,10 @@ function UserInfos() {
               </label>
               <input
                 type="number"
-                name="codePostal"
-                id="codePostal"
+                name="CP"
+                id="CP"
                 className="inputs-info input-cp-info"
-                value={formData.codePostal}
+                value={formData.CP}
                 onChange={handleInputChange}
                 required
               />

@@ -90,5 +90,6 @@ router.get("/paiements", paiementControllers.browse);
 
 // route commandes
 router.get("/commandes/details", commandesControllers.browse);
+router.get("/commandes/details/:id", commandesControllers.readDetails);
 
 module.exports = router;

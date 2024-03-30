@@ -53,6 +53,10 @@
   height: 60px;
   text-align: center;
   background-color: var(--lightGreen);
+
+  #array-command-data td {
+    cursor: pointer;
+  }
 }
 
 #array-command-container th {

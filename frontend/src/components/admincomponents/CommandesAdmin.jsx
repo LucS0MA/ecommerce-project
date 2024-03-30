@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import CommandeDetailsModal from "./CommandeDetailModal";
 
 import "../../styles/CommandesAdmin.scss";
 
@@ -8,6 +9,22 @@ function CommandesAdmin() {
   const [order, setOrder] = useState("asc");
   const [data, setData] = useState([]);
   const [initialData, setInitialData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCommandeDetails, setSelectedCommandeDetails] = useState({
+    id: null || "",
+    articles: [] || "",
+  });
+
+  const calculerTotal = (articles) => {
+    return articles.reduce((acc, article) => {
+      const prix = parseFloat(article.prix);
+      const quantite = parseInt(article.quantite, 10);
+      if (!Number.isNaN(prix) && !Number.isNaN(quantite)) {
+        return acc + prix * quantite;
+      }
+      return acc;
+    }, 0);
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -41,6 +58,43 @@ function CommandesAdmin() {
         return "";
     }
   }
+
+  const handleCommandeClick = async (commandeId) => {
+    const response = await axios.get(
+      `http://localhost:3310/api/commandes/details/${commandeId}`,
+      {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+      }
+    );
+
+    if (response.data && response.data.length > 0) {
+      const commandeDetails = {
+        id: parseInt(response.data[0].id, 10) || null,
+        date: response.data[0]?.date_commande || "",
+        statut: response.data[0].statut || "",
+        articles:
+          response.data.map((article) => ({
+            nom: article.articleNom || "",
+            prix: article.articlePrix || "",
+            quantite: article.quantite || "",
+          })) || "",
+        total: calculerTotal(
+          response.data.map((article) => ({
+            prix: article.articlePrix,
+            quantite: article.quantite,
+          }))
+        ),
+      };
+      console.info(
+        "Détails de la commande définis pour les props:",
+        commandeDetails
+      );
+      setSelectedCommandeDetails(commandeDetails);
+      setIsModalOpen(true);
+    } else {
+      console.error("Aucune donnée trouvée pour cette commande");
+    }
+  };
 
   const sortData = (field) => {
     if (sortedField === field) {
@@ -122,7 +176,9 @@ function CommandesAdmin() {
           <tbody id="array-command-data">
             {data.map((commande) => (
               <tr key={commande.id}>
-                <td>{commande.id}</td>
+                <td onClick={() => handleCommandeClick(commande.id)}>
+                  {commande.id}
+                </td>
                 <td>{formatDate(commande.date_commande)}</td>
                 <td>{commande.nomAcheteur || "Non spécifié"}</td>
                 <td>{formatTotal(commande.totalCommande)}</td>
@@ -138,6 +194,13 @@ function CommandesAdmin() {
           </tbody>
         </table>
       </div>
+
+      {/* Intégration de CommandeDetailsModal */}
+      <CommandeDetailsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        commandeDetails={selectedCommandeDetails}
+      />
     </div>
   );
 }

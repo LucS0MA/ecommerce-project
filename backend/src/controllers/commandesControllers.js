@@ -36,8 +36,25 @@ const browseByUser = async (req, res) => {
   }
 };
 
+const readDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const details = await models.commandes.readDetailsById(id);
+
+    if (details.length > 0) {
+      res.json(details);
+    } else {
+      res.status(404).send("Commande non trouvée.");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(400).send("Bad Request.");
+  }
+};
+
 module.exports = {
   browse,
   add,
   browseByUser,
+  readDetails,
 };

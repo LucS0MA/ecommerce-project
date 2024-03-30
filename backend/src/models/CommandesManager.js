@@ -53,6 +53,27 @@ GROUP BY commandes.id, commandes.date_commande, commandes.statut, utilisateurs.n
     );
     return rows;
   }
+
+  async readDetailsById(commandeId) {
+    const [rows] = await this.database.query(
+      `
+      SELECT 
+        commandes.id,
+        commandes.date_commande,
+        commandes.statut,
+        articles.nom AS articleNom,
+        articles.prix AS articlePrix,
+        commande_article.quantité AS quantite
+      FROM commandes
+      JOIN commande_article ON commande_article.commandes_id = commandes.id
+      JOIN articles ON articles.id = commande_article.articles_id
+      WHERE commandes.id = ?
+    `,
+      [commandeId]
+    );
+
+    return rows;
+  }
 }
 
 module.exports = CommandesManager;

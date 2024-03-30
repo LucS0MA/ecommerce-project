@@ -11,8 +11,8 @@ function CommandesAdmin() {
   const [initialData, setInitialData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCommandeDetails, setSelectedCommandeDetails] = useState({
-    id: null || "",
-    articles: [] || "",
+    id: "",
+    articles: [],
   });
 
   const calculerTotal = (articles) => {
@@ -69,8 +69,8 @@ function CommandesAdmin() {
 
     if (response.data && response.data.length > 0) {
       const commandeDetails = {
-        id: parseInt(response.data[0].id, 10) || null,
-        date: response.data[0]?.date_commande || "",
+        id: response.data[0].id.toString(),
+        date: response.data?.date_commande || "",
         statut: response.data[0].statut || "",
         articles:
           response.data.map((article) => ({
@@ -80,8 +80,8 @@ function CommandesAdmin() {
           })) || "",
         total: calculerTotal(
           response.data.map((article) => ({
-            prix: article.articlePrix,
-            quantite: article.quantite,
+            prix: article.articlePrix || "",
+            quantite: article.quantite || "",
           }))
         ),
       };
@@ -195,7 +195,6 @@ function CommandesAdmin() {
         </table>
       </div>
 
-      {/* Intégration de CommandeDetailsModal */}
       <CommandeDetailsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -12,15 +12,29 @@ function CommandeDetailsModal({ isOpen, onClose, commandeDetails }) {
     <div className="modal">
       <div className="modal-content">
         <h2>Détails de la commande Nr : {commandeDetails.id}</h2>
-        <p>Date et heure: {commandeDetails.date}</p>
+        <p>
+          <strong>Date et heure:</strong> {commandeDetails.date}
+        </p>
+        <p>
+          <strong>Statut:</strong> {commandeDetails.statut}
+        </p>
         {commandeDetails.articles.map((article) => (
-          <div key={`${article.nom}-${article.quantite}`}>
-            <p>{article.nom}</p>
-            <p>Prix unitaire : {article.prix} €</p>
-            <p>Quantité: {article.quantite}</p>
+          <div key={`${article.nom}-${article.prix}`}>
+            <p>
+              <strong>Nom:</strong> {article.nom}
+            </p>
+            <p>
+              <strong>Prix unitaire:</strong> {article.prix} €
+            </p>
+            <p>
+              <strong>Quantité:</strong> {article.quantite}
+            </p>
           </div>
         ))}
-        <p>Total de la commande: {commandeDetails.total} €</p>
+        <p>
+          <strong>Total de la commande:</strong>{" "}
+          {commandeDetails.total.toFixed(2)} €
+        </p>
         <button type="button" onClick={onClose}>
           Fermer
         </button>
@@ -29,18 +43,16 @@ function CommandeDetailsModal({ isOpen, onClose, commandeDetails }) {
   );
 }
 
-// Définissez les PropTypes pour votre composant
 CommandeDetailsModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   commandeDetails: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    total: PropTypes.number.isRequired,
+    id: PropTypes.string,
+    date: PropTypes.string,
+    total: PropTypes.number,
+    statut: PropTypes.string,
     articles: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
         nom: PropTypes.string.isRequired,
         prix: PropTypes.number.isRequired,
         quantite: PropTypes.number.isRequired,

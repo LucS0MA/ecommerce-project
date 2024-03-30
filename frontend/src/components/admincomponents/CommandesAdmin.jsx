@@ -70,7 +70,6 @@ function CommandesAdmin() {
     if (response.data && response.data.length > 0) {
       const commandeDetails = {
         id: response.data[0].id.toString(),
-        date: response.data?.date_commande || "",
         statut: response.data[0].statut || "",
         articles:
           response.data.map((article) => ({
@@ -175,10 +174,12 @@ function CommandesAdmin() {
           </thead>
           <tbody id="array-command-data">
             {data.map((commande) => (
-              <tr key={commande.id}>
-                <td onClick={() => handleCommandeClick(commande.id)}>
-                  {commande.id}
-                </td>
+              <tr
+                key={commande.id}
+                onClick={() => handleCommandeClick(commande.id)}
+                style={{ cursor: "pointer" }}
+              >
+                <td>{commande.id}</td>
                 <td>{formatDate(commande.date_commande)}</td>
                 <td>{commande.nomAcheteur || "Non spécifié"}</td>
                 <td>{formatTotal(commande.totalCommande)}</td>

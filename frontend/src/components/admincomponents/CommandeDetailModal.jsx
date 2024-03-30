@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "../../styles/Modalcommandes.scss";
 
 function CommandeDetailsModal({ isOpen, onClose, commandeDetails }) {
   if (!isOpen) return null;
@@ -9,33 +10,30 @@ function CommandeDetailsModal({ isOpen, onClose, commandeDetails }) {
   });
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Détails de la commande Nr : {commandeDetails.id}</h2>
-        <p>
-          <strong>Date et heure:</strong> {commandeDetails.date}
-        </p>
-        <p>
-          <strong>Statut:</strong> {commandeDetails.statut}
-        </p>
-        {commandeDetails.articles.map((article) => (
-          <div key={`${article.nom}-${article.prix}`}>
-            <p>
-              <strong>Nom:</strong> {article.nom}
-            </p>
-            <p>
-              <strong>Prix unitaire:</strong> {article.prix} €
-            </p>
-            <p>
-              <strong>Quantité:</strong> {article.quantite}
-            </p>
+    <div className="modal-cmd-container">
+      <div className="modal-cmd-content">
+        <h2 className="modal-cmd-title">
+          Détails de la commande Nr : {commandeDetails.id}
+        </h2>
+        <div className="modal-text-cmd">
+          <div className="title-cmd-cont">
+            <p className="titles-cmd">Statut : {commandeDetails.statut}</p>
           </div>
-        ))}
-        <p>
-          <strong>Total de la commande:</strong>{" "}
-          {commandeDetails.total.toFixed(2)} €
-        </p>
-        <button type="button" onClick={onClose}>
+          <div className="modal-cmd-details">
+            {commandeDetails.articles.map((article) => (
+              <div key={`${article.nom}-${article.prix}`}>
+                <p className="titles-cmd">- Article :</p>
+                <p>{article.nom}</p>
+                <p className="titles-cmd"> Prix unitaire : {article.prix} €</p>
+                <p className="titles-cmd"> Quantité : {article.quantite}</p>
+              </div>
+            ))}
+          </div>
+          <p className="titles-cmd-commande">
+            Total de la commande : {commandeDetails.total.toFixed(2)} €
+          </p>
+        </div>
+        <button className="btn-cmd" type="button" onClick={onClose}>
           Fermer
         </button>
       </div>
@@ -48,7 +46,6 @@ CommandeDetailsModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   commandeDetails: PropTypes.shape({
     id: PropTypes.string,
-    date: PropTypes.string,
     total: PropTypes.number,
     statut: PropTypes.string,
     articles: PropTypes.arrayOf(

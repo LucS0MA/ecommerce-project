@@ -51,16 +51,16 @@ class PanierManager extends AbstractManager {
     return rows;
   }
 
-  async validatePanier(utilisateurId) {
-    const articlesDansLePanier = await this.readAll(utilisateurId);
-    const updatePromises = articlesDansLePanier.map((article) =>
-      this.database.query(
-        `UPDATE articles SET nb_ventes = nb_ventes + ? WHERE id = ?`,
-        [article.quantité, article.articles_id]
-      )
-    );
-    await Promise.all(updatePromises);
-  }
+  // async validatePanier(utilisateurId) {
+  //   const articlesDansLePanier = await this.readAll(utilisateurId);
+  //   const updatePromises = articlesDansLePanier.map((article) =>
+  //     this.database.query(
+  //       `UPDATE articles SET nb_ventes = nb_ventes + ? WHERE id = ?`,
+  //       [article.quantité, article.articles_id]
+  //     )
+  //   );
+  //   await Promise.all(updatePromises);
+  // }
 }
 
 module.exports = PanierManager;

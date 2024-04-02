@@ -101,16 +101,16 @@ function ValidationBasket({ reload }) {
           .catch((err) => console.error(err));
       });
 
-      await axios.post(
-        "http://localhost:3310/api/validerPanier",
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // await axios.post(
+      //   "http://localhost:3310/api/validerPanier",
+      //   {},
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
 
       //-------------------------------------------------------------
 

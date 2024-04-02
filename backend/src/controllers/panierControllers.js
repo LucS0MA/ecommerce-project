@@ -76,16 +76,16 @@ const edit = async (req, res) => {
   }
 };
 
-const validate = async (req, res) => {
-  try {
-    const utilisateurId = req.auth.id;
-    await models.panier_article.validatePanier(utilisateurId);
-    res.sendStatus(200);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
-};
+// const validate = async (req, res) => {
+//   try {
+//     const utilisateurId = req.auth.id;
+//     await models.panier_article.validatePanier(utilisateurId);
+//     res.sendStatus(200);
+//   } catch (err) {
+//     console.error(err);
+//     res.sendStatus(500);
+//   }
+// };
 
 module.exports = {
   add,
@@ -93,5 +93,5 @@ module.exports = {
   browse,
   destroy,
   edit,
-  validate,
+  // validate,
 };

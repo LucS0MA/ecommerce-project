@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import "../styles/SellerCard.scss";
-
+ 
 function SellerCard({ seller, isSelected, onSelect, alternate }) {
   const sellerCardStyle = {
     borderColor: seller.color,

@@ -24,7 +24,7 @@ function DeleteAccount() {
     const token = sessionStorage.getItem("token");
     try {
       await axios.post(
-        "http://localhost:3310/api/utilisateurs/delete",
+        `${import.meta.env.VITE_BACKEND_URL}/api/utilisateurs/delete`,
         { actualPassword: password },
         {
           headers: {

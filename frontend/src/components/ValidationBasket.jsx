@@ -16,7 +16,7 @@ function ValidationBasket({ reload }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/panier/0", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/panier/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ function ValidationBasket({ reload }) {
 
     // Récupération du panier
     axios
-      .get("http://localhost:3310/api/panier/0", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/panier/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ function ValidationBasket({ reload }) {
     try {
       // --- Création de la commande à partir des infos du panier ---
       const { data } = await axios.post(
-        "http://localhost:3310/api/commandes",
+        `${import.meta.env.VITE_BACKEND_URL}/api/commandes`,
         {
           statut: "en préparation",
         },
@@ -85,7 +85,7 @@ function ValidationBasket({ reload }) {
       basket.forEach((article) => {
         axios
           .post(
-            "http://localhost:3310/api/commandeArticle",
+            `${import.meta.env.VITE_BACKEND_URL}/api/commandeArticle`,
             {
               quantité: article.quantité,
               commandeId: data.result,
@@ -115,7 +115,7 @@ function ValidationBasket({ reload }) {
       //-------------------------------------------------------------
 
       // Supression du panier
-      await axios.delete("http://localhost:3310/api/panier", {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/panier`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

@@ -8,19 +8,19 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema le_comptoir_des_seelies
+-- Schema railway
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema le_comptoir_des_seelies
+-- Schema railway
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `le_comptoir_des_seelies` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `le_comptoir_des_seelies` ;
+CREATE SCHEMA IF NOT EXISTS `railway` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `railway` ;
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`articles`
+-- Table `railway`.`articles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`articles` (
+CREATE TABLE IF NOT EXISTS `railway`.`articles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
   `image` VARCHAR(255) NOT NULL,
@@ -35,9 +35,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`utilisateurs`
+-- Table `railway`.`utilisateurs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`utilisateurs` (
+CREATE TABLE IF NOT EXISTS `railway`.`utilisateurs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45),
   `prénom` VARCHAR(45),
@@ -58,9 +58,9 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`paiements`
+-- Table `railway`.`paiements`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`paiements` (
+CREATE TABLE IF NOT EXISTS `railway`.`paiements` (
   `utilisateurs_id` INT NOT NULL,
   `titulaire` VARCHAR(45) NOT NULL,
   `numero` VARCHAR(45) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`paiements` (
   PRIMARY KEY (`utilisateurs_id`),
   CONSTRAINT `fk_table1_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    REFERENCES `railway`.`utilisateurs` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -80,9 +80,9 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`avis`
+-- Table `railway`.`avis`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`avis` (
+CREATE TABLE IF NOT EXISTS `railway`.`avis` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `message` VARCHAR(45) NOT NULL,
   `note` INT NOT NULL,
@@ -93,12 +93,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`avis` (
   INDEX `fk_avis_articles1_idx` (`articles_id` ASC) VISIBLE,
   CONSTRAINT `fk_avis_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    REFERENCES `railway`.`utilisateurs` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_avis_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -107,9 +107,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`commandes`
+-- Table `railway`.`commandes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
+CREATE TABLE IF NOT EXISTS `railway`.`commandes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date_commande` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `statut` VARCHAR(45) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commandes` (
   INDEX `fk_commandes_utilisateurs1_idx` (`utilisateurs_id` ASC) VISIBLE,
   CONSTRAINT `fk_commandes_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    REFERENCES `railway`.`utilisateurs` (`id`)
     ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -127,21 +127,21 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`commande_article`
+-- Table `railway`.`commande_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`commande_article` (
+CREATE TABLE IF NOT EXISTS `railway`.`commande_article` (
   `quantité` INT NOT NULL,
   `commandes_id` INT NOT NULL,
   `articles_id` INT NULL,
   INDEX `fk_commande_article_articles1_idx` (`articles_id` ASC) VISIBLE,
   CONSTRAINT `fk_commande_article_commandes1`
     FOREIGN KEY (`commandes_id`)
-    REFERENCES `le_comptoir_des_seelies`.`commandes` (`id`)
+    REFERENCES `railway`.`commandes` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_commande_article_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -150,9 +150,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`couleurs`
+-- Table `railway`.`couleurs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`couleurs` (
+CREATE TABLE IF NOT EXISTS `railway`.`couleurs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `couleur` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -162,9 +162,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`festivals`
+-- Table `railway`.`festivals`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`festivals` (
+CREATE TABLE IF NOT EXISTS `railway`.`festivals` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NOT NULL,
   `lieu` VARCHAR(45) NOT NULL,
@@ -176,9 +176,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`panier_article`
+-- Table `railway`.`panier_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`panier_article` (
+CREATE TABLE IF NOT EXISTS `railway`.`panier_article` (
   `quantité` INT NOT NULL,
   `articles_id` INT NOT NULL,
   `utilisateurs_id` INT NOT NULL,
@@ -186,12 +186,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`panier_article` (
   INDEX `fk_panier_article_utilisateurs1_idx` (`utilisateurs_id` ASC) VISIBLE,
   CONSTRAINT `fk_panier_article_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_panier_article_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    REFERENCES `railway`.`utilisateurs` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -200,9 +200,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`support`
+-- Table `railway`.`support`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`support` (
+CREATE TABLE IF NOT EXISTS `railway`.`support` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `sujet` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NOT NULL,
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`support` (
   PRIMARY KEY (`id`, `utilisateurs_id`),
   CONSTRAINT `fk_support_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    REFERENCES `railway`.`utilisateurs` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -222,9 +222,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`thematiques`
+-- Table `railway`.`thematiques`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`thematiques` (
+CREATE TABLE IF NOT EXISTS `railway`.`thematiques` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `thematique` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -234,9 +234,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`types`
+-- Table `railway`.`types`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`types` (
+CREATE TABLE IF NOT EXISTS `railway`.`types` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -246,9 +246,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`types_has_articles`
+-- Table `railway`.`types_has_articles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`types_has_articles` (
+CREATE TABLE IF NOT EXISTS `railway`.`types_has_articles` (
   `types_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
   PRIMARY KEY (`types_id`, `articles_id`),
@@ -256,12 +256,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`types_has_articles` (
   INDEX `fk_types_has_articles_types1_idx` (`types_id` ASC) VISIBLE,
   CONSTRAINT `fk_types_has_articles_types1`
     FOREIGN KEY (`types_id`)
-    REFERENCES `le_comptoir_des_seelies`.`types` (`id`)
+    REFERENCES `railway`.`types` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_types_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -270,9 +270,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`couleurs_has_articles`
+-- Table `railway`.`couleurs_has_articles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`couleurs_has_articles` (
+CREATE TABLE IF NOT EXISTS `railway`.`couleurs_has_articles` (
   `couleurs_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
   PRIMARY KEY (`couleurs_id`, `articles_id`),
@@ -280,12 +280,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`couleurs_has_articles` (
   INDEX `fk_couleurs_has_articles_couleurs1_idx` (`couleurs_id` ASC) VISIBLE,
   CONSTRAINT `fk_couleurs_has_articles_couleurs1`
     FOREIGN KEY (`couleurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`couleurs` (`id`)
+    REFERENCES `railway`.`couleurs` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_couleurs_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -294,9 +294,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`thematiques_has_articles`
+-- Table `railway`.`thematiques_has_articles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`thematiques_has_articles` (
+CREATE TABLE IF NOT EXISTS `railway`.`thematiques_has_articles` (
   `thematiques_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
   PRIMARY KEY (`thematiques_id`, `articles_id`),
@@ -304,12 +304,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`thematiques_has_articles` 
   INDEX `fk_thematiques_has_articles_thematiques1_idx` (`thematiques_id` ASC) VISIBLE,
   CONSTRAINT `fk_thematiques_has_articles_thematiques1`
     FOREIGN KEY (`thematiques_id`)
-    REFERENCES `le_comptoir_des_seelies`.`thematiques` (`id`)
+    REFERENCES `railway`.`thematiques` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_thematiques_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -318,9 +318,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`retours`
+-- Table `railway`.`retours`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`retours` (
+CREATE TABLE IF NOT EXISTS `railway`.`retours` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `commandes_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
@@ -333,12 +333,12 @@ CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`retours` (
   INDEX `fk_commandes_has_articles_commandes1_idx` (`commandes_id` ASC) VISIBLE,
   CONSTRAINT `fk_commandes_has_articles_commandes1`
     FOREIGN KEY (`commandes_id`)
-    REFERENCES `le_comptoir_des_seelies`.`commandes` (`id`)
+    REFERENCES `railway`.`commandes` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_commandes_has_articles_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -351,21 +351,21 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Table `le_comptoir_des_seelies`.`isFav`
+-- Table `railway`.`isFav`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `le_comptoir_des_seelies`.`isFav` (
+CREATE TABLE IF NOT EXISTS `railway`.`isFav` (
   `utilisateurs_id` INT NOT NULL,
   `articles_id` INT NOT NULL,
   PRIMARY KEY (`utilisateurs_id`, `articles_id`),
   INDEX `fk_isFav_articles1_idx` (`articles_id` ASC) VISIBLE,
   CONSTRAINT `fk_isFav_utilisateurs1`
     FOREIGN KEY (`utilisateurs_id`)
-    REFERENCES `le_comptoir_des_seelies`.`utilisateurs` (`id`)
+    REFERENCES `railway`.`utilisateurs` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_isFav_articles1`
     FOREIGN KEY (`articles_id`)
-    REFERENCES `le_comptoir_des_seelies`.`articles` (`id`)
+    REFERENCES `railway`.`articles` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

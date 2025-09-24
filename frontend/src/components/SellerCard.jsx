@@ -45,7 +45,7 @@ function SellerCard({ seller, isSelected, onSelect, alternate }) {
           }}
         >
           <img
-            src={`src/assets/${seller.image}`}
+            src={`public/assets/${seller.image}`}
             alt={seller.name}
             className="sellerCardImage"
           />

@@ -56,7 +56,7 @@ function Festival() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3310/api/festivals/`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/festivals/`)
       .then((response) => {
         setFestivalInfo(response.data);
       })

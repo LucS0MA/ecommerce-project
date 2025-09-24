@@ -10,7 +10,7 @@ function ClientsAdmin() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get(`http://localhost:3310/api/clients`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/clients`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

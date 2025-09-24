@@ -51,7 +51,7 @@ function FiltresArticles() {
   /// / Récuperer les articles de la BDD ////
   const getArticles = async () => {
     try {
-      const response = await axios.get("http://localhost:3310/api/articles");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/articles`);
       setArticles(response.data);
     } catch (error) {
       console.error("Erreur", error);
@@ -252,7 +252,7 @@ function FiltresArticles() {
               <Article
                 key={article.id}
                 id={article.id}
-                image={`http://localhost:3310${article.image}`}
+                image={`${import.meta.env.VITE_BACKEND_URL}${article.image}`}
                 nom={article.nom}
                 vendeuse={article.vendeuse}
                 prix={`${article.prix} €`}

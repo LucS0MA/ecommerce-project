@@ -12,7 +12,7 @@ function Favori({ articleId, nom, prix }) {
     const token = sessionStorage.getItem("token");
     axios
       .post(
-        "http://localhost:3310/api/isFav/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/isFav/`,
         {
           articleId,
         },
@@ -33,7 +33,7 @@ function Favori({ articleId, nom, prix }) {
   const axiosDelete = () => {
     const token = sessionStorage.getItem("token");
     axios
-      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -49,7 +49,7 @@ function Favori({ articleId, nom, prix }) {
     const token = sessionStorage.getItem("token");
     axios
       .post(
-        "http://localhost:3310/api/panier/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/panier/`,
         {
           articleId,
           quantité: 1,
@@ -69,7 +69,7 @@ function Favori({ articleId, nom, prix }) {
     const token = sessionStorage.getItem("token");
     axios
       .put(
-        `http://localhost:3310/api/panier/?articleId=${articleId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`,
         {
           quantité: nb + 1,
         },

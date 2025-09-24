@@ -29,7 +29,7 @@ function UserInfos() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/utilisateurs/0", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/utilisateurs/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -87,7 +87,7 @@ function UserInfos() {
     const token = sessionStorage.getItem("token");
     event.preventDefault(); // on empêche le comportement par défaut du formulaire
     try {
-      await axios.put("http://localhost:3310/api/utilisateurs/0", formData, {
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/utilisateurs/0`, formData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // ici c'estle  jeton JWT

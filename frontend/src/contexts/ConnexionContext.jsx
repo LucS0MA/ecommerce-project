@@ -36,7 +36,7 @@ export function ModalProvider({ children }) {
     const token = sessionStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:3310/api/utilisateurs/0", {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/utilisateurs/0`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

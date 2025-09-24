@@ -17,7 +17,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
     const token = sessionStorage.getItem("token");
     if (token) {
       axios
-        .get(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -27,7 +27,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
         .catch((err) => console.error(err));
 
       axios
-        .get(`http://localhost:3310/api/panier/?articleId=${articleId}`, {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -45,7 +45,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
     const token = sessionStorage.getItem("token");
     axios
       .post(
-        "http://localhost:3310/api/isFav/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/isFav/`,
         {
           articleId,
         },
@@ -65,7 +65,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
   const axiosDelete = () => {
     const token = sessionStorage.getItem("token");
     axios
-      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -89,7 +89,7 @@ function Article({ id, image, nom, vendeuse, prix }) {
     const token = sessionStorage.getItem("token");
     axios
       .post(
-        "http://localhost:3310/api/panier/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/panier/`,
         {
           articleId,
           quantité: 1,

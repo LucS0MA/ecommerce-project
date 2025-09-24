@@ -15,7 +15,7 @@ function BasketContainer({ reload, setReload }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get(`http://localhost:3310/api/panier/0`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/panier/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT

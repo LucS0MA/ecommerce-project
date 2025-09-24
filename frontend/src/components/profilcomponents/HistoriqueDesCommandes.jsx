@@ -13,7 +13,7 @@ function HistoriqueDesCommandes() {
     const token = sessionStorage.getItem("token");
 
     axios
-      .get("http://localhost:3310/api/commandesHistory", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/commandesHistory`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -25,7 +25,7 @@ function ArticlesPanier({
     const token = sessionStorage.getItem("token");
 
     axios
-      .get(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ function ArticlesPanier({
     const token = sessionStorage.getItem("token");
     axios
       .post(
-        "http://localhost:3310/api/isFav/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/isFav/`,
         {
           articleId,
         },
@@ -61,7 +61,7 @@ function ArticlesPanier({
   const axiosDeleteFav = () => {
     const token = sessionStorage.getItem("token");
     axios
-      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ function ArticlesPanier({
 
     axios
       .put(
-        `http://localhost:3310/api/panier/?articleId=${articleId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`,
         {
           quantité: nb + 1,
         },
@@ -113,7 +113,7 @@ function ArticlesPanier({
     if (nb > 0) {
       axios
         .put(
-          `http://localhost:3310/api/panier/?articleId=${articleId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`,
           {
             quantité: nb - 1,
           },
@@ -149,7 +149,7 @@ function ArticlesPanier({
             }}
           >
             <img
-              src={`http://localhost:3310${image}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${image}`}
               alt="a"
               className={`article-image ${vendeuse}`}
             />

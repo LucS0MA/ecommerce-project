@@ -17,7 +17,7 @@ function Nouveautés() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/articles/?nouveautes=1&limit=3", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/articles/?nouveautes=1&limit=3`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -45,7 +45,7 @@ function Nouveautés() {
             <Article
               key={article.id}
               id={article.id}
-              image={`http://localhost:3310${article.image}`}
+              image={`${import.meta.env.VITE_BACKEND_URL}${article.image}`}
               nom={article.nom}
               vendeuse={article.vendeuse}
               prix={`${article.prix} €`}

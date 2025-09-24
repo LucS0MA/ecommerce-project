@@ -30,7 +30,7 @@ function CommandesAdmin() {
     const token = sessionStorage.getItem("token");
 
     axios
-      .get("http://localhost:3310/api/commandes/details", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/commandes/details`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

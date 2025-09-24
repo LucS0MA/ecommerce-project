@@ -16,7 +16,7 @@ function FestivalsAdmin() {
   // comme d'hab' on va recup les festivals
   const recupAccessFestivals = () => {
     axios
-      .get("http://localhost:3310/api/festivals")
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/festivals`)
       .then((response) => {
         setFestivals(response.data);
       })
@@ -44,8 +44,8 @@ function FestivalsAdmin() {
 
     // bah là j'ai trouvé ca plus propre de mettre en condition les routes qui sont en relation avec ce qu'on souhaite faire ajouter ou editer...
     const url = isEditing
-      ? `http://localhost:3310/api/festivals/${formData.id}`
-      : "http://localhost:3310/api/festivals";
+      ? `${import.meta.env.VITE_BACKEND_URL}/api/festivals/${formData.id}`
+      : `${import.meta.env.VITE_BACKEND_URL}/api/festivals`;
 
     // C un peu repetitif, je sais, j'ai tenté de faire une simplification et j'me suis perdu :'(
     if (isEditing) {

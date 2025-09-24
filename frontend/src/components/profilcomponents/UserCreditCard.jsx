@@ -17,7 +17,7 @@ function UserCreditCard() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     axios
-      .get("http://localhost:3310/api/paiements/0", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/paiements/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -51,7 +51,7 @@ function UserCreditCard() {
     event.preventDefault();
     try {
       axios.post(
-        "http://localhost:3310/api/paiements/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/paiements/`,
         {
           titulaire: cardInfo.titulaire,
           numero: cardInfo.numero,
@@ -99,7 +99,7 @@ function UserCreditCard() {
   const handleDeleteCard = () => {
     const token = sessionStorage.getItem("token");
     try {
-      axios.delete("http://localhost:3310/api/paiements/0", {
+      axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/paiements/0`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

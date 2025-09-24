@@ -21,7 +21,7 @@ function DetailArticle() {
     const token = sessionStorage.getItem("token");
     if (token) {
       axios
-        .get(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -31,7 +31,7 @@ function DetailArticle() {
         .catch((err) => console.error(err));
 
       axios
-        .get(`http://localhost:3310/api/panier/?articleId=${articleId}`, {
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ function DetailArticle() {
     const token = sessionStorage.getItem("token");
     axios
       .post(
-        "http://localhost:3310/api/isFav/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/isFav/`,
         {
           articleId,
         },
@@ -68,7 +68,7 @@ function DetailArticle() {
   const axiosDelete = () => {
     const token = sessionStorage.getItem("token");
     axios
-      .delete(`http://localhost:3310/api/isFav/?articleId=${articleId}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/isFav/?articleId=${articleId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -93,7 +93,7 @@ function DetailArticle() {
     const fetchArticle = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3310/api/articles/${articleId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/articles/${articleId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -139,7 +139,7 @@ function DetailArticle() {
     }
 
     axios
-      .get(`http://localhost:3310/api/panier/?articleId=${articleId}`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ function DetailArticle() {
           const newQuantity = existingQuantity + quantité;
           axios
             .put(
-              `http://localhost:3310/api/panier/?articleId=${articleId}`,
+              `${import.meta.env.VITE_BACKEND_URL}/api/panier/?articleId=${articleId}`,
               { quantité: newQuantity },
               {
                 headers: {
@@ -172,7 +172,7 @@ function DetailArticle() {
         } else {
           axios
             .post(
-              "http://localhost:3310/api/panier/",
+              `${import.meta.env.VITE_BACKEND_URL}/api/panier/`,
               {
                 articleId,
                 quantité,
@@ -211,7 +211,7 @@ function DetailArticle() {
           <div className="detail-left">
             <img
               className="detail-image"
-              src={`http://localhost:3310${article.image}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${article.image}`}
               alt={article.nom}
             />
           </div>

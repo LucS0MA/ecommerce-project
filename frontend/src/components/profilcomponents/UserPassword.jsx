@@ -93,7 +93,7 @@ function UserChangePassword() {
     try {
       // Envoie une requête PUT pour mettre à jour le mot de passe, incluant le token JWT pour l'authentification
       await axios.put(
-        `http://localhost:3310/api/change-password`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/change-password`,
         { oldPassword, newPassword },
         {
           headers: {

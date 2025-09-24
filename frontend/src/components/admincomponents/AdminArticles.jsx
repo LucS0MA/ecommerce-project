@@ -21,7 +21,7 @@ function AdminArticles({
 
   const handleDelete = async () => {
     await axios
-      .delete(`http://localhost:3310/api/articles/${id}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/articles/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Inclusion du jeton JWT
@@ -37,7 +37,7 @@ function AdminArticles({
         <>
           <div className="articles-admin">
             <img
-              src={`http://localhost:3310${image}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}${image}`}
               alt="a"
               className={`img-article article-image ${vendeuse}`}
             />

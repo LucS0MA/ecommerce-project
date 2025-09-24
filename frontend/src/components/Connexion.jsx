@@ -32,7 +32,7 @@ function Connexion() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3310/api/auth/login",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         {
           email: emailCo,
           password: passwordCo,
@@ -86,7 +86,7 @@ function Connexion() {
       }
 
       axios
-        .post("http://localhost:3310/api/utilisateurs", {
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/utilisateurs`, {
           email: emailReg,
           password: passwordReg,
         })

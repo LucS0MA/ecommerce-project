@@ -29,14 +29,14 @@ function ArticlesAdmin() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3310/api/articles/?nom=${search}%&${sort}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/articles/?nom=${search}%&${sort}`)
       .then((response) => setArticles(response.data))
       .catch((err) => console.error(err));
   }, [search, sort]);
 
   const modifArticle = async (id) => {
     await axios
-      .get(`http://localhost:3310/api/articles/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/articles/${id}`)
       .then((response) => {
         // On attribue les valeurs aux variables (1)
         const name = response.data.nom;

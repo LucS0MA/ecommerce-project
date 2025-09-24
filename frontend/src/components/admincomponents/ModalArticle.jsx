@@ -51,7 +51,7 @@ function ModalArticle({
 
     // On envoie l'image dans le Back et on récupère les données du Formulaire
     await axios
-      .post("http://localhost:3310/upload", newArticleData)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/upload`, newArticleData)
       .then((response) => {
         // On récupère les valeurs (2)
         const {
@@ -85,7 +85,7 @@ function ModalArticle({
     const token = sessionStorage.getItem("token");
     await axios
       .post(
-        "http://localhost:3310/api/articles/",
+        `${import.meta.env.VITE_BACKEND_URL}/api/articles/`,
         {
           // On envoie les variables body et filePath dans le BACK (4)
           nom: body.name,
@@ -135,7 +135,7 @@ function ModalArticle({
 
     // On envoie l'image dans le Back et on récupère les données du Formulaire
     await axios
-      .post("http://localhost:3310/upload", newArticleData)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/upload`, newArticleData)
       .then((response) => {
         // On récupère les valeurs (2)
         const {
@@ -175,7 +175,7 @@ function ModalArticle({
     const token = sessionStorage.getItem("token");
     await axios
       .put(
-        `http://localhost:3310/api/articles/${articleId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/articles/${articleId}`,
         {
           // On envoie les variables body et filePath dans le BACK (4)
           nom: body.name,
